@@ -34,7 +34,7 @@ internal static partial class Ui
     public static string Selected(ComboBox c) => (c.SelectedItem as Choice)?.Value ?? "";
     public static string Money(string value) => decimal.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var n) ? n.ToString("N0", CultureInfo.GetCultureInfo("vi-VN")) + " ₫" : value;
     public static string VietDate(DateTimeOffset? value) => value?.ToOffset(TimeSpan.FromHours(7)).ToString("dd/MM/yyyy HH:mm") ?? "Chưa phát hành";
-    public static string Error(Exception ex) => ex is OperationCanceledException ? "Đã hủy hoặc yêu cầu quá thời gian." : ex is HttpRequestException ? "Không kết nối được API. Kiểm tra dịch vụ, giữ nguyên dữ liệu và thử lại." : ex.Message;
+    public static string Error(Exception ex) => ex is OperationCanceledException ? "Đã hủy hoặc yêu cầu quá thời gian." : ex is HttpRequestException ? "Không kết nối được dịch vụ. Kiểm tra dịch vụ, giữ nguyên dữ liệu và thử lại." : ex.Message;
     public static void ShowError(IWin32Window? owner, Exception ex) => MessageBox.Show(owner, Error(ex), "BotZone", MessageBoxButtons.OK, MessageBoxIcon.Warning);
     public static string Text(JsonElement row, params string[] names)
     {

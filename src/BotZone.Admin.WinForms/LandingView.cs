@@ -7,9 +7,9 @@ namespace BotZone.Admin.WinForms;
 internal sealed class LandingView : PageView
 {
     private readonly Actor actor;
-    private readonly TreeView sectionsTree = new() { Dock = DockStyle.Fill, HideSelection = false, BorderStyle = BorderStyle.None, ShowLines = false, ShowRootLines = false, ShowPlusMinus = false, FullRowSelect = true, ItemHeight = 44, AccessibleName = "Các khối nội dung landing" };
+    private readonly TreeView sectionsTree = new() { Dock = DockStyle.Fill, HideSelection = false, BorderStyle = BorderStyle.None, ShowLines = false, ShowRootLines = false, ShowPlusMinus = false, FullRowSelect = true, ItemHeight = 44, AccessibleName = "Các khối nội dung trang chủ" };
     private readonly TabControl tabs = Ui.Tabs();
-    private readonly ComboBox locale=Ui.Combo(new("vi","Tiếng Việt"),new("en","English")),displayMode=Ui.Combo(new("basic","Ảnh & liên kết"),new("motion","Chuyển động"),new("advanced","Nâng cao"));
+    private readonly ComboBox locale=Ui.Combo(new("vi","Tiếng Việt"),new("en","Tiếng Anh")),displayMode=Ui.Combo(new("basic","Ảnh & liên kết"),new("motion","Chuyển động"),new("advanced","Nâng cao"));
     private readonly Panel languageHost=new(){Dock=DockStyle.Fill},displayHost=new(){Dock=DockStyle.Fill};
     private Control localeFrame=null!,displayModeFrame=null!,sectionFrame=null!;
     private FlowLayoutPanel languageBar=null!,displayBar=null!;
@@ -17,9 +17,9 @@ internal sealed class LandingView : PageView
     private TabPage contentTab=null!,displayTab=null!;
     private readonly List<TableLayoutPanel> fieldLayouts=[];
     private readonly TextBox titleVi = new(), titleEn = new(), subtitleVi = new() { Multiline = true, Height = 80 }, subtitleEn = new() { Multiline = true, Height = 80 };
-    private readonly ComboBox product = Ui.Combo(), type = Ui.Combo(new("hero", "Hero sản phẩm"), new("duo", "Duo mở/gập"), new("collection", "Bộ sưu tập"), new("benefits", "Lợi ích"));
-    private readonly ComboBox poster = Ui.Combo(new("/models/v003/iphone-18-pro-max.webp", "Pro Max v003 — màn khóa Burgundy"), new("/models/v003/iphone-duo.webp", "Duo v003 — màn khóa phong cảnh"), new("/media/phone-burgundy.svg", "iPhone Burgundy — minh họa cũ"), new("/media/duo.svg", "Duo — minh họa cũ"), new("/media/ipad.svg", "iPad — local"), new("/media/mac.svg", "Mac — local"), new("/media/watch.svg", "Watch — local"));
-    private readonly ComboBox model = Ui.Combo(new("v003:iphone-18-pro-max", "Pro Max v003 — mobile/laptop"), new("v003:iphone-duo", "Duo v003 — gập và tắt màn ngoài"), new("procedural:phone", "Điện thoại — tương thích bản cũ"), new("procedural:duo", "Duo — tương thích bản cũ"));
+    private readonly ComboBox product = Ui.Combo(), type = Ui.Combo(new("hero", "Khối giới thiệu sản phẩm"), new("duo", "Điện thoại gập"), new("collection", "Bộ sưu tập"), new("benefits", "Lợi ích"));
+    private readonly ComboBox poster = Ui.Combo(new("/models/v003/iphone-18-pro-max.webp", "Pro Max — màn khóa đỏ rượu"), new("/models/v003/iphone-duo.webp", "Duo — màn khóa phong cảnh"), new("/media/phone-burgundy.svg", "iPhone Burgundy — minh họa cũ"), new("/media/duo.svg", "Duo — minh họa cũ"), new("/media/ipad.svg", "iPad — có sẵn"), new("/media/mac.svg", "Mac — có sẵn"), new("/media/watch.svg", "Watch — có sẵn"));
+    private readonly ComboBox model = Ui.Combo(new("v003:iphone-18-pro-max", "Pro Max — điện thoại / máy tính"), new("v003:iphone-duo", "Duo — gập và tắt màn ngoài"), new("procedural:phone", "Điện thoại — tương thích bản cũ"), new("procedural:duo", "Duo — tương thích bản cũ"));
     private readonly ComboBox preset = Ui.Combo(new("float", "Nghiêng nhẹ"), new("rotate", "Xoay"), new("fold", "Mở/gập"));
     private readonly NumericUpDown camera = Number(2, 12, 5), tilt = Number(0, 30, 12), light = Number(.2m, 5, 2), speed = Number(0, 3, 1), fold = Number(0, 180, 70);
     private readonly TextBox colors = new() { Text = "#5b2333,#b7d8e5" };
@@ -98,7 +98,7 @@ internal sealed class LandingView : PageView
     {
         syncing=true;
         var draft = result.data.GetProperty("draft"); revision = draft.GetProperty("revision").GetInt32(); sections = JsonSerializer.Deserialize<List<LandingSection>>(draft.GetProperty("sections"), ApiClient.Json) ?? [];
-        product.Items.Clear(); product.Items.Add(new Choice("", "Không có CTA sản phẩm")); foreach (var p in Ui.Rows(result.lookups, "products")) product.Items.Add(new Choice(Ui.Text(p, "slug"), Ui.Text(p, "name")));
+        product.Items.Clear(); product.Items.Add(new Choice("", "Không gắn nút mở sản phẩm")); foreach (var p in Ui.Rows(result.lookups, "products")) product.Items.Add(new Choice(Ui.Text(p, "slug"), Ui.Text(p, "name")));
         LoadHistory(result.data,selectedHistory);
         savedSectionsJson=JsonSerializer.Serialize(sections,ApiClient.Json);validationProblem=null;needsReload=false;selectedIndex = -1; RebuildTree(Math.Max(0,sections.FindIndex(x=>x.Id==selectedId))); versionLabel.Text=$"Bản nháp r{revision} · {sections.Count} khối"; Status.Text = actor.Role == "owner" ? "Chỉ xem · Nhân viên nội dung phụ trách biên tập và xuất bản." : "Bản nháp đã tải · Lưu nháp chưa thay đổi nội dung công khai."; UpdateEnabled();
     });

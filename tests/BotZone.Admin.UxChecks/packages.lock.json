@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0-windows7.0": {
+      "botzone.admin.winforms": {
+        "type": "Project",
+        "dependencies": {
+          "BotZone.Contracts": "[1.0.0, )"
+        }
+      },
+      "botzone.contracts": {
+        "type": "Project"
+      }
+    }
+  }
+}

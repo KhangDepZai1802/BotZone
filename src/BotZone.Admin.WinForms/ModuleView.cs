@@ -13,8 +13,9 @@ internal sealed class ModuleView : PageView
     private readonly Label emptyTitle=Ui.Label("Chưa có hồ sơ"),emptyGuidance=Ui.Label("");
     private readonly BindingSource binding = new();
     private readonly Button detailButton;
-    private readonly Button executeButton, previous, next;
-    private readonly ComboBox commands = Ui.Combo();
+    private readonly Button previous, next;
+    private readonly Dictionary<Button,ActionSpec> actionButtons=[];
+    private readonly Label selectionInfo=Ui.Label("Chọn một hồ sơ để sửa hoặc duyệt."),workflow=Ui.Label("");
     private readonly List<ActionSpec> allowedActions;
     private readonly TextBox search = new() { Width = 260, PlaceholderText = "Tìm kiếm…" };
     private readonly Label pagination = Ui.Label("Trang 1");
@@ -46,24 +47,29 @@ internal sealed class ModuleView : PageView
         gridHost.Controls.Add(grid);gridHost.Controls.Add(emptyState);
         allowedActions = ModuleActions.For(module).Where(x => x.Roles.Contains(actor.Role)).ToList();
         detailButton=Ui.Button("Mở chi tiết", async (_, _) => await DetailAsync());
-        executeButton=Ui.Button("Thực hiện",async (_,_)=>{if(commands.SelectedIndex>=0)await ExecuteAsync(allowedActions[commands.SelectedIndex]);},true);
-        commands.Width=290;commands.AccessibleName="Thao tác theo quyền";
-        foreach(var action in allowedActions)commands.Items.Add(new Choice(action.Command,action.Label));
-        if(commands.Items.Count>0)commands.SelectedIndex=0;
-        var actions=Ui.Bar(detailButton);if(allowedActions.Count>1)actions.Controls.AddRange([Ui.FrameInput(commands),executeButton]);else if(allowedActions.Count==1){executeButton.Text=allowedActions[0].Label;executeButton.AccessibleName=allowedActions[0].Label;actions.Controls.Add(executeButton);}else if(module!="media"&&detailButton is BzButton primaryDetail)primaryDetail.Primary=true;
+        var createActions=Ui.Bar();var rowActions=Ui.Bar(detailButton);
+        foreach(var action in allowedActions)
+        {
+            var button=Ui.Button(action.Label,async(sender,_)=>await ExecuteAsync(action,(Control)sender!),!ModuleActions.RequiresSelection(action));button.Name="action_"+action.Command;actionButtons.Add(button,action);
+            (ModuleActions.RequiresSelection(action)?rowActions:createActions).Controls.Add(button);
+        }
+        selectionInfo.ForeColor=Ui.Muted;selectionInfo.Font=new Font("Segoe UI",9.5f);workflow.ForeColor=Ui.Muted;workflow.Font=new Font("Segoe UI",9.5f);
+        var actions=new ActionShelf(selectionInfo,rowActions,workflow);
         var headerActions=new List<Control>{Ui.Button("Cột hiển thị",async(_,_)=>{using var picker=new OperationColumnsForm(grid);if(await picker.ShowDialogAsync(FindForm()??(IWin32Window)this)==DialogResult.OK){visibleColumns=picker.Selected;RecordPresentation.ApplyColumns(grid,visibleColumns);}}),Ui.Button("Làm mới",async(_,_)=>await RefreshAsync())};
-        if (module == "media" && actor.Role == "content_staff") headerActions.Add(Ui.Button("Tải media lên", async (sender, _) => await UploadAsync((Control)sender!),true));
+        if (module == "media" && actor.Role == "content_staff") headerActions.Add(Ui.Button("Thêm ảnh / tài nguyên", async (sender, _) => await UploadAsync((Control)sender!),true));
         previous = Ui.Button("← Trước", async (_, _) => { if (page > 1) { page--; await RefreshAsync(); } }); next = Ui.Button("Tiếp →", async (_, _) => { if (page*20<total) { page++; await RefreshAsync(); } });
         var panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 6,Padding=new Padding(20),BackColor=Ui.Paper }; panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         for(var i=0;i<6;i++)panel.RowStyles.Add(new RowStyle(i==4?SizeType.Percent:SizeType.AutoSize,i==4?100:0));
         panel.Controls.Add(Ui.PageHeader(Title(module),Description(module,actor.Role),headerActions.ToArray()),0,0);
-        panel.Controls.Add(Ui.Bar(Ui.Field("Tìm kiếm",search),Ui.Button("Xóa lọc",(_,_)=>{search.Clear();search.Focus();})),0,1);
+        var filters=Ui.Bar(Ui.Field("Tìm kiếm",search),Ui.Button("Xóa lọc",(_,_)=>{search.Clear();search.Focus();}));foreach(Control button in createActions.Controls.Cast<Control>().ToArray()){button.Anchor=AnchorStyles.Left|AnchorStyles.Bottom;filters.Controls.Add(button);}createActions.Dispose();panel.Controls.Add(filters,0,1);
         panel.Controls.Add(actions,0,2);panel.Controls.Add(Status,0,3);panel.Controls.Add(gridHost,0,4);panel.Controls.Add(Ui.Bar(previous,pagination,next),0,5);
         foreach(Control c in panel.Controls)c.Dock=DockStyle.Fill;Controls.Add(panel);
+        void Adapt(){var scale=DeviceDpi/96f;var compact=ClientSize.Height/scale<600;var field=filters.Controls[0];field.MinimumSize=new Size((int)((compact?190:260)*scale),0);field.Width=field.MinimumSize.Width;field.Controls[0].Visible=!compact;workflow.Visible=!compact&&workflow.Text.Length>0;((PageHeading)panel.GetControlFromPosition(0,0)!).CompactDescription(compact);panel.Padding=new Padding((int)((compact?12:20)*scale));}
+        SizeChanged+=(_,_)=>Adapt();workflow.TextChanged+=(_,_)=>Adapt();Adapt();
         search.TextChanged += (_, _) => { debounce.Stop(); debounce.Start(); }; debounce.Tick += async (_, _) => { debounce.Stop(); page = 1; await RefreshAsync(); };
         search.KeyDown+=async(_,e)=>{if(e.KeyCode==Keys.Enter){e.SuppressKeyPress=true;debounce.Stop();page=1;await RefreshAsync();}};
         grid.CellDoubleClick += async (_, e) => { if (e.RowIndex >= 0) await DetailAsync(); }; grid.KeyDown += async (_, e) => { if (e.KeyCode == Keys.Enter) { e.SuppressKeyPress = true; await DetailAsync(); } };
-        grid.SelectionChanged+=(_,_)=>UpdateActions();commands.SelectedIndexChanged+=(_,_)=>UpdateActions();
+        grid.SelectionChanged+=(_,_)=>UpdateActions();UpdateActions();
         VisibleChanged+=(_,_)=>{if(!Visible){debounce.Stop();actionRead?.Cancel();}};
     }
     public override Task RefreshAsync()
@@ -81,11 +87,18 @@ internal sealed class ModuleView : PageView
         if(scroll>=0&&scroll<grid.Rows.Count)grid.FirstDisplayedScrollingRowIndex=scroll;
         pagination.Text = total==0?"0 kết quả":$"Trang {requestedPage} · {(requestedPage-1)*20+1}–{(requestedPage-1)*20+rows.Count} / {total} kết quả";
         previous.Enabled=requestedPage>1;next.Enabled=requestedPage*20<total;UpdateActions();
-        Status.Text = rows.Count == 0 ? (search.TextLength==0?"Chưa có dữ liệu trong phạm vi được phép.":"Không có kết quả phù hợp. Sửa từ khóa hoặc chọn Xóa lọc.") : $"Cập nhật {DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(7)):HH:mm:ss} · Enter mở dòng đã chọn.";
+        Status.Text = rows.Count == 0 ? (search.TextLength==0?"Chưa có dữ liệu trong phạm vi được phép.":"Không có kết quả phù hợp. Sửa từ khóa hoặc chọn Xóa lọc.") : "";Status.Visible=Status.Text.Length>0;
         if(rows.Count==0){emptyTitle.Text=search.TextLength==0?"Chưa có hồ sơ":"Không tìm thấy kết quả";emptyGuidance.Text=search.TextLength>0?"Thử từ khóa khác hoặc chọn Xóa lọc.":module switch{"warranty"=>"Yêu cầu bảo hành sẽ xuất hiện tại đây.","stock_adjustments"=>"Đề nghị kiểm kê sẽ xuất hiện tại đây.","media"=>"Tài nguyên công khai sẽ xuất hiện tại đây.",_=>"Hồ sơ trong phạm vi được phép sẽ xuất hiện tại đây."};emptyState.Visible=true;emptyState.BringToFront();Status.Visible=false;}
     });
     }
-    private void UpdateActions(){if(disposingView||IsDisposed||Disposing)return;var selected=Selected().EnumerateObject().Any();detailButton.Enabled=selected&&!opening;executeButton.Enabled=!opening&&commands.SelectedIndex>=0&&(!ModuleActions.RequiresSelection(allowedActions[commands.SelectedIndex])||selected);}
+    private void UpdateActions()
+    {
+        if(disposingView||IsDisposed||Disposing)return;var row=Selected();var selected=row.EnumerateObject().Any();detailButton.Enabled=selected&&!opening;
+        foreach(var pair in actionButtons){var allowed=(!ModuleActions.RequiresSelection(pair.Value)||selected)&&ModuleActions.Available(pair.Value,row);pair.Key.Enabled=!opening&&allowed;pair.Key.AccessibleDescription=allowed?"Mở biểu mẫu "+pair.Value.Label:"Chọn hồ sơ ở bước phù hợp để thực hiện.";}
+        var identity=Ui.Text(row,"sku","order_no","code","name","display_name","staff_code");if(identity.Length==0)identity=RecordPresentation.CellText("id",Ui.Text(row,"id"));
+        selectionInfo.Text=selected?"Đang chọn: "+identity:"Chọn một hồ sơ trong danh sách để xem, sửa hoặc duyệt.";
+        workflow.Text=WorkflowGuide.For(module,Ui.Text(row,"state","status","business_status"));workflow.Visible=workflow.Text.Length>0&&ClientSize.Height*96/Math.Max(96,DeviceDpi)>=600;
+    }
     private JsonElement Selected()
     {
         var index=grid.CurrentRow?.Index??-1;
@@ -102,43 +115,45 @@ internal sealed class ModuleView : PageView
         }finally{opening=false;if(!IsDisposed)UpdateActions();}
     }
     internal void OpenFirstCustomer(){if(module!="customers"||grid.Rows.Count==0)throw new InvalidOperationException("Không có khách hàng trong danh sách native.");grid.CurrentCell=grid.Rows[0].Cells.Cast<DataGridViewCell>().First(c=>c.Visible);detailButton.PerformClick();}
-    private async Task ExecuteAsync(ActionSpec action)
+    private async Task ExecuteAsync(ActionSpec action,Control source)
     {
-        if(opening)return;opening=true;using var busy=Ui.Busy(executeButton,"Đang mở…");
+        if(opening||ModuleActions.RequiresSelection(action)&&!Selected().EnumerateObject().Any()||!ModuleActions.Available(action,Selected()))return;using var busy=Ui.Busy(source,"Đang mở…");opening=true;UpdateActions();
         var actionRow=Selected();actionRead?.Dispose();actionRead=new();
-        try { var lookups = await Api.GetAsync<JsonElement>("api/admin/lookups",actionRead.Token);if(IsDisposed||!Visible)return;var row=actionRow;if(module=="settings"){var key=action.Fields.Any(x=>x.Key=="shippingVnd")?"commerce":"exchangeRateVnd";row=rows.FirstOrDefault(x=>Ui.Text(x,"id","key")==key);} using var form = new NativeCommandForm(Api, action, row, lookups); if (await form.ShowDialogAsync(FindForm() ?? (IWin32Window)this) == DialogResult.OK&&!IsDisposed) await RefreshAsync(); }catch(OperationCanceledException){} catch (Exception ex) { if(!IsDisposed){Status.Text=Ui.Error(ex);Status.ForeColor=Ui.Danger;} }finally{opening=false;if(!IsDisposed)UpdateActions();}
+        try { var needsLookups=action.Fields.Any(f=>f.Lookup is not null||f.Kind is FieldKind.PurchaseLines or FieldKind.ReceiptLines or FieldKind.QuoteLines);var lookups = needsLookups?await Api.GetAsync<JsonElement>("api/admin/lookups",actionRead.Token):JsonSerializer.SerializeToElement(new{});if(IsDisposed||!Visible)return;var row=actionRow;if(module=="settings"){var key=action.Fields.Any(x=>x.Key=="shippingVnd")?"commerce":"exchangeRateVnd";row=rows.FirstOrDefault(x=>Ui.Text(x,"id","key")==key);} using var form = new NativeCommandForm(Api, action, row, lookups); if (await form.ShowDialogAsync(FindForm() ?? (IWin32Window)this) == DialogResult.OK&&!IsDisposed) await RefreshAsync(); }catch(OperationCanceledException){} catch (Exception ex) { if(!IsDisposed){Status.Text=Ui.Error(ex);Status.ForeColor=Ui.Danger;} }finally{opening=false;if(!IsDisposed)UpdateActions();}
     }
     private async Task UploadAsync(Control sourceButton)
     {
-        using var file = new OpenFileDialog { Filter = "Ảnh / model local|*.jpg;*.jpeg;*.png;*.webp;*.glb", Multiselect = false, Title = "Chọn tài nguyên có nguồn / quyền sử dụng rõ ràng" };
+        using var file = new OpenFileDialog { Filter = "Ảnh / mô hình 3D trên máy|*.jpg;*.jpeg;*.png;*.webp;*.glb", Multiselect = false, Title = "Chọn tài nguyên có nguồn / quyền sử dụng rõ ràng" };
         if (file.ShowDialog(FindForm()) != DialogResult.OK) return;
         using var metadata = new MediaMetadataForm(); if (await metadata.ShowDialogAsync(FindForm() ?? (IWin32Window)this) != DialogResult.OK) return;
         if(opening)return;opening=true;using var busy=Ui.Busy(sourceButton,"Đang tải lên…");
         try { Status.Text = "Đang tải và kiểm tra nội dung tệp…"; await Api.UploadAsync(file.FileName, "public", metadata.SourceUrl, metadata.LicenseNote);if(!IsDisposed) await RefreshAsync(); } catch (Exception ex) {if(!IsDisposed){Status.Text=Ui.Error(ex);Status.ForeColor=Ui.Danger;} }finally{opening=false;}
     }
-    internal static string Title(string module)=>module switch{"categories"=>"Nhóm sản phẩm","catalogue"=>"Sản phẩm & SKU","inventory"=>"Tồn kho","suppliers"=>"Nhà cung cấp","purchases"=>"Nhập hàng","stock_adjustments"=>"Kiểm kê & điều chỉnh","payments"=>"Thanh toán & đối soát","returns"=>"Trả hàng","refunds"=>"Hoàn tiền","trade_ins"=>"Thu cũ & credit","warranty"=>"BotZone Care","customers"=>"Khách hàng","promotions"=>"Ưu đãi","media"=>"Thư viện media","staff"=>"Nhân viên & quyền","settings"=>"Cài đặt cửa hàng","audit"=>"Nhật ký hoạt động",_=>module};
+    internal static string Title(string module)=>module switch{"categories"=>"Nhóm sản phẩm","catalogue"=>"Sản phẩm & phiên bản","inventory"=>"Tồn kho","suppliers"=>"Nhà cung cấp","purchases"=>"Nhập hàng","stock_adjustments"=>"Kiểm kê & điều chỉnh","payments"=>"Thanh toán & đối soát","returns"=>"Trả hàng","refunds"=>"Hoàn tiền","trade_ins"=>"Thu cũ & số dư","warranty"=>"BotZone Care","customers"=>"Khách hàng","promotions"=>"Ưu đãi","media"=>"Ảnh & tài nguyên","staff"=>"Nhân viên & quyền","settings"=>"Cài đặt cửa hàng","audit"=>"Nhật ký hoạt động",_=>module};
     internal static string ValueLabel(string key,string value)
     {
+        var translated=AdminVocabulary.Value(key,value);if(translated!=value)return translated;
         if(key=="reason")return value switch{"defective"=>"Lỗi sản phẩm","wrong_item"=>"Giao sai sản phẩm",_=>value};
         if(key=="reception_method")return value switch{"store"=>"Tại cửa hàng","remote"=>"Gửi từ xa",_=>value};
         if(key=="damage_kind")return value switch{"hardware"=>"Lỗi phần cứng","accidental"=>"Rơi vỡ / va đập","liquid"=>"Vào nước",_=>value};
         if(key=="entity_type")return value switch{"product"=>"Sản phẩm","command"=>"Thao tác nghiệp vụ","return"=>"Trả hàng","trade_in"=>"Thu cũ","warranty"=>"Bảo hành","order"=>"Đơn hàng","inventory"=>"Tồn kho","media"=>"Tài nguyên",_=>value};
-        if(key=="action")return value switch{"import_product_photo"=>"Nhập ảnh sản phẩm","import_product_specifications"=>"Nhập thông số sản phẩm","save_cart"=>"Cập nhật giỏ hàng","sync_wishlist"=>"Cập nhật yêu thích","save_landing"=>"Lưu nội dung landing","publish_landing"=>"Xuất bản landing","restore_landing"=>"Khôi phục landing","preview_landing"=>"Xem trước landing","revoke_landing_preview"=>"Thu hồi bản xem trước","upload_media"=>"Tải tài nguyên lên","update_translation"=>"Cập nhật bản dịch",_=>value};
-        return key is not ("role" or "active" or "status" or "state" or "business_status" or "validation_status" or "method" or "payment_method")?value:key=="role"?value switch{"owner"=>"Chủ cửa hàng","order_staff"=>"Xử lý đơn","warehouse_staff"=>"Kho","content_staff"=>"Nội dung",_=>value}:key=="active"?(value.Equals("true",StringComparison.OrdinalIgnoreCase)?"Đang hoạt động":"Ngừng hoạt động"):value switch{"pending"=>"Chờ xử lý","requested"=>"Đã đề nghị","approved"=>"Đã duyệt","rejected"=>"Từ chối","failed"=>"Thất bại","cancelled"=>"Đã hủy","completed"=>"Hoàn tất","draft"=>"Bản nháp","published"=>"Đã xuất bản","active"=>"Đang hoạt động","archived"=>"Đã lưu trữ","discontinued"=>"Ngừng kinh doanh","received"=>"Đã nhận","partially_received"=>"Đã nhận một phần","success"=>"Thành công","valid"=>"Hợp lệ","expired"=>"Hết hạn","credited"=>"Đã lập chứng từ giảm","closed"=>"Đã đóng","inspected"=>"Đã kiểm định","quoted"=>"Đã báo giá","accepted"=>"Đã chấp nhận","returned"=>"Đã trả lại","contact_pending"=>"Chờ liên hệ","exception"=>"Cần xử lý ngoại lệ","repairing"=>"Đang sửa chữa","repaired"=>"Đã sửa chữa","replace"=>"Chờ thay thế","replaced"=>"Đã thay thế","refund"=>"Đã duyệt hoàn tiền","refunded"=>"Đã hoàn tiền","cod"=>"COD","banking"=>"Chuyển khoản",_=>value};
+        if(key=="action")return value switch{"import_product_photo"=>"Nhập ảnh sản phẩm","import_product_specifications"=>"Nhập thông số sản phẩm","save_cart"=>"Cập nhật giỏ hàng","sync_wishlist"=>"Cập nhật yêu thích","save_landing"=>"Lưu nội dung trang chủ","publish_landing"=>"Xuất bản trang chủ","restore_landing"=>"Khôi phục trang chủ","preview_landing"=>"Xem trước trang chủ","revoke_landing_preview"=>"Thu hồi bản xem trước","upload_media"=>"Tải tài nguyên lên","update_translation"=>"Cập nhật bản dịch",_=>ModuleActions.CommandLabel(value)};
+        return key is not ("role" or "active" or "status" or "state" or "business_status" or "validation_status" or "method" or "payment_method")?value:key=="role"?value switch{"owner"=>"Chủ cửa hàng","order_staff"=>"Xử lý đơn","warehouse_staff"=>"Kho","content_staff"=>"Nội dung",_=>value}:key=="active"?(value.Equals("true",StringComparison.OrdinalIgnoreCase)?"Đang hoạt động":"Ngừng hoạt động"):value switch{"pending"=>"Chờ xử lý","requested"=>"Đã đề nghị","approved"=>"Đã duyệt","rejected"=>"Từ chối","failed"=>"Thất bại","cancelled"=>"Đã hủy","completed"=>"Hoàn tất","draft"=>"Bản nháp","published"=>"Đã xuất bản","active"=>"Đang hoạt động","archived"=>"Đã lưu trữ","discontinued"=>"Ngừng kinh doanh","received"=>"Đã nhận","partially_received"=>"Đã nhận một phần","success"=>"Thành công","valid"=>"Hợp lệ","expired"=>"Hết hạn","credited"=>"Đã lập chứng từ giảm","closed"=>"Đã đóng","inspected"=>"Đã kiểm định","quoted"=>"Đã báo giá","accepted"=>"Đã chấp nhận","returned"=>"Đã trả lại","contact_pending"=>"Chờ liên hệ","exception"=>"Cần kiểm tra thêm","repairing"=>"Đang sửa chữa","repaired"=>"Đã sửa chữa","replace"=>"Chờ thay thế","replaced"=>"Đã thay thế","refund"=>"Đã duyệt hoàn tiền","refunded"=>"Đã hoàn tiền","cod"=>"Thu tiền khi giao","banking"=>"Chuyển khoản",_=>value};
     }
     private static string Description(string module,string role)=>module switch
     {
-        "catalogue" when role=="content_staff"=>"Biên tập Việt / Anh. Giá bán, SKU và tồn kho chỉ đọc.",
+        "catalogue" when role=="content_staff"=>"Biên tập Việt / Anh. Giá bán, phiên bản và tồn kho chỉ xem.",
+        "catalogue"=>"Mẫu là dòng sản phẩm; mỗi phiên bản bán có màu, dung lượng và giá riêng.",
         "inventory"=>"Tồn trong lô, đang giữ và chờ kiểm tra được theo dõi riêng. Điều chỉnh qua chứng từ.",
         "purchases"=>"Theo dõi phiếu đã duyệt, nhận đủ hoặc từng phần qua quy trình kho.",
         "stock_adjustments"=>role=="owner"?"Đối chiếu lý do và thiết bị trước khi duyệt chênh lệch.":"Theo dõi đề nghị kiểm kê. Chủ cửa hàng quyết định áp chênh lệch.",
         "payments"=>"Đối soát khoản thu độc lập với trạng thái giao hàng.",
         "refunds"=>"Kết quả hoàn thực tế tách biệt với chứng từ điều chỉnh giảm.",
         "returns"=>"Tiếp nhận, kiểm tra hàng và duyệt theo bước được cấp quyền.",
-        "trade_ins"=>"Tiếp nhận, kiểm định, báo giá phiên bản và cấp credit theo hồ sơ.",
+        "trade_ins"=>"Nhận máy, kiểm tra, báo giá và cấp số dư mua hàng cho khách.",
         "warranty"=>"Gia hạn bảo hành phần cứng. Xử lý theo điều kiện và thẩm quyền.",
-        "customers"=>"Hồ sơ, lịch sử đơn, điểm và credit là các thông tin riêng biệt.",
-        "media"=>"Ảnh và model công khai kèm nguồn và điều kiện sử dụng.",
+        "customers"=>"Tra cứu thông tin khách, đơn hàng, điểm thưởng và số dư mua hàng.",
+        "media"=>"Ảnh và mô hình 3D công khai, có nguồn và điều kiện sử dụng.",
         "staff"=>"Thay đổi quyền hoặc khóa tài khoản được máy chủ kiểm tra và ghi nhật ký.",
         "settings"=>"Chính sách áp dụng cho giao dịch mới. Chứng từ lịch sử giữ nguyên.",
         "audit"=>"Hoạt động trong phạm vi quyền của tài khoản đã đăng nhập.",
@@ -146,7 +161,7 @@ internal sealed class ModuleView : PageView
     };
     protected override bool ProcessCmdKey(ref Message msg,Keys keyData){if(keyData==(Keys.Control|Keys.F)){search.Focus();return true;}return base.ProcessCmdKey(ref msg,keyData);}
     internal static string FieldLabel(string key)=>Labels.GetValueOrDefault(key,Ui.DisplayName(key));
-    private static readonly Dictionary<string, string> Labels = new(StringComparer.OrdinalIgnoreCase) { ["credit_vnd"]="Số dư credit VND",["balance_points"]="Số dư điểm",["net_spend_vnd"]="Chi tiêu ròng VND",["tier"]="Hạng",["order_count"]="Số đơn",["id"]="Mã nội bộ",["name"]="Tên",["sku"]="SKU",["priceVnd"]="Giá bán VND",["price_vnd"]="Giá bán VND",["available"]="Khả dụng",["status"]="Trạng thái",["state"]="Trạng thái",["createdAt"]="Ngày tạo",["created_at"]="Ngày tạo",["orderNo"]="Mã đơn",["order_no"]="Mã đơn",["customerName"]="Khách hàng",["totalVnd"]="Tổng VND",["total_vnd"]="Tổng VND",["role"]="Vai trò",["active"]="Hoạt động",["email"]="Email",["code"]="Mã",["quantity"]="Số lượng",["trackingNo"]="Vận đơn demo",["balanceVnd"]="Số dư VND",["balancePoints"]="Điểm",["reason"]="Lý do",["display_name"]="Tên khách hàng",["phone"]="Điện thoại",["email_verified"]="Email đã xác minh",["supplier"]="Nhà cung cấp",["contact"]="Liên hệ",["qty_on_hand"]="Tồn lô",["qty_reserved"]="Đang giữ",["quantity_delta"]="Chênh lệch",["unit_cost_vnd"]="Giá vốn VND",["received_at"]="Ngày nhận",["model_code"]="Mã model",["business_status"]="Kinh doanh",["care_fee_vnd"]="Phí Care VND",["standard_warranty_months"]="Bảo hành (tháng)",["staff_code"]="Mã nhân viên",["code_normalized"]="Mã ưu đãi",["requested_amount_vnd"]="Số tiền yêu cầu VND",["method"]="Phương thức",["amount_vnd"]="Số tiền VND",["action"]="Hành động",["entity_type"]="Loại hồ sơ",["occurred_at"]="Thời điểm",["value"]="Giá trị",["version"]="Phiên bản",["slug"]="Đường dẫn" };
+    private static readonly Dictionary<string, string> Labels = new(StringComparer.OrdinalIgnoreCase) { ["credit_vnd"]="Số dư mua hàng (₫)",["balance_points"]="Số dư điểm",["net_spend_vnd"]="Chi tiêu ròng VND",["tier"]="Hạng",["order_count"]="Số đơn",["id"]="Mã nội bộ",["name"]="Tên",["sku"]="Mã phiên bản",["priceVnd"]="Giá bán VND",["price_vnd"]="Giá bán VND",["available"]="Có thể bán",["status"]="Trạng thái",["state"]="Trạng thái",["createdAt"]="Ngày tạo",["created_at"]="Ngày tạo",["orderNo"]="Mã đơn",["order_no"]="Mã đơn",["customerName"]="Khách hàng",["totalVnd"]="Tổng VND",["total_vnd"]="Tổng VND",["role"]="Vai trò",["active"]="Hoạt động",["email"]="Email",["code"]="Mã",["quantity"]="Số lượng",["trackingNo"]="Mã vận đơn mô phỏng",["balanceVnd"]="Số dư VND",["balancePoints"]="Điểm",["reason"]="Lý do",["display_name"]="Tên khách hàng",["phone"]="Điện thoại",["email_verified"]="Email đã xác minh",["supplier"]="Nhà cung cấp",["contact"]="Liên hệ",["qty_on_hand"]="Số lượng trong lô",["qty_reserved"]="Đang giữ",["quantity_delta"]="Chênh lệch",["unit_cost_vnd"]="Giá vốn VND",["received_at"]="Ngày nhận",["model_code"]="Mã mẫu sản phẩm",["business_status"]="Kinh doanh",["care_fee_vnd"]="Phí Care VND",["standard_warranty_months"]="Bảo hành (tháng)",["staff_code"]="Mã nhân viên",["code_normalized"]="Mã ưu đãi",["requested_amount_vnd"]="Số tiền yêu cầu VND",["method"]="Phương thức",["amount_vnd"]="Số tiền VND",["action"]="Hành động",["entity_type"]="Loại hồ sơ",["occurred_at"]="Thời điểm",["value"]="Giá trị",["version"]="Phiên bản",["slug"]="Đường dẫn" };
     protected override void Dispose(bool disposing) { if (disposing&&!disposingView) {disposingView=true; actionRead?.Cancel();actionRead?.Dispose();actionRead=null;debounce.Dispose();grid.DataSource=null; binding.Dispose(); } base.Dispose(disposing); }
 }
 
@@ -188,7 +203,7 @@ internal static class RecordPresentation
 {
     internal static bool Technical(string key)=>key=="id"||key.EndsWith("_id",StringComparison.OrdinalIgnoreCase)||key.EndsWith("Id",StringComparison.Ordinal)||key is "version" or "revision" or "snapshot" or "metadata";
     internal static int Priority(string key)=>Array.IndexOf(new[]{"order_no","code","name","display_name","sku","model_code","status","state","business_status","active","quantity","amount_vnd","total_vnd","net_amount_vnd","price_vnd","created_at"},key) is var index&&index>=0?index:100;
-    internal static string Label(string key)=>key switch{"summary"=>"Nội dung chính","items"=>"Dòng hàng","units"=>"Thiết bị & phân bổ","snapshot"=>"Thông tin tại thời điểm giao dịch","address_snapshot"=>"Địa chỉ đã lưu","customer_snapshot"=>"Khách hàng đã lưu","options"=>"Cấu hình","identifiers"=>"Serial / IMEI","events"=>"Lịch sử","attempts"=>"Lần thanh toán","receipts"=>"Khoản thu","shipments"=>"Giao nhận","max_uses"=>"Giới hạn lượt","max_uses_per_customer"=>"Lượt mỗi khách","version_no"=>"Phiên bản","requested_at"=>"Ngày đề nghị","description"=>"Mô tả","note"=>"Ghi chú","updated_at"=>"Cập nhật","approved_at"=>"Ngày duyệt","source_url"=>"Nguồn","license_note"=>"Quyền sử dụng","variant_id"=>"Mã SKU nội bộ","order_id"=>"Đơn liên quan","customer_id"=>"Mã khách hàng","reception_method"=>"Cách tiếp nhận","damage_kind"=>"Loại sự cố","inspection_result"=>"Kết quả kiểm tra","inspected_at"=>"Ngày kiểm tra","inspected_by"=>"Người kiểm tra","actor_user_id"=>"Người thực hiện","entity_id"=>"Hồ sơ liên quan","completed_at"=>"Ngày hoàn tất","fee_vnd"=>"Phí VND","lot_id"=>"Lô liên quan","approved_by"=>"Người duyệt","requested_by"=>"Người đề nghị",_=>ModuleView.FieldLabel(key)};
+    internal static string Label(string key)=>key switch{"summary"=>"Nội dung chính","items"=>"Dòng hàng","units"=>"Thiết bị & phân bổ","snapshot"=>"Thông tin tại thời điểm giao dịch","address_snapshot"=>"Địa chỉ đã lưu","customer_snapshot"=>"Khách hàng đã lưu","options"=>"Thuộc tính phiên bản","identifiers"=>"Số máy / IMEI","events"=>"Lịch sử","attempts"=>"Lần thanh toán","receipts"=>"Khoản thu","shipments"=>"Giao nhận","max_uses"=>"Giới hạn lượt","max_uses_per_customer"=>"Lượt mỗi khách","version_no"=>"Phiên bản","requested_at"=>"Ngày đề nghị","description"=>"Mô tả","note"=>"Ghi chú","updated_at"=>"Cập nhật","approved_at"=>"Ngày duyệt","source_url"=>"Nguồn","license_note"=>"Quyền sử dụng","variant_id"=>"Mã phiên bản nội bộ","order_id"=>"Đơn liên quan","customer_id"=>"Mã khách hàng","reception_method"=>"Cách tiếp nhận","damage_kind"=>"Loại sự cố","inspection_result"=>"Kết quả kiểm tra","inspected_at"=>"Ngày kiểm tra","inspected_by"=>"Người kiểm tra","actor_user_id"=>"Người thực hiện","entity_id"=>"Hồ sơ liên quan","completed_at"=>"Ngày hoàn tất","fee_vnd"=>"Phí VND","lot_id"=>"Lô liên quan","approved_by"=>"Người duyệt","requested_by"=>"Người đề nghị",_=>ModuleView.FieldLabel(key)};
     internal static string CellText(string key,string value)
     {
         // Abbreviate references only for display; the bound row and detail retain the complete identifier.
@@ -244,7 +259,7 @@ internal sealed class MediaMetadataForm : Form
     public string SourceUrl => source.Text.Trim(); public string LicenseNote => license.Text.Trim();
     public MediaMetadataForm()
     {
-        Text="Nguồn và quyền sử dụng media";Size=new Size(720,560);MinimumSize=new Size(560,440);StartPosition=FormStartPosition.CenterParent;AutoScaleMode=AutoScaleMode.Dpi;
+        Text="Nguồn và quyền sử dụng tài nguyên";Size=new Size(720,560);MinimumSize=new Size(560,440);StartPosition=FormStartPosition.CenterParent;AutoScaleMode=AutoScaleMode.Dpi;
         source.Name="mediaSource";license.Name="mediaLicense";license.AcceptsReturn=true;license.ScrollBars=ScrollBars.Vertical;
         var sourceError=Ui.Label(" ");var licenseError=Ui.Label(" ");foreach(var label in new[]{sourceError,licenseError}){label.ForeColor=Ui.Danger;label.Font=new Font("Segoe UI",9);label.Margin=new Padding(0,4,0,8);}
         TableLayoutPanel Field(string label,Control input,Label error){var group=(TableLayoutPanel)Ui.Field(label,input);group.Dock=DockStyle.Top;group.RowCount=3;group.Controls.Add(error,0,2);return group;}

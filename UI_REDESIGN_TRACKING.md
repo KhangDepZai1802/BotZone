@@ -2,11 +2,13 @@
 
 Cập nhật 18/11/2026. Nguồn: `BotZone_BA_v1.1_WinForms.md`, trọn bộ bàn giao tại `BotZone_Admin_Redesign_v1/`, code WinForms/API hiện hành và yêu cầu motion bổ sung. Bản đồ dưới bao phủ **55/55 ID**; 14 PNG thiết kế chỉ là mẫu tham chiếu. Các mục chưa có endpoint hoặc workflow ở baseline được ghi rõ, không coi thay theme là đã thực hiện nghiệp vụ thiếu.
 
-**Bản Release vòng 4 đã kiểm trực tiếp và mở sẵn trên desktop của Khang.** Sidebar đã đổi sang sáng theo yêu cầu mới nhất của Khang. Lượt shell trước sửa cuối grid có **208 PASS, 38 PNG `CopyFromScreen`**. Trên đúng Release hiện tại, component đạt **91 PASS/16 PNG**, grid combo đạt **22 PASS/8 PNG**; shell cuối đạt **43 PASS/7 PNG**; executable thật đã đăng nhập và chụp lại trên desktop Default. Vòng 3 giữ **96 kiểm tra chức năng/layout PASS, 80 PNG `DrawToBitmap`**, nhưng tuyên bố nghiệm thu thị giác trước đây được rút lại: ảnh bitmap đã bỏ sót góc nút trắng/viền bẩn trên desktop thật. Bằng chứng các vòng trước, bảng 55 màn hình và các gap API được giữ nguyên; không dùng chúng thay cho kiểm hiển thị trực tiếp hoặc chứng nhận các workflow ghi nghiệp vụ chưa thực hiện.
+**Vòng 5 tiếp tục cải tiến trải nghiệm theo phản hồi của Khang.** Cài đặt có bốn minh họa chính sách và nút sửa riêng; tổng quan/báo cáo mở bằng biểu đồ; các module có nút thao tác trực tiếp và nhãn dễ hiểu. Phạm vi thay đổi và bằng chứng mới tại [docs/admin-ux-round5.md](docs/admin-ux-round5.md). Giữ bảng 55 màn hình và các gap API dưới đây, không dùng thay đổi UI để tuyên bố đã bổ sung nghiệp vụ còn thiếu.
+
+Lịch sử vòng 4: sidebar sáng, component **91 PASS/16 PNG**, grid combo **22 PASS/8 PNG**, shell cuối **43 PASS/7 PNG** trên Release của vòng đó. Vòng 3 giữ **96 kiểm tra chức năng/layout PASS**, nhưng 80 PNG `DrawToBitmap` không phải nghiệm thu thị giác: đã bỏ sót lỗi góc nút. Các vòng sau dùng ảnh desktop thật có kiểm hash DLL.
 
 ## Hiện trạng và bảo toàn
 
-- Workspace không có metadata Git (`git status`: not a git repository); không reset, commit, push hoặc xóa tài liệu cũ. `role.md` hiện rỗng.
+- Workspace đã được khởi tạo Git theo yêu cầu của Khang, baseline `c22bdb7` đã push lên `KhangDepZai1802/BotZone`, nhánh `main`. Khang cho phép tự commit/push mỗi đợt đã kiểm; giữ lịch sử, không force-push, không đưa cấu hình bí mật hoặc artifact vào Git. `role.md` hiện rỗng.
 - Solution `BotZone.slnx`; admin `src/BotZone.Admin.WinForms/BotZone.Admin.WinForms.csproj`, `net10.0-windows`, WinExe x64, framework dependent. Native WinForms, không toolkit ngoài; chỉ tham chiếu Contracts. DPI bootstrap `PerMonitorV2`, forms `AutoScaleMode.Dpi`.
 - Admin → `ApiClient` (HttpClient/CookieContainer trong bộ nhớ, session + CSRF) → API ASP.NET Core → service/EF Core/PostgreSQL. Giữ storefront, schema, migrations, state machine, command key và công thức tại backend.
 - Quyền lấy từ `Actor` đã xác thực, API kiểm lại từng request. Owner xem/preview landing; chỉ content ghi/publish/restore. Content không invoice/giá/tồn; warehouse không xuất invoice tài chính. Giữ policy runtime đối với supplier/purchase cho warehouse; không tự siết/mở quyền theo ảnh.

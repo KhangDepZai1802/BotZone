@@ -5,7 +5,7 @@ namespace BotZone.Admin.WinForms;
 internal static partial class Ui
 {
     internal static string StatusText(string value)=>value switch{
-        "cancelled" or "canceled"=>"Đã hủy","completed"=>"Hoàn tất","expired"=>"Hết hạn","handed_off"=>"Đã bàn giao","confirmed"=>"Đã xác nhận","draft"=>"Bản nháp","pending"=>"Đang chờ","active"=>"Đang hoạt động","inactive"=>"Ngừng hoạt động","paid"=>"Đã thu đủ","unpaid"=>"Chưa thu","partially_paid"=>"Thu một phần","partially_refunded"=>"Hoàn một phần","refunded"=>"Đã hoàn","published"=>"Đã xuất bản","received"=>"Đã nhận","delivered"=>"Đã giao","failed"=>"Thất bại","processing"=>"Đang xử lý","pending_payment" or "awaiting_payment"=>"Chờ thanh toán","available"=>"Khả dụng","in_stock"=>"Trong kho","quarantine"=>"Chờ kiểm tra","rejected"=>"Đã từ chối",_=>value};
+        "cancelled" or "canceled"=>"Đã hủy","completed"=>"Hoàn tất","expired"=>"Hết hạn","handed_off"=>"Đã bàn giao","confirmed"=>"Đã xác nhận","draft"=>"Bản nháp","pending"=>"Đang chờ","active"=>"Đang hoạt động","inactive"=>"Ngừng hoạt động","paid"=>"Đã thu đủ","unpaid"=>"Chưa thu","partially_paid"=>"Thu một phần","partially_refunded"=>"Hoàn một phần","refunded"=>"Đã hoàn","published"=>"Đã xuất bản","received"=>"Đã nhận","delivered"=>"Đã giao","failed"=>"Thất bại","processing"=>"Đang xử lý","pending_payment" or "awaiting_payment"=>"Chờ thanh toán","available"=>"Có thể bán","in_stock"=>"Trong kho","quarantine"=>"Chờ kiểm tra","rejected"=>"Đã từ chối",_=>value};
     private static void PaintStatusCell(object? sender,DataGridViewCellPaintingEventArgs e)
     {
         if(sender is not DataGridView grid||e.RowIndex<0||e.ColumnIndex<0)return;

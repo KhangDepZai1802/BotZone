@@ -6,8 +6,9 @@ namespace BotZone.Admin.WinForms;
 internal sealed class OrdersView : PageView
 {
     private readonly DataGridView grid=Ui.Grid();private readonly BindingSource binding=new();private List<JsonElement> rows=[];private readonly Button detail;
+    private readonly Button confirm;private bool confirming;
     private readonly TextBox search=new(){Width=280,PlaceholderText="Tìm mã đơn trong danh sách đã tải…",AccessibleName="Tìm mã đơn"};
-    private readonly ComboBox view=Ui.Combo(new("","Tất cả"),new("pending","Chờ xác nhận"),new("confirmed","Chờ kho"),new("handed_off","Đã bàn giao"),new("completed","Hoàn tất"),new("reconciliation","Cần đối soát"),new("expired","Hết hạn"),new("cancelled","Đã hủy"));
+    private readonly ComboBox view=Ui.Combo(new("","Tất cả"),new("pending","Chờ xác nhận"),new("confirmed","Chờ kho"),new("handed_off","Đã bàn giao"),new("completed","Hoàn tất"),new("reconciliation","Cần kiểm tra thanh toán"),new("expired","Hết hạn"),new("cancelled","Đã hủy"));
     private readonly Panel listHost=new(){Dock=DockStyle.Fill};
     private readonly Label preview=new BusyLabel{Text="Chọn một đơn để xem thanh toán, giao nhận và việc tiếp theo.",AutoSize=true,Padding=new Padding(18,0,0,0),ForeColor=Ui.Muted};
     private readonly Panel previewPanel=new(){Dock=DockStyle.Fill,BackColor=Color.White,Padding=new Padding(20)};
@@ -21,7 +22,8 @@ internal sealed class OrdersView : PageView
         var refresh=Ui.Button("Làm mới",async(_,_)=>await RefreshAsync());detail=Ui.Button("Mở đơn đã chọn",async(_,_)=>await Detail(),true);
         work.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,100));work.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute,330));work.RowStyles.Add(new RowStyle(SizeType.Percent,100));work.Controls.Add(grid,0,0);
         preview.Dock=DockStyle.Top;preview.MaximumSize=new Size(300,0);var previewBody=Ui.Vertical(preview,Ui.Bar(Ui.Button("Xem chi tiết đơn",async(_,_)=>await Detail())),new Panel());previewBody.Padding=Padding.Empty;previewPanel.Controls.Add(previewBody);work.Controls.Add(previewPanel,1,0);
-        var toolbar=Ui.Bar(Ui.Field("Tìm kiếm",search),Ui.Field("Chế độ xem",view),detail);
+        confirm=Ui.Button("Xác nhận đơn",async(_,_)=>await ConfirmSelectedAsync(),true);confirm.Visible=api.Actor?.Role is "owner" or "order_staff";confirm.Enabled=false;
+        var toolbar=Ui.Bar(Ui.Field("Tìm kiếm",search),Ui.Field("Chế độ xem",view),confirm,detail);
         listHost.Controls.Add(Ui.Vertical(Ui.PageHeader(api.Actor?.Role=="warehouse_staff"?"Phiếu xuất hàng":"Hàng chờ xử lý đơn","Mở hồ sơ, kiểm tra thanh toán và thực hiện bước tiếp theo.",refresh),toolbar,Status,work));Controls.Add(listHost);
         grid.CellDoubleClick+=async(_,e)=>{if(e.RowIndex>=0)await Detail();};grid.KeyDown+=async(_,e)=>{if(e.KeyCode==Keys.Enter){e.SuppressKeyPress=true;await Detail();}};
         grid.CellFormatting+=(_,e)=>{if(e.ColumnIndex>=0&&grid.Columns[e.ColumnIndex].Name=="order_status"){e.Value=StateLabel(Convert.ToString(e.Value)??"");e.FormattingApplied=true;}else if(e.ColumnIndex>=0&&grid.Columns[e.ColumnIndex].Name=="payment_method"){e.Value=ModuleView.ValueLabel("payment_method",Convert.ToString(e.Value)??"");e.FormattingApplied=true;}};
@@ -42,41 +44,57 @@ internal sealed class OrdersView : PageView
         if(grid.CurrentCell is null&&grid.Rows.Count>0)grid.CurrentCell=grid.Rows[0].Cells.Cast<DataGridViewCell>().FirstOrDefault(c=>c.Visible);
         if(scroll>=0&&scroll<grid.Rows.Count)grid.FirstDisplayedScrollingRowIndex=scroll;bindingRows=false;detail.Enabled=visible.Count>0;
         Status.Text=$"{visible.Count} / {rows.Count} đơn đã tải · Phạm vi: tối đa 200 đơn mới nhất. Lọc trong danh sách này.";
-        if(visible.Count==0)preview.Text="Không có đơn phù hợp. Xóa từ khóa hoặc chọn Tất cả.";else _=PreviewAsync();
+        if(visible.Count==0){preview.Text="Không có đơn phù hợp. Xóa từ khóa hoặc chọn Tất cả.";confirm.Enabled=false;}else _=PreviewAsync();
     }
     private string? SelectedId(){if(disposingView||IsDisposed||Disposing)return null;var index=grid.CurrentRow?.Index??-1;return index>=0&&index<binding.Count&&binding[index] is System.Data.DataRowView row&&row.Row.Table.Columns.Contains("id")?Convert.ToString(row["id"]):null;}
+    internal void SetState(string state){for(var i=0;i<view.Items.Count;i++)if(((Choice)view.Items[i]!).Value==state){view.SelectedIndex=i;return;}}
     private async Task PreviewAsync()
     {
-        var id=SelectedId();selectionId=id;previewCancellation?.Cancel();previewCancellation?.Dispose();previewCancellation=new();var token=previewCancellation.Token;var generation=++previewGeneration;if(id is null)return;
+        var id=SelectedId();selectionId=id;confirm.Enabled=false;previewCancellation?.Cancel();previewCancellation?.Dispose();previewCancellation=new();var token=previewCancellation.Token;var generation=++previewGeneration;if(id is null)return;
         preview.Text="Đang mở thông tin đơn…";preview.ForeColor=Ui.Muted;((BusyLabel)preview).IsBusy=true;
         try{var data=await Api.GetAsync<JsonElement>("api/orders/"+id,token);if(IsDisposed||generation!=previewGeneration)return;var order=data.GetProperty("order");var state=Ui.Text(order,"order_status");var shipment=Ui.Rows(data,"shipments").LastOrDefault();
-            var lines=new List<string>{Ui.Text(order,"order_no"),StateLabel(state)};
+            confirm.Enabled=!confirming&&state=="pending"&&Api.Actor?.Role is "owner" or "order_staff";var lines=new List<string>{Ui.Text(order,"order_no"),StateLabel(state)};
             if(Api.Actor?.Role!="warehouse_staff")lines.Add(Ui.Money(Ui.Text(order,"total_vnd"))+" · "+ModuleView.ValueLabel("payment_method",Ui.Text(order,"payment_method")));
             if(Ui.Text(shipment,"status").Length>0)lines.Add("Giao nhận: "+StateLabel(Ui.Text(shipment,"status")));
             lines.AddRange(["",state=="pending"?"Tiếp theo: đối chiếu và nhận xử lý.":state=="confirmed"?"Tiếp theo: kiểm tra hàng để bàn giao.":state=="completed"?"Đơn đã hoàn tất. Mở hồ sơ khi cần đối chiếu.":"Mở hồ sơ để xem việc có thể thực hiện."]);preview.Text=string.Join(Environment.NewLine,lines);preview.ForeColor=Ui.Ink;
         }catch(OperationCanceledException){}catch(Exception ex){if(!IsDisposed&&generation==previewGeneration){preview.Text=Ui.Error(ex)+"\nChọn lại đơn để thử lại.";preview.ForeColor=Ui.Danger;}}finally{if(!IsDisposed&&generation==previewGeneration)((BusyLabel)preview).IsBusy=false;}
     }
-    internal static string StateLabel(string state)=>state switch{"pending"=>"Chờ xử lý","confirmed"=>"Đã xác nhận","handed_off"=>"Đã bàn giao","in_transit"=>"Đang giao","delivered"=>"Đã giao","completed"=>"Hoàn tất","reconciliation"=>"Cần đối soát","cancelled"=>"Đã hủy","failed"=>"Thất bại","returned"=>"Đã thu hồi","success"=>"Thành công","expired"=>"Hết hạn",""=>"Chưa ghi nhận",_=>state};
+    internal static string StateLabel(string state)=>state switch{"pending"=>"Chờ xử lý","confirmed"=>"Đã xác nhận","handed_off"=>"Đã bàn giao","in_transit"=>"Đang giao","delivered"=>"Đã giao","completed"=>"Hoàn tất","reconciliation"=>"Cần kiểm tra thanh toán","cancelled"=>"Đã hủy","failed"=>"Thất bại","returned"=>"Đã thu hồi","success"=>"Thành công","expired"=>"Hết hạn",""=>"Chưa ghi nhận",_=>state};
     internal void SelectAndOpen(string orderId){foreach(DataGridViewRow item in grid.Rows)if(item.DataBoundItem is System.Data.DataRowView row&&Convert.ToString(row["id"])==orderId){grid.CurrentCell=item.Cells.Cast<DataGridViewCell>().First(c=>c.Visible);item.Selected=true;detail.PerformClick();return;}throw new InvalidOperationException("Order is absent from the native list or outside staff scope: "+orderId);}
+    private async Task ConfirmSelectedAsync()
+    {
+        var id=SelectedId();if(id is null||confirming||Api.Actor?.Role is not ("owner" or "order_staff"))return;confirming=true;
+        using(var busy=Ui.Busy(confirm,"Đang mở…"))
+        try
+        {
+            var data=await Api.GetAsync<JsonElement>("api/orders/"+id);if(IsDisposed||!Visible)return;var order=data.GetProperty("order");if(Ui.Text(order,"order_status","orderStatus")!="pending"){Status.Text="Đơn đã đổi trạng thái. Tải lại trước khi xử lý.";return;}
+            var action=new ActionSpec("Xác nhận đơn "+Ui.Text(order,"order_no","orderNo"),"confirm_order",["owner","order_staff"],_=>new(){["orderId"]=id},[]);
+            using var form=new NativeCommandForm(Api,action,order,JsonSerializer.SerializeToElement(new{}));if(await form.ShowDialogAsync(FindForm()??(IWin32Window)this)==DialogResult.OK&&!IsDisposed)await RefreshAsync();
+        }
+        catch(Exception ex){if(!IsDisposed){Status.Text=Ui.Error(ex);Status.ForeColor=Ui.Danger;}}
+        finally{confirming=false;}
+        if(!IsDisposed)await PreviewAsync();
+    }
     private Task Detail()
     {
         var id=SelectedId();if(id is null||ActiveDetail is not null)return Task.CompletedTask;
         previewCancellation?.Cancel();var form=new OrderDetailForm(Api,id){TopLevel=false,FormBorderStyle=FormBorderStyle.None,Dock=DockStyle.Fill};ActiveDetail=form;
         listHost.Visible=false;Controls.Add(form);form.BringToFront();form.FormClosed+=async(_,_)=>{ActiveDetail=null;Controls.Remove(form);form.Dispose();if(IsDisposed)return;listHost.Visible=true;Ui.Pulse(listHost);await RefreshAsync();grid.Focus();};form.Show();Ui.Pulse(form);return Task.CompletedTask;
     }
-    internal override bool CanLeave()=>ActiveDetail?.ActiveCommand is null;
+    internal override bool CanLeave()=>!confirming&&ActiveDetail?.ActiveCommand is null;
     protected override bool ProcessCmdKey(ref Message msg,Keys keyData){if(keyData==(Keys.Control|Keys.F)&&ActiveDetail is null){search.Focus();return true;}if(keyData==Keys.Escape&&ActiveDetail is not null){ActiveDetail.Close();return true;}return base.ProcessCmdKey(ref msg,keyData);}
     protected override void Dispose(bool disposing){if(disposing&&!disposingView){disposingView=true;++previewGeneration;previewCancellation?.Cancel();previewCancellation?.Dispose();previewCancellation=null;grid.DataSource=null;binding.Dispose();}base.Dispose(disposing);}
 }
 
 internal sealed class OrderDetailForm:Form
 {
+    private readonly OrderProgress progress=new();
     private readonly ApiClient api;private readonly string orderId;private readonly FlowLayoutPanel actions=Ui.Bar();private readonly Label header=new BusyLabel{Text="Đang tải đơn…",AutoSize=true,Padding=new Padding(20,6,0,8),ForeColor=Ui.Ink};private readonly TabControl tabs=Ui.Tabs();private readonly CommandKeys keys;private readonly CancellationTokenSource cancel=new();private bool busy;
     private CancellationTokenSource? pendingRead;private long generation;private JsonElement currentOrder;private bool cleaned;
     internal NativeCommandForm? ActiveCommand{get;private set;}
     internal string? CurrentState{get;private set;}
     internal string StatusText=>header.Text;
-    public OrderDetailForm(ApiClient api,string orderId){this.api=api;keys=api.PendingCommands;this.orderId=orderId;Text="Chi tiết / xử lý đơn";Size=new Size(1100,730);MinimumSize=new Size(680,430);AutoScaleMode=AutoScaleMode.Dpi;StartPosition=FormStartPosition.CenterParent;actions.Controls.Add(Ui.Button("← Quay lại",(_,_)=>Close()));actions.Controls.Add(Ui.Button("Làm mới",async(_,_)=>await LoadAsync()));Controls.Add(Ui.Vertical(Ui.PageHeader("Chi tiết đơn hàng",""),header,actions,tabs));Shown+=async(_,_)=>await LoadAsync();Ui.Prepare(this);}
+    public OrderDetailForm(ApiClient api,string orderId){this.api=api;keys=api.PendingCommands;this.orderId=orderId;Text="Chi tiết / xử lý đơn";Size=new Size(1100,730);MinimumSize=new Size(680,430);AutoScaleMode=AutoScaleMode.Dpi;StartPosition=FormStartPosition.CenterParent;actions.Controls.Add(Ui.Button("← Quay lại",(_,_)=>Close()));actions.Controls.Add(Ui.Button("Làm mới",async(_,_)=>await LoadAsync()));Controls.Add(Ui.Vertical(Ui.PageHeader("Chi tiết đơn hàng",""),header,progress,actions,tabs));Shown+=async(_,_)=>await LoadAsync();Ui.Prepare(this);}
     protected override void Dispose(bool disposing){if(disposing&&!cleaned){cleaned=true;++generation;cancel.Cancel();pendingRead?.Cancel();pendingRead?.Dispose();pendingRead=null;cancel.Dispose();}base.Dispose(disposing);}
     private IWin32Window DialogOwner => TopLevel ? this : TopLevelControl as Form ?? this;
     private async Task LoadAsync()
@@ -85,7 +103,7 @@ internal sealed class OrderDetailForm:Form
         try
         {
             var data=await api.GetAsync<JsonElement>("api/orders/"+orderId,token);if(IsDisposed||current!=generation)return;var order=data.GetProperty("order");currentOrder=order.Clone();var state=Ui.Text(order,"orderStatus","order_status");var role=api.Actor?.Role;
-            CurrentState=state;
+            CurrentState=state;progress.SetState(state);
             header.ForeColor=Ui.Ink;header.Text=$"{Ui.Text(order,"orderNo","order_no")} · {OrdersView.StateLabel(state)}"+(role=="warehouse_staff"?"":" · "+Ui.Money(Ui.Text(order,"totalVnd","total_vnd")));
             foreach(Control control in actions.Controls.Cast<Control>().ToArray())control.Dispose();actions.Controls.Clear();var back=Ui.Button("← Quay lại",(_,_)=>Close());actions.Controls.Add(back);CancelButton=back;actions.Controls.Add(Ui.Button("Làm mới",async(_,_)=>await LoadAsync()));
             if(role is "owner" or "order_staff")
@@ -152,7 +170,7 @@ internal sealed class OrderDetailForm:Form
         {
             foreach(DataGridViewColumn column in grid.Columns)
             {
-                column.HeaderText=column.Name switch{"product_name"=>"Sản phẩm","line_no"=>"Dòng","line_type"=>"Loại dòng","unit_ordinal"=>"Món số","identifiers"=>"Serial / IMEI","options"=>"Biến thể","unit_price_vnd"=>"Đơn giá VND","voucher_discount_vnd"=>"Giảm voucher VND","points_discount_vnd"=>"Giảm điểm VND","net_amount_vnd"=>"Thành tiền VND","cash_planned_vnd"=>"Tiền cần thu VND","credit_planned_vnd"=>"Credit dự kiến VND","requested_amount_vnd"=>"Số tiền đối soát VND","tracking_no"=>"Vận đơn",_=>Ui.DisplayName(column.Name)};
+                column.HeaderText=column.Name switch{"product_name"=>"Sản phẩm","line_no"=>"Dòng","line_type"=>"Loại dòng","unit_ordinal"=>"Món số","identifiers"=>"Số máy / IMEI","options"=>"Biến thể","unit_price_vnd"=>"Đơn giá VND","voucher_discount_vnd"=>"Giảm bằng mã ưu đãi","points_discount_vnd"=>"Giảm điểm VND","net_amount_vnd"=>"Thành tiền VND","cash_planned_vnd"=>"Tiền cần thu VND","credit_planned_vnd"=>"Số dư dự kiến sử dụng","requested_amount_vnd"=>"Số tiền đối soát VND","tracking_no"=>"Vận đơn",_=>Ui.DisplayName(column.Name)};
                 column.MinimumWidth=column.Name=="product_name"?220:100;
             }
             var priority=kind=="items"?new[]{"product_name","sku","quantity","unit_price_vnd","net_amount_vnd"}:kind=="units"?new[]{"unit_ordinal","identifiers","net_amount_vnd","cash_planned_vnd","credit_planned_vnd"}:kind=="shipments"?new[]{"tracking_no","status","created_at"}:kind=="events"?new[]{"status","occurred_at","note","created_at"}:new[]{"method","status","requested_amount_vnd","amount_vnd","received_at","created_at"};

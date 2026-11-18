@@ -1,4 +1,6 @@
-# BotZone Admin — cập nhật 18/11/2026, vòng 4 đã kiểm hiển thị thật
+# BotZone Admin — cập nhật 18/11/2026
+
+Vòng hiện tại là **vòng 5**, tiếp tục từ bản vòng 4: cài đặt bằng minh họa chính sách, tổng quan/báo cáo bằng biểu đồ, thao tác trực tiếp và thuật ngữ dễ hiểu. Chi tiết thay đổi, phạm vi kiểm và cách chạy: [admin-ux-round5.md](admin-ux-round5.md). Các bằng chứng vòng 1–4 bên dưới là lịch sử, không thay cho kết quả bản mới.
 
 Nguồn thiết kế giữ nguyên tại `BotZone_Admin_Redesign_v1/`; không tạo bộ thiết kế thay thế. Phạm vi và tình trạng từng màn/action nằm ở `UI_REDESIGN_TRACKING.md` tại root. Bản sao source trước sửa: `backups/admin-redesign-source-20261117-152035/`.
 

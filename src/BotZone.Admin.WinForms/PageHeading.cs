@@ -6,7 +6,8 @@ internal sealed class PageHeading : Panel
 {
     private readonly Label title, subtitle;
     private readonly FlowLayoutPanel actions;
-    private bool arranging,layoutQueued;
+    private bool arranging,layoutQueued,hideDescription;
+    internal void CompactDescription(bool hidden){if(hideDescription==hidden)return;hideDescription=hidden;subtitle.Visible=!hidden&&!string.IsNullOrWhiteSpace(subtitle.Text);PerformLayout();Parent?.PerformLayout();}
     internal PageHeading(string heading,string description,Control[] commands)
     {
         Dock=DockStyle.Top;AutoSize=true;AutoSizeMode=AutoSizeMode.GrowAndShrink;Margin=new Padding(0,0,0,16);Height=80;DoubleBuffered=true;
@@ -22,7 +23,7 @@ internal sealed class PageHeading : Panel
         var compact=aw>0&&aw+Math.Min(naturalTitle,400*DeviceDpi/96)+gap>width;
         var tw=Math.Max(80,compact?width:width-aw-gap);
         var th=TextRenderer.MeasureText(title.Text,title.Font,new Size(tw,int.MaxValue),TextFormatFlags.WordBreak|TextFormatFlags.NoPrefix).Height;
-        var dh=string.IsNullOrWhiteSpace(subtitle.Text)?0:TextRenderer.MeasureText(subtitle.Text,subtitle.Font,new Size(tw,int.MaxValue),TextFormatFlags.WordBreak|TextFormatFlags.NoPrefix).Height;
+        var dh=hideDescription||string.IsNullOrWhiteSpace(subtitle.Text)?0:TextRenderer.MeasureText(subtitle.Text,subtitle.Font,new Size(tw,int.MaxValue),TextFormatFlags.WordBreak|TextFormatFlags.NoPrefix).Height;
         var ah=actions.Controls.Count==0?0:actions.GetPreferredSize(new Size(compact?width:aw,0)).Height;
         var textHeight=th+(dh>0?dh+(int)(6*DeviceDpi/96f):0);
         return (compact?textHeight+(ah>0?gap/2+ah:0):Math.Max(textHeight,ah),tw,th,dh,aw,ah,compact);

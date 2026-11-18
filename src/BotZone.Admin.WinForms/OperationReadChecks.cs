@@ -60,9 +60,7 @@ internal static class OperationReadChecks
             {
                 var row = sameProduct.Last(); var selected = (System.Data.DataRowView)row.DataBoundItem!;
                 grid.CurrentCell = row.Cells["sku"]; row.Selected = true;
-                var commands = Descendants(catalogue).OfType<ComboBox>().Single(x => x.AccessibleName == "Thao tác theo quyền");
-                for (var i = 0; i < commands.Items.Count; i++) if ((commands.Items[i] as Choice)?.Value == "update_variant") commands.SelectedIndex = i;
-                Descendants(catalogue).OfType<Button>().Single(x => x.Text == "Thực hiện").PerformClick();
+                Descendants(catalogue).OfType<Button>().Single(x => x.Name == "action_update_variant").PerformClick();
                 await Until(() => Application.OpenForms.OfType<NativeCommandForm>().Any(x=>x.Visible&&x.IsHandleCreated), "Variant edit form did not open.");
                 var command = Application.OpenForms.OfType<NativeCommandForm>().Single();
                 await Task.Delay(80,token);

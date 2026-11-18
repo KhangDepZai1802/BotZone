@@ -68,8 +68,8 @@ internal sealed class NativeCommandForm : Form
     }
     private static string SectionFor(ActionSpec action,FieldSpec field)=>action.Command switch
     {
-        "create_variant"=>field.Key is "color" or "storage" or "ram" or "size" or "connectivity"?"Cấu hình":field.Key is "standardWarrantyMonths" or "careFeeVnd"?"Bảo hành":"SKU & giá",
-        "create_product"=>field.Key is "generation" or "sourceUrl" or "poster"?"Thông số & ảnh":"Model",
+        "create_variant"=>field.Key is "color" or "storage" or "ram" or "size" or "connectivity"?"Thuộc tính phiên bản":field.Key is "standardWarrantyMonths" or "careFeeVnd"?"Bảo hành":"Phiên bản & giá",
+        "create_product"=>field.Key is "generation" or "sourceUrl" or "poster"?"Thông số & ảnh":"Mẫu sản phẩm",
         "create_promotion"=>field.Key is "targetKind" or "productId" or "variantId"?"Phạm vi":field.Key is "startsAt" or "endsAt" or "maxUses" or "maxUsesPerCustomer"?"Thời hạn & lượt":"Mức giảm",
         "update_settings" when action.Fields.Length>4=>field.Key is "shippingVnd" or "freeShippingVnd" or "returnDays"?"Giao hàng & trả hàng":"Điểm thưởng & lý do",
         _=>"Thông tin"
@@ -156,7 +156,7 @@ internal sealed class LinesEditor : UserControl
 {
     private readonly DataGridView grid = Ui.Grid();
     private readonly FieldKind kind;
-    private readonly TextBox scan=new(){Width=320,PlaceholderText="Quét hoặc nhập serial / IMEI…",AccessibleName="Quét serial vào dòng hàng đang chọn"};
+    private readonly TextBox scan=new(){Width=320,PlaceholderText="Quét hoặc nhập số máy / IMEI…",AccessibleName="Quét số máy vào dòng hàng đang chọn"};
     private readonly Label feedback=Ui.Label("Chọn dòng hàng trước khi nhập. Enter ghi nhận mã vào dòng, không gửi phiếu.");
     private readonly Dictionary<string,int> ordered=[];
     private readonly List<Choice> choices;
@@ -168,7 +168,7 @@ internal sealed class LinesEditor : UserControl
         var lookupRows=Ui.Rows(lookups,key).AsEnumerable();if(kind==FieldKind.ReceiptLines&&context.TryGetValue("purchaseId",out var purchaseId))lookupRows=lookupRows.Where(x=>Ui.Text(x,"purchaseOrderId","purchase_order_id")==purchaseId?.ToString());if(kind==FieldKind.QuoteLines&&context.TryGetValue("requestId",out var requestId))lookupRows=lookupRows.Where(x=>Ui.Text(x,"requestId","request_id")==requestId?.ToString());
         var items=lookupRows.ToList();choices = items.Select(x => new Choice(Ui.Text(x, "id"), Ui.Text(x, "name", "label", "sku", "internalCode"))).ToList();
         foreach(var item in items)if(int.TryParse(Ui.Text(item,"quantity"),out var quantity))ordered[Ui.Text(item,"id")]=quantity;
-        grid.Columns.Add(new BzGridComboBoxColumn { Name = "item", HeaderText = kind == FieldKind.PurchaseLines ? "SKU" : kind == FieldKind.ReceiptLines ? "SKU / dòng nhận" : "Món thu cũ", DataSource = choices, DisplayMember = nameof(Choice.Label), ValueMember = nameof(Choice.Value), MinimumWidth = 220,Width=240,Frozen=true,AutoSizeMode=DataGridViewAutoSizeColumnMode.None,DisplayStyle=DataGridViewComboBoxDisplayStyle.DropDownButton,FlatStyle=FlatStyle.Flat });
+        grid.Columns.Add(new BzGridComboBoxColumn { Name = "item", HeaderText = kind == FieldKind.PurchaseLines ? "Mã phiên bản" : kind == FieldKind.ReceiptLines ? "Mặt hàng cần nhận" : "Món thu cũ", DataSource = choices, DisplayMember = nameof(Choice.Label), ValueMember = nameof(Choice.Value), MinimumWidth = 220,Width=240,Frozen=true,AutoSizeMode=DataGridViewAutoSizeColumnMode.None,DisplayStyle=DataGridViewComboBoxDisplayStyle.DropDownButton,FlatStyle=FlatStyle.Flat });
         if(kind==FieldKind.ReceiptLines)grid.Columns.Add(new DataGridViewTextBoxColumn{Name="ordered",HeaderText="Đặt",Width=80,ReadOnly=true});
         if (kind != FieldKind.QuoteLines) grid.Columns.Add(new DataGridViewTextBoxColumn { Name = "quantity", HeaderText = kind==FieldKind.ReceiptLines?"Nhận lần này":"Số lượng", Width = 130 });
         grid.Columns.Add(new DataGridViewTextBoxColumn { Name = "value", HeaderText = kind == FieldKind.ReceiptLines ? "Serial (phân tách dấu phẩy)" : kind == FieldKind.QuoteLines ? "Giá thu VND" : "Giá vốn VND", MinimumWidth = 200 });
@@ -219,12 +219,12 @@ internal sealed class LinesEditor : UserControl
             row.ErrorText="";
             var errorCell="item";
             try{
-            if (row.IsNewRow) continue; var id = Convert.ToString(row.Cells["item"].Value) ?? ""; if (!Guid.TryParse(id, out _)) throw new InvalidOperationException("Mỗi dòng cần chọn một món/SKU hợp lệ.");
+            if (row.IsNewRow) continue; var id = Convert.ToString(row.Cells["item"].Value) ?? ""; if (!Guid.TryParse(id, out _)) throw new InvalidOperationException("Mỗi dòng cần chọn một mặt hàng hợp lệ.");
             var text = Convert.ToString(row.Cells["value"].Value)?.Trim() ?? "";
             if (kind == FieldKind.QuoteLines) { errorCell="value";if (!long.TryParse(text,NumberStyles.None,CultureInfo.InvariantCulture, out var price) || price <= 0) throw new InvalidOperationException("Giá thu phải là VND nguyên lớn hơn 0."); values.Add(new() { ["itemId"] = id, ["offeredVnd"] = price.ToString(CultureInfo.InvariantCulture) }); continue; }
             errorCell="quantity";
             if (!int.TryParse(Convert.ToString(row.Cells["quantity"].Value), out var quantity) || quantity <= 0) throw new InvalidOperationException("Số lượng từng dòng phải lớn hơn 0.");
-            if (kind == FieldKind.ReceiptLines) {errorCell="value";var codes=text.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);foreach(var code in codes)if(!serials.Add(code))throw new InvalidOperationException("Serial bị trùng trong phiếu: "+code);errorCell="quantity";if(ordered.TryGetValue(id,out var planned)&&quantity>planned)throw new InvalidOperationException("Nhận lần này không được vượt số lượng đặt. Phần đã nhận trước sẽ được kiểm tra khi xác nhận.");values.Add(new() { ["purchaseOrderItemId"] = id, ["quantity"] = quantity, ["serials"] = codes });}
+            if (kind == FieldKind.ReceiptLines) {errorCell="value";var codes=text.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);foreach(var code in codes)if(!serials.Add(code))throw new InvalidOperationException("Số máy bị trùng trong phiếu: "+code);errorCell="quantity";if(ordered.TryGetValue(id,out var planned)&&quantity>planned)throw new InvalidOperationException("Nhận lần này không được vượt số lượng đặt. Phần đã nhận trước sẽ được kiểm tra khi xác nhận.");values.Add(new() { ["purchaseOrderItemId"] = id, ["quantity"] = quantity, ["serials"] = codes });}
             else { errorCell="value";if (!long.TryParse(text,NumberStyles.None,CultureInfo.InvariantCulture, out var cost) || cost < 0) throw new InvalidOperationException("Giá vốn phải là VND nguyên không âm."); values.Add(new() { ["variantId"] = id, ["quantity"] = quantity, ["unitCostVnd"] = cost.ToString(CultureInfo.InvariantCulture) }); }
             }catch(Exception ex){row.ErrorText=ex.Message;grid.CurrentCell=row.Cells[errorCell];grid.Focus();feedback.Text=ex.Message;feedback.ForeColor=Ui.Danger;throw;}
         }

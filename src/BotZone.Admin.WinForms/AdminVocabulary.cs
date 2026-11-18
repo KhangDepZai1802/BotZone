@@ -1,0 +1,27 @@
+namespace BotZone.Admin.WinForms;
+
+internal static class AdminVocabulary
+{
+    private static string Key(string key)=>key.Replace("_","").ToLowerInvariant();
+    internal static string Field(string key)=>Fields.GetValueOrDefault(Key(key),key);
+    internal static string Value(string key,string value)
+    {
+        if(key is "id" or "key")return value switch{"commerce"=>"Giao hàng, trả hàng và điểm thưởng","exchangeRateVnd"=>"Tỷ giá hiển thị",_=>value};
+        if(Key(key) is "state" or "status" or "tier" or "conditionstatus" or "custodystatus" or "trackingmode" or "visibility" or "linetype" or "tenderkind" or "receptionmethod" or "discounttype")return Values.GetValueOrDefault(value,value);
+        return value;
+    }
+    private static readonly Dictionary<string,string> Fields=new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["shippingvnd"]="Phí giao hàng",["freeshippingvnd"]="Miễn phí giao từ",["returndays"]="Thời hạn trả hàng (ngày)",["pointspervnd"]="Số tiền tích 1 điểm",["pointvaluevnd"]="Giá trị mỗi điểm",["maxpointspercent"]="Mức đổi điểm tối đa (%)",["exchangeratevnd"]="Tỷ giá hiển thị",
+        ["productid"]="Mẫu sản phẩm liên quan",["variantid"]="Phiên bản bán liên quan",["purchaseid"]="Phiếu nhập liên quan",["supplierid"]="Nhà cung cấp liên quan",["trackingmode"]="Cách theo dõi hàng",["serial"]="Số máy",["serialno"]="Số máy",["imei"]="IMEI thiết bị",["trackingno"]="Mã vận đơn",["color"]="Màu sắc",["storage"]="Dung lượng",["ram"]="Bộ nhớ RAM",["size"]="Kích thước",["connectivity"]="Kết nối",["generation"]="Thế hệ sản phẩm",
+        ["description"]="Mô tả",["seotitle"]="Tiêu đề trên công cụ tìm kiếm",["contentstatus"]="Trạng thái nội dung",["locale"]="Ngôn ngữ",["poster"]="Ảnh đại diện",["model"]="Mô hình hiển thị",["modelcode"]="Mã mẫu sản phẩm",["path"]="Đường dẫn tệp",["storagepath"]="Vị trí tệp",["filename"]="Tên tệp",["originalname"]="Tên tệp ban đầu",["uploadedby"]="Người tải lên",["sha256"]="Mã kiểm tra tệp",
+        ["startsat"]="Bắt đầu",["endsat"]="Kết thúc",["expiresat"]="Hết hạn",["discounttype"]="Cách giảm giá",["maxdiscountvnd"]="Mức giảm tối đa",["minpurchasevnd"]="Giá trị hàng tối thiểu",["maxuses"]="Giới hạn lượt dùng",["maxusespercustomer"]="Giới hạn mỗi khách",["allproducts"]="Áp dụng mọi sản phẩm",["targets"]="Sản phẩm áp dụng",["discountvalue"]="Giá trị giảm",
+        ["netspendvnd"]="Chi tiêu sau điều chỉnh",["balancepoints"]="Điểm thưởng hiện có",["heldpoints"]="Điểm đang giữ",["heldcreditvnd"]="Số dư đang giữ",["creditvnd"]="Số dư mua hàng",["tier"]="Hạng khách hàng",["emailverified"]="Email đã xác minh",["firstname"]="Tên",["lastname"]="Họ",["ordercount"]="Số đơn hàng",["address"]="Địa chỉ",["recipientname"]="Người nhận",["province"]="Tỉnh / thành",["district"]="Quận / huyện",["ward"]="Phường / xã",["street"]="Số nhà, đường",["country"]="Quốc gia",["postalcode"]="Mã bưu chính",
+        ["available"]="Có thể bán",["reserved"]="Đang giữ cho đơn",["quarantine"]="Chờ kiểm tra",["quantitydelta"]="Số lượng chênh lệch",["damagedquantity"]="Số lượng hỏng",["returnedquantity"]="Số lượng đã trả",["requestedquantity"]="Số lượng yêu cầu",["receivedquantity"]="Số lượng đã nhận",["qtyreceived"]="Số lượng đã nhận",["quantityreceived"]="Số lượng đã nhận",
+        ["kind"]="Loại giao dịch",["deltapoints"]="Thay đổi điểm",["deltavnd"]="Thay đổi số dư",["eventkey"]="Mã sự kiện",["requestid"]="Yêu cầu liên quan",["requestkey"]="Mã yêu cầu",["correlationid"]="Mã liên kết thao tác",["useragent"]="Ứng dụng truy cập",["ipaddress"]="Địa chỉ truy cập",["metadata"]="Thông tin bổ sung",["payload"]="Thông tin gửi",["before"]="Trước thay đổi",["after"]="Sau thay đổi",["result"]="Kết quả",["rejectionreason"]="Lý do từ chối",["approvalreason"]="Lý do phê duyệt",["unitcostvnd"]="Giá vốn mỗi sản phẩm",["amountvnd"]="Số tiền",["claimid"]="Hồ sơ bảo hành",["quoteid"]="Báo giá liên quan",["quotedat"]="Ngày báo giá",["acceptedat"]="Ngày chấp nhận",["resolvedat"]="Ngày xử lý xong",["currency"]="Đơn vị tiền",["linetype"]="Loại mặt hàng",["tenderkind"]="Nguồn thanh toán"
+    };
+    private static readonly Dictionary<string,string> Values=new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["part_received"]="Đã nhận một phần",["new"]="Hàng mới",["opened"]="Đã mở hộp",["used"]="Đã sử dụng",["faulty"]="Hàng lỗi",["available"]="Có thể bán",["reserved"]="Đang giữ cho đơn",["quarantine"]="Chờ kiểm tra",["service"]="Đang bảo hành",["shipped"]="Đã xuất hàng",["disposed"]="Đã loại khỏi kho",["serialized"]="Theo từng thiết bị",["quantity"]="Theo số lượng",["public"]="Công khai",["private"]="Nội bộ",["standard"]="Thành viên",["bronze"]="Đồng",["silver"]="Bạc",["gold"]="Vàng",["platinum"]="Bạch kim",["diamond"]="Kim cương",["product"]="Sản phẩm",["warranty"]="Gói bảo hành",["shipping"]="Phí giao hàng",["cash_demo"]="Tiền mô phỏng",["store_credit"]="Số dư mua hàng",["fixed"]="Giảm số tiền",["percentage"]="Giảm phần trăm",["store"]="Tại cửa hàng",["remote"]="Gửi từ xa",["consumed"]="Đã sử dụng",["released"]="Đã trả lại",["processing"]="Đang xử lý",["unrepairable"]="Không sửa được",["approve_replace"]="Đã duyệt đổi máy",["reconciliation"]="Cần kiểm tra thanh toán",["cancelled"]="Đã hủy",["draft"]="Bản nháp",["pending"]="Chờ xử lý",["confirmed"]="Đã xác nhận",["handed_off"]="Đã bàn giao",["completed"]="Hoàn tất",["expired"]="Hết hạn",["active"]="Đang hoạt động",["inactive"]="Ngừng hoạt động"
+    };
+}
