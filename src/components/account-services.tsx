@@ -36,6 +36,7 @@ import { EvidenceUploader } from "./evidence-uploader";
 import { variantLabel } from "./product-labels";
 import { accountLabel } from "./account-labels";
 import { updateQueryUrl, useQueryParams } from "./url-state";
+import { EmailVerification } from "./email-verification";
 type AccountData = {
   creditVnd: string;
   points: number;
@@ -48,6 +49,7 @@ type AccountData = {
   claims: Row[];
   addresses: Row[];
   notifications: Row[];
+  invoices: Row[];
   profile?: Row;
   wishlist?: string[];
 };
@@ -115,6 +117,7 @@ export function Account() {
     ["returns", "Trả hàng", "Returns"],
     ["warranty", "Bảo hành", "Warranty"],
     ["profile", "Hồ sơ & địa chỉ", "Profile & addresses"],
+    ["invoices", "Hóa đơn", "Invoices"],
     ["notifications", "Thông báo", "Notifications"],
   ];
   const requestedTab = params.get("tab");
@@ -156,6 +159,7 @@ export function Account() {
             </Button>
           </div>
         </div>
+        <EmailVerification />
         {error && <ErrorState message={error} />}{" "}
         {data.error ? (
           <ErrorState message={data.error} retry={data.refresh} />
@@ -284,6 +288,14 @@ export function Account() {
                     </div>
                   </div>
                 )}
+                {tab === "invoices" && <div className="panel stack">
+                  <h2>{s.tr("Hóa đơn của bạn", "Your invoices")}</h2>
+                  <p>{s.tr("Hóa đơn được phát hành khi đơn hàng bàn giao vận chuyển. Mở hóa đơn để tải PDF hoặc Excel.", "Invoices are issued when orders are handed to the carrier. Open an invoice to download PDF or Excel.")}</p>
+                  {a.invoices?.length ? a.invoices.map(invoice => <Link className="order-card" key={str(invoice, "id")} href={`/${s.locale}/invoices/${str(invoice, "id")}`}>
+                    <div><h3>{str(invoice, "invoice_no")}</h3><p>{str(invoice, "order_no")} · {date(str(invoice, "issued_at"), s.locale)}</p></div>
+                    <div className="actions"><Money value={moneyValue(invoice, "grand_total_vnd")} /><ArrowRight size={17} aria-hidden /></div>
+                  </Link>) : <Empty title={s.tr("Chưa có hóa đơn được phát hành", "No issued invoices yet")}><Link className="text-link" href={`/${s.locale}/orders`}>{s.tr("Theo dõi đơn hàng", "Track your orders")}<ArrowRight size={16} /></Link></Empty>}
+                </div>}
                 {tab === "credit" && (
                   <div className="stack">
                     <Ledger

@@ -47,6 +47,22 @@ Mặc định chạy Next dev; thêm `-Production` để build rồi chạy Next
 
 Truy cập storefront tại [localhost:3000/vi](http://localhost:3000/vi), hộp thư tại [localhost:8025](http://localhost:8025). WinForms mặc định gọi `http://localhost:5080`; có ô sửa URL ở màn đăng nhập.
 
+## Đặt hàng, hồ sơ khách hàng và hóa đơn
+
+- Khách chưa đăng nhập bấm **Tiến hành thanh toán** sẽ được chuyển đến đăng nhập và quay lại checkout sau khi đăng nhập thành công. Truy cập trực tiếp checkout cũng áp dụng luồng này.
+- Tài khoản cần xác minh email trước khi xác nhận đặt hàng. Checkout và trang tài khoản có nút **Gửi email xác minh** và **Tôi đã xác minh — kiểm tra lại**. Trong môi trường local, mở liên kết nhận được trong Mailpit tại cổng `8025`.
+- Thông tin giao hàng, phương thức thanh toán, điểm và số dư đang nhập được lưu nháp trên trình duyệt theo từng tài khoản. Tải lại trang vẫn giữ thông tin; giá và tồn kho được tính lại khi rà soát đơn hàng. Nháp được xóa sau khi đặt hàng thành công.
+- Checkout lấy địa chỉ đã lưu từ hồ sơ. Tùy chọn **Lưu địa chỉ giao hàng vào hồ sơ khách hàng** lưu địa chỉ cùng giao dịch đặt hàng, không tạo bản sao địa chỉ giống hệt; địa chỉ đầu tiên là mặc định. Số điện thoại còn trống trong hồ sơ được bổ sung, tên tài khoản hiện có được giữ nguyên.
+- Hóa đơn được phát hành khi nhân viên kho bàn giao đơn hàng. Khách mở từ chi tiết đơn hàng hoặc **Tài khoản → Hóa đơn**, bấm **Tạo XLSX & PDF**, rồi tải định dạng muốn dùng. Đây là chứng từ bán hàng mô phỏng của đồ án.
+
+Kiểm tra hồi quy luồng checkout trên dịch vụ local đang chạy:
+
+```powershell
+node tests/web/checkout-recovery-live.mjs
+```
+
+Bài kiểm tra tạo tài khoản và đơn demo, kiểm tra xác minh email, tải lại biểu mẫu, thử lại sau mất phản hồi mà không tạo trùng đơn, lưu hồ sơ và tải PDF/XLSX. Đơn còn chờ được hủy khi kết thúc; kết quả và ảnh chụp nằm trong `artifacts/web/`.
+
 ## Migration và seed có chủ đích
 
 EF Core là cơ chế migration đang hoạt động. Source/migration Node cũ được giữ để tham chiếu và không thuộc runtime. Không chạy script cũ trong `legacy/`, `scripts/*.ts`, `src/server` hoặc `src/db` để thay đổi database.

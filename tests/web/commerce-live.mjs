@@ -8,7 +8,7 @@ try{
  const customer=await client('customer@botzone.local');actors.push(customer);const catalogue=await customer.get('/api/catalogue?locale=en');const product=catalogue.products.find(p=>p.slug==='ap2');assert.ok(product);
  await customer.command('save_cart',{items:[{variantId:product.variants[0].id,quantity:1,care:false}],promotionCode:''});
  await page.goto(base+'/en/products/ap2',{waitUntil:'networkidle'});await page.getByRole('button',{name:'Add to bag',exact:true}).click();
- await page.goto(base+'/en/checkout',{waitUntil:'networkidle'});await page.getByRole('link',{name:'Sign in / Create account',exact:true}).click();
+ await page.goto(base+'/en/checkout',{waitUntil:'networkidle'});await page.waitForURL('**/en/login?next=*');
  await page.getByLabel('Email',{exact:true}).fill('customer@botzone.local');await page.getByLabel('Password',{exact:true}).fill('BotZoneDemo!2026');await page.locator('form').getByRole('button',{name:'Sign in',exact:true}).click();await page.waitForURL('**/en/checkout');
  await page.getByLabel('Recipient',{exact:true}).fill('BotZone Browser Test');await page.getByLabel('Phone number',{exact:true}).fill('0901234567');await page.getByLabel('Province / City',{exact:true}).fill('Thành phố Hồ Chí Minh');await page.getByLabel('Ward',{exact:true}).fill('Bến Thành');await page.getByLabel('Street address',{exact:true}).fill('123 Demo Street');
  const merged=await customer.get('/api/cart');assert.equal(merged.items.find(x=>x.variantId===product.variants[0].id).quantity,1);results.push('Guest/cart merge uses maximum quantity without duplication');

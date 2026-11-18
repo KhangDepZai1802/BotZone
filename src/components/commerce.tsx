@@ -32,6 +32,8 @@ import {
 } from "./ui";
 import { date, moneyValue, row, rows, str, type Row } from "./records";
 import { EvidenceUploader } from "./evidence-uploader";
+import { checkoutDraftKey, checkoutLoginHref, checkoutRequestKey, emptyAddress, pendingCheckout, readCheckoutDraft, savedAddress } from "./checkout-state";
+import { EmailVerification } from "./email-verification";
 
 function paymentLabel(value: string, locale: Locale) {
   const labels: Record<string, [string, string]> = {
@@ -166,18 +168,30 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [method, setMethod] = useState<PaymentMethod>("cod"),
-    [address, setAddress] = useState<Address>({
-      recipient: "",
-      phone: "",
-      province: "",
-      ward: "",
-      addressLine: "",
-      country: "VN",
-    }),
+    [address, setAddress] = useState<Address>(emptyAddress),
+    [saveAddress, setSaveAddress] = useState(true),
+    [draftOwner, setDraftOwner] = useState(""),
     [review, setReview] = useState(false);
+  const account = useResource<{ profile?: Row; addresses: Row[] }>(checkout && s.actor?.role === "customer" ? "/api/account" : null);
+  const submitting = useRef(false), completed = useRef(false);
+  useEffect(() => {
+    if (checkout && !s.sessionLoading && !s.actor) router.replace(checkoutLoginHref(s.locale));
+  }, [checkout, s.sessionLoading, s.actor, s.locale, router]);
+  useEffect(() => {
+    if (!checkout || !s.actor || draftOwner === s.actor.id || (!account.data && !account.error)) return;
+    let draft = null;
+    try { draft = readCheckoutDraft(localStorage.getItem(checkoutDraftKey(s.actor.id))); } catch {}
+    const initial = account.data?.addresses[0];
+    setAddress(draft?.address ?? (initial ? savedAddress(initial) : { ...emptyAddress(), recipient: s.actor.name, phone: str(account.data?.profile, "phone") }));
+    setMethod(draft?.method ?? "cod"); setPoints(draft?.points ?? "0"); setCredit(draft?.credit ?? "0");
+    setSaveAddress(draft?.saveAddress ?? true); setDraftOwner(s.actor.id);
+  }, [checkout, s.actor, account.data, account.error, draftOwner]);
+  useEffect(() => {
+    if (!checkout || !s.actor || draftOwner !== s.actor.id || completed.current) return;
+    try { localStorage.setItem(checkoutDraftKey(s.actor.id), JSON.stringify({ address, method, points, credit, saveAddress })); } catch {}
+  }, [checkout, s.actor?.id, draftOwner, address, method, points, credit, saveAddress]);
   useEffect(() => { setError(""); }, [s.locale]);
-  const requestKey = useRef(""),
-    payload = JSON.stringify({
+  const payload = JSON.stringify({
       items: s.cart,
       promotionCode: s.promotionCode,
       points,
@@ -186,12 +200,10 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
   useEffect(() => {
     setQuote(null);
     setReview(false);
-    requestKey.current = "";
   }, [payload]);
   useEffect(() => {
-    requestKey.current = "";
     setReview(false);
-  }, [address, method]);
+  }, [address, method, saveAddress]);
   const find = (id: string) => {
     for (const p of s.products) {
       const v = p.variants.find((x) => x.id === id);
@@ -200,6 +212,7 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
     return null;
   };
   async function price() {
+    if (!s.actor) { router.push(checkoutLoginHref(s.locale)); return null; }
     setBusy(true);
     setError("");
     try {
@@ -207,7 +220,7 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
         items: s.cart,
         promotionCode: s.promotionCode,
         points: Number(points),
-        creditVnd: credit,
+        creditVnd: credit || "0",
       });
       setQuote(data);
       if (s.actor)
@@ -224,34 +237,40 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
     }
   }
   async function place() {
-    if (!quote || !s.actor) return;
+    if (!quote || !s.actor?.verified || !review || submitting.current) return;
+    submitting.current = true;
     setBusy(true);
     setError("");
     try {
-      if (!requestKey.current) requestKey.current = crypto.randomUUID();
+      const input = {
+        items: s.cart, promotionCode: s.promotionCode, points: quote.pointsUsed,
+        creditVnd: quote.creditVnd, quoteHash: quote.quoteHash, address, method, saveAddress,
+      };
+      let pending = null;
+      try { pending = pendingCheckout(localStorage.getItem(checkoutRequestKey(s.actor.id)), input); } catch {}
+      const request = pending ?? { key: crypto.randomUUID(), input };
+      try { localStorage.setItem(checkoutRequestKey(s.actor.id), JSON.stringify(request)); } catch {}
       const result = await command<{ orderId: string; orderNo: string }>(
         "place_order",
-        {
-          items: s.cart,
-          promotionCode: s.promotionCode,
-          points: quote.pointsUsed,
-          creditVnd: quote.creditVnd,
-          quoteHash: quote.quoteHash,
-          address,
-          method,
-        },
-        requestKey.current,
+        request.input,
+        request.key,
       );
+      completed.current = true;
+      try { localStorage.removeItem(checkoutDraftKey(s.actor.id)); localStorage.removeItem(checkoutRequestKey(s.actor.id)); } catch {}
       s.setCart([]);
       s.setPromotionCode("");
       router.push(`/${s.locale}/orders/${result.orderId}`);
     } catch (e) {
       setError((e as Error).message);
+      const failure = e as Error & { code?: string; status?: number };
+      if (failure.code === "QUOTE_CHANGED" || failure.code === "STOCK_CONFLICT") { setQuote(null); setReview(false); }
+      if (failure.status === 401) { await s.refreshSession(); router.replace(checkoutLoginHref(s.locale)); }
     } finally {
+      submitting.current = false;
       setBusy(false);
     }
   }
-  if (s.catalogueLoading)
+  if (s.catalogueLoading || (checkout && (s.sessionLoading || !s.actor || (s.actor.role === "customer" && draftOwner !== s.actor.id))))
     return <Busy text={s.tr("Đang tải giỏ hàng…", "Loading your bag…")} />;
   return (
     <div className="page-wrap">
@@ -452,6 +471,8 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
                 )}
               </div>
             </div>
+            {checkout && <EmailVerification checkout />}
+            {checkout && account.error && <ErrorState message={account.error} retry={account.refresh} />}
             {checkout &&
               (!s.actor ? (
                 <div className="notice">
@@ -481,6 +502,15 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
                   }}
                 >
                   <h3>{s.tr("Thông tin giao hàng", "Delivery details")}</h3>
+                  {!!account.data?.addresses.length && <Field label={s.tr("Địa chỉ đã lưu", "Saved address")}>
+                    <Select disabled={busy} value={str(account.data.addresses.find(item => JSON.stringify(savedAddress(item)) === JSON.stringify(address)), "id")} onChange={e => {
+                      const item = account.data?.addresses.find(item => str(item, "id") === e.target.value);
+                      setAddress(item ? savedAddress(item) : { ...emptyAddress(), recipient: s.actor?.name ?? "", phone: str(account.data?.profile, "phone") });
+                    }}>
+                      <option value="">{s.tr("Nhập địa chỉ khác", "Use another address")}</option>
+                      {account.data.addresses.map(item => <option key={str(item, "id")} value={str(item, "id")}>{str(item, "recipient")} · {str(item, "addressLine", "address_line")}</option>)}
+                    </Select>
+                  </Field>}
                   <div className="form-grid">
                     {(
                       [
@@ -494,6 +524,10 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
                       <Field key={key} label={s.tr(vi, en)}>
                         <Input
                           required
+                          disabled={busy}
+                          minLength={2}
+                          maxLength={key === "phone" ? 20 : 300}
+                          pattern={key === "phone" ? "\\+?[0-9][0-9 .\\(\\)\\-]{8,19}" : undefined}
                           type={key === "phone" ? "tel" : "text"}
                           autoComplete={
                             key === "recipient"
@@ -523,6 +557,7 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
                     )}
                   >
                     <Select
+                      disabled={busy}
                       value={method}
                       onChange={(e) => {
                         setMethod(e.target.value as PaymentMethod);
@@ -542,6 +577,7 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
                       <option value="visa">Visa · {s.tr("Mô phỏng", "Demo")}</option>
                     </Select>
                   </Field>
+                  <label className="checkbox-row"><input type="checkbox" checked={saveAddress} disabled={busy} onChange={e => setSaveAddress(e.target.checked)} />{s.tr("Lưu địa chỉ giao hàng vào hồ sơ khách hàng", "Save delivery address to my profile")}</label>
                   <div className="notice">
                     <ShieldCheck />
                     <span>
@@ -635,14 +671,7 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
                       ? s.tr("Đang đặt hàng…", "Placing order…")
                       : s.tr("Xác nhận đặt hàng", "Confirm order")}
                   </Button>
-                  {!s.actor.verified && (
-                    <p className="help-text">
-                      {s.tr(
-                        "Xác minh email trước khi đặt hàng.",
-                        "Verify your email before placing an order.",
-                      )}
-                    </p>
-                  )}
+                  {!s.actor.verified && <p className="help-text">{s.tr("Dùng mục Xác minh email phía trên để mở khóa xác nhận đặt hàng.", "Use Email verification above to enable order confirmation.")}</p>}
                 </>
               ) : (
                 <p className="help-text" style={{ marginTop: 20 }}>
@@ -655,7 +684,7 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
             ) : (
               <Link
                 className="button button-primary"
-                href={`/${s.locale}/checkout`}
+                href={s.actor ? `/${s.locale}/checkout` : checkoutLoginHref(s.locale)}
               >
                 {s.tr("Tiến hành thanh toán", "Proceed to checkout")}
                 <ArrowRight />
@@ -879,6 +908,7 @@ export function OrderDetail({ id }: { id: string }) {
                   </Button>
                 </div>
               </div>
+              {status === "pending" && <div className="notice success" role="status"><Check aria-hidden /><p>{s.tr("Đặt hàng thành công. BotZone đã tiếp nhận đơn của bạn. Bạn có thể theo dõi trạng thái tại đây.", "Order placed successfully. BotZone has received your order. Track its progress here.")}</p></div>}
               <div className={`two-column ${commerceStyles.detailColumns}`}>
                 <div className="stack">
                   <div className="panel">
@@ -921,6 +951,7 @@ export function OrderDetail({ id }: { id: string }) {
                       </p>
                     )}
                   </div>
+                  {!d.invoice && !["cancelled", "expired"].includes(status) && <div className="panel"><h3>{s.tr("Hóa đơn của bạn", "Your invoice")}</h3><p>{s.tr("Hóa đơn sẽ có tại đây khi đơn hàng được bàn giao vận chuyển. Khi phát hành, bạn có thể xem và tải PDF hoặc Excel.", "Your invoice will appear here after the order is handed to the carrier. Once issued, you can view it and download PDF or Excel.")}</p></div>}
                   {d.invoice && (
                     <div className="panel row">
                       <div>
@@ -1349,7 +1380,7 @@ export function InvoiceDetail({ id }: { id: string }) {
           </div>
           <Button disabled={busy || !inv} onClick={() => void createExport()}>
             <Download />
-            {s.tr("Tạo XLSX & PDF", "Create XLSX & PDF")}
+            {busy ? s.tr("Đang tạo tệp…", "Preparing files…") : s.tr("Tạo XLSX & PDF", "Create XLSX & PDF")}
           </Button>
         </div>
         {data.error ? (

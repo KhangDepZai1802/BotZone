@@ -41,6 +41,21 @@ public static class AuthEndpoints
   app.MapPost("/api/auth/login",CustomerAuthentication.Login);
   app.MapPost("/api/auth/logout",async(HttpContext c,BotZoneDbContext db)=>{if(Guid.TryParse(c.User.FindFirstValue("sid"),out var sid))await db.AuthSessions.Where(x=>x.Id==sid).ExecuteUpdateAsync(s=>s.SetProperty(x=>x.RevokedAt,DateTime.UtcNow));await c.SignOutAsync(Scheme);return Results.Ok(new{loggedOut=true});});
   app.MapPost("/api/auth/register",CustomerAuthentication.Register);
+  app.MapPost("/api/auth/resend-verification",async(JsonElement input,HttpContext c,UserManager<User> users,SqlStore sql,IConfiguration config)=>{
+   var actor=Actor(c);Access.Require(actor,"customer");
+   var user=await users.FindByIdAsync(actor.Id)??throw new BusinessException("UNAUTHENTICATED","Phiên đã hết hạn.",401);
+   if(user.EmailConfirmed)return Results.Ok(new{verified=true});
+   await sql.Transaction<object>(actor,async()=>{
+    var recent=await sql.Optional("SELECT id FROM outbox_events WHERE type='email' AND event_key LIKE 'verify-resend:%' AND payload->>'to'=$1 AND created_at>now()-interval '60 seconds' LIMIT 1",user.Email);
+    if(recent is null){
+     var locale=ApiLocalization.Locale(c);var next=input.Text("next",$"/{locale}/account");
+     var path=next==$"/{locale}/checkout"?next:$"/{locale}/account";
+     var token=await users.GenerateEmailConfirmationTokenAsync(user);
+     await sql.Exec("INSERT INTO outbox_events(event_key,type,payload) VALUES($1,'email',$2::jsonb)","verify-resend:"+Guid.NewGuid(),Values.Json(new{to=user.Email,subject=locale=="en"?"Verify your BotZone email":"Xác minh email BotZone",text=$"{config["StorefrontUrl"]??"http://localhost:3000"}/{locale}/verify-email?userId={Uri.EscapeDataString(user.Id)}&token={Encode(token)}&next={Uri.EscapeDataString(path)}"}));
+    }
+    return new{sent=true};
+   });return Results.Ok(new{sent=true});
+  });
   app.MapPost("/api/auth/verify-email",async(JsonElement input,UserManager<User> users)=>{var user=await users.FindByIdAsync(input.Text("userId"))??throw new BusinessException("TOKEN_INVALID","Token không hợp lệ.",400);Access.Ensure(!user.EmailConfirmed,"TOKEN_USED","Email đã được xác minh.",409);Check(await users.ConfirmEmailAsync(user,Decode(input.Text("token"))));return Results.Ok(new{verified=true});});
   app.MapPost("/api/auth/forgot-password",async(JsonElement input,HttpContext c,UserManager<User> users,SqlStore sql,IConfiguration config)=>{var user=await users.FindByEmailAsync(input.Text("email").Trim());if(user is not null)await Mail(sql,user,"reset-password",await users.GeneratePasswordResetTokenAsync(user),config,ApiLocalization.Locale(c));return Results.Ok(new{sent=true});});
   app.MapPost("/api/auth/reset-password",async(JsonElement input,UserManager<User> users,BotZoneDbContext db,SqlStore sql)=>{var user=await users.FindByIdAsync(input.Text("userId"))??throw new BusinessException("TOKEN_INVALID","Token không hợp lệ.",400);return await sql.Transaction<object>(null,async()=>{Check(await users.ResetPasswordAsync(user,Decode(input.Text("token")),input.Text("password",input.Text("newPassword",""))));user.PasswordResetRequired=false;Check(await users.UpdateAsync(user));await Revoke(db,user.Id);return new{reset=true,sessionsRevoked=true};});});
