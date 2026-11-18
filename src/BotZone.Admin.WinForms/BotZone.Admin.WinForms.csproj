@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <SelfContained>false</SelfContained>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <ApplicationDefaultFont>Segoe UI, 10.5pt</ApplicationDefaultFont>
+    <ApplicationIcon>../../public/brand/botzone.ico</ApplicationIcon>
+    <RootNamespace>BotZone.Admin.WinForms</RootNamespace>
+    <AssemblyName>BotZone.Admin.WinForms</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../BotZone.Contracts/BotZone.Contracts.csproj" /></ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="../../public/brand/botzone-logo.png" LogicalName="BotZone.Brand.Logo.png" />
+    <EmbeddedResource Include="../../public/brand/botzone-icon.png" LogicalName="BotZone.Brand.Icon.png" />
+    <EmbeddedResource Include="../../public/brand/botzone.ico" LogicalName="BotZone.Brand.App.ico" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,85 @@
+{
+  "checkedAt": "2026-11-13T08:44:11.5170913+00:00",
+  "database": "botzone_baseline_test_20261113135743_c0d401c6",
+  "readOnly": true,
+  "sets": [
+    {
+      "columns": [
+        "code_normalized",
+        "version_no",
+        "status",
+        "redemption_count",
+        "allocated_discount_vnd"
+      ],
+      "rowCount": 1
+    },
+    {
+      "columns": [
+        "invoice_count",
+        "total_vnd"
+      ],
+      "rowCount": 1
+    },
+    {
+      "columns": [
+        "invoice_no",
+        "grand_total_vnd",
+        "adjustments_vnd",
+        "net_vnd"
+      ],
+      "rowCount": 8
+    },
+    {
+      "columns": [
+        "period",
+        "total_vnd"
+      ],
+      "rowCount": 36
+    },
+    {
+      "columns": [
+        "responsible_staff_id",
+        "total_vnd"
+      ],
+      "rowCount": 3
+    },
+    {
+      "columns": [
+        "line_type",
+        "model_code",
+        "total_vnd"
+      ],
+      "rowCount": 5
+    },
+    {
+      "columns": [
+        "invoice_no",
+        "grand_total_vnd"
+      ],
+      "rowCount": 3
+    },
+    {
+      "columns": [
+        "id",
+        "read_at",
+        "row_count",
+        "total_vnd",
+        "status",
+        "dataset_checksum",
+        "xlsx_checksum",
+        "pdf_checksum"
+      ],
+      "rowCount": 5
+    },
+    {
+      "columns": [
+        "credit_note_no",
+        "invoice_no",
+        "invoice_date",
+        "adjustment_date",
+        "total_vnd"
+      ],
+      "rowCount": 2
+    }
+  ]
+}

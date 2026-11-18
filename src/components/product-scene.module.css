@@ -1,0 +1,61 @@
+.scene { touch-action: pan-y; }
+.explore { isolation: isolate; }
+.explore::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 38%, #383f49 0%, #22272f 48%, #16191f 100%);
+  opacity: 0;
+  transition: opacity 650ms cubic-bezier(.22, 1, .36, 1);
+}
+.explore[data-backdrop="dark"]::before { opacity: 1; }
+.dialog:global(.modal-content) {
+  width: calc(100% - 24px);
+  max-width: 980px;
+  height: min(720px, calc(100dvh - 24px));
+  max-height: calc(100dvh - 24px);
+  padding: 18px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+}
+.dialog :global(.modal-heading) { margin-bottom: 14px; }
+.dialog .explore { height: auto; min-height: 0; }
+.dialog .controls {
+  display: grid;
+  grid-template-areas: "paint" "sliders" "actions";
+  grid-template-columns: minmax(0, 1fr);
+  align-items: end;
+  gap: 10px;
+  padding-top: 16px;
+}
+.paintRow { grid-area: paint; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; min-height: 44px; }
+.sliders { grid-area: sliders; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; min-width: 0; }
+.sliders[data-duo="false"] { grid-template-columns: minmax(0, 1fr); }
+.controls .slider { display: grid; grid-template-rows: auto 44px; min-width: 0; gap: 2px; margin: 0; }
+.sliderLabel { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; min-width: 0; font-size: 11px; line-height: 18px; }
+.sliderLabel>span,.sliderLabel output { white-space: nowrap; }
+.sliderLabel output { min-width: 4ch; text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; color: #65656b; }
+.controls input[type="range"] { width: 100%; min-width: 0; height: 44px; min-height: 44px; margin: 0; accent-color: #755363; }
+.controlActions { grid-area: actions; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-width: 0; }
+.controls[data-duo="false"] .controlActions { justify-content: flex-end; }
+.dialog .controls :global(.button) { min-height: 44px; padding: 10px 12px; font-size: 11px; }
+.sideToggle,.reset { white-space: nowrap; }
+.controls button[aria-pressed="true"] { outline: 2px solid currentColor; outline-offset: 3px; }
+@media (min-width: 768px) {
+  .dialog:global(.modal-content) { width: calc(100% - 40px); height: min(720px, calc(100dvh - 32px)); max-height: calc(100dvh - 32px); padding: 22px; }
+  .dialog .controls { grid-template-areas: "paint sliders" "actions actions"; grid-template-columns: minmax(175px, 1fr) minmax(270px, 1.5fr); gap: 10px 20px; }
+  .controlActions { justify-content: flex-end; }
+  .paintRow { flex-wrap: nowrap; gap: 8px; }
+  .paintRow :global(.swatches) { gap: 7px; }
+  .paintRow :global(.swatch) { width: 27px; height: 27px; }
+  .dialog .controls[data-duo="false"] { grid-template-areas: "paint sliders actions"; grid-template-columns: minmax(175px, 1fr) minmax(140px, 220px) auto; }
+}
+@media (min-width: 1000px) {
+  .dialog .controls { grid-template-areas: "paint sliders actions"; grid-template-columns: minmax(180px, 1fr) minmax(270px, 1.5fr) auto; gap: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .explore::before { transition: none; }
+}

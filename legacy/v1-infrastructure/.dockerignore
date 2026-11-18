@@ -1,0 +1,16 @@
+node_modules
+.next
+.git
+.env
+.env.local
+.env.*.local
+uploads
+backups
+test-results
+playwright-report
+*.log
+.codex
+.agents
+.aws
+.npm-cache
+.cache

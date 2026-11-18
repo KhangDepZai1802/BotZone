@@ -1,0 +1,516 @@
+{
+  "database": "botzone",
+  "checkedAt": "2026-11-13T08:25:43.0592748+00:00",
+  "readOnly": true,
+  "tableCount": 100,
+  "tables": {
+    "__EFMigrationsHistory": {
+      "row_count": 5,
+      "content_md5": "26a7257c0d843bbb488756d3fc057f8d"
+    },
+    "account": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "addresses": {
+      "row_count": 2,
+      "content_md5": "87e7b602048b7382052d75e9c8085d68"
+    },
+    "app_settings": {
+      "row_count": 6,
+      "content_md5": "1c22ac41deb1e97e1be7b0f1b578262c"
+    },
+    "attribute_definitions": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "audit_events": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "auth_sessions": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "benefit_holds": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "cart_items": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "carts": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "categories": {
+      "row_count": 9,
+      "content_md5": "407dc21cfebfbfe6d706dbaf7005d745"
+    },
+    "credit_note_item_units": {
+      "row_count": 2,
+      "content_md5": "bae74f3865be4a350fed1902ddfb45f1"
+    },
+    "credit_note_items": {
+      "row_count": 2,
+      "content_md5": "07b073d5ebefc9e531e55ca3c51be05f"
+    },
+    "credit_notes": {
+      "row_count": 2,
+      "content_md5": "5c47f5a5433f70b2f39d617ca1c3287e"
+    },
+    "customer_profiles": {
+      "row_count": 2,
+      "content_md5": "06604f92adaaa4f367c4363c661f3300"
+    },
+    "goods_receipt_items": {
+      "row_count": 35,
+      "content_md5": "89a7c16e0766e775ed2bf6b384298d17"
+    },
+    "goods_receipts": {
+      "row_count": 2,
+      "content_md5": "14381a7a5bf730efbe63725abd7f0c2b"
+    },
+    "idempotency_records": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "identity_role_claims": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "identity_roles": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "identity_user_claims": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "identity_user_logins": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "identity_user_roles": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "identity_user_tokens": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "inventory_allocations": {
+      "row_count": 14,
+      "content_md5": "dbfecf21408f73de7e4d35987871d159"
+    },
+    "inventory_identifiers": {
+      "row_count": 196,
+      "content_md5": "6909afa67b0823e3cea4261591e6c4a2"
+    },
+    "inventory_lots": {
+      "row_count": 35,
+      "content_md5": "0c77164b2d2c5dee0e531d9668e417a7"
+    },
+    "inventory_quarantine": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "inventory_reservations": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "inventory_units": {
+      "row_count": 196,
+      "content_md5": "5033c02801b397bff27764d7fa28339b"
+    },
+    "invoice_exports": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "invoice_items": {
+      "row_count": 16,
+      "content_md5": "5b63e9664d85f7f61f4ce08eb4227c4b"
+    },
+    "invoices": {
+      "row_count": 9,
+      "content_md5": "c33800f7b81ec2a523a39ad93640c5dd"
+    },
+    "landing_drafts": {
+      "row_count": 1,
+      "content_md5": "8e8c2dc97537d57610faf169f11f5242"
+    },
+    "landing_media_refs": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "landing_pages": {
+      "row_count": 1,
+      "content_md5": "ebc9a368387e86d5565576ff5e76b316"
+    },
+    "landing_preview_grants": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "landing_publications": {
+      "row_count": 1,
+      "content_md5": "3dfaae550655bfac981892f55f507fcf"
+    },
+    "landing_versions": {
+      "row_count": 1,
+      "content_md5": "26393682be26271cca294ff5c881b625"
+    },
+    "loyalty_accounts": {
+      "row_count": 2,
+      "content_md5": "c6b2ec48b88a041dfdbc0ffa1cb0e657"
+    },
+    "loyalty_entries": {
+      "row_count": 1,
+      "content_md5": "91cf6d99aac33a6fa6b1cd18eed93db2"
+    },
+    "media_assets": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "notifications": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "order_adjustments": {
+      "row_count": 1,
+      "content_md5": "5fb1e35e52b9b32fa03ea2c6fb049963"
+    },
+    "order_item_unit_amounts": {
+      "row_count": 20,
+      "content_md5": "b47ea8dbb6bf3a249f0ae939eabb58ff"
+    },
+    "order_items": {
+      "row_count": 17,
+      "content_md5": "c39e6a44a03d2ec20fa70da5e414c217"
+    },
+    "order_tender_allocations": {
+      "row_count": 20,
+      "content_md5": "24344e846975bc8c8cb5c5c9acff7901"
+    },
+    "orders": {
+      "row_count": 10,
+      "content_md5": "27cbf855ab64895f38729dbfd6276ae3"
+    },
+    "outbox_events": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "payment_attempts": {
+      "row_count": 9,
+      "content_md5": "82b65ba074acf8c6ff290a33852848c3"
+    },
+    "payment_events": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "payment_receipts": {
+      "row_count": 8,
+      "content_md5": "9beee87acc96bcecd81523ede1f4d69b"
+    },
+    "product_attribute_values": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "product_compatibilities": {
+      "row_count": 17,
+      "content_md5": "34f60ec7f8ee3ed9b97ba86bfec60218"
+    },
+    "product_media": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "product_translations": {
+      "row_count": 70,
+      "content_md5": "4898ff5730e295275a5f121775c44472"
+    },
+    "product_variants": {
+      "row_count": 37,
+      "content_md5": "603359da2bdccba2a7d60587ac73b1fb"
+    },
+    "products": {
+      "row_count": 35,
+      "content_md5": "d44317ce08e95c692ff3e7fc6eb86b68"
+    },
+    "promotion_redemptions": {
+      "row_count": 1,
+      "content_md5": "924a6b8d29f2451da5e04b5e7c678d79"
+    },
+    "promotion_targets": {
+      "row_count": 1,
+      "content_md5": "49cfc8b1c612ba4c45739a675d3f940f"
+    },
+    "promotion_versions": {
+      "row_count": 1,
+      "content_md5": "2658464eb36b64f0ebb0ff7212fb70d2"
+    },
+    "promotions": {
+      "row_count": 1,
+      "content_md5": "4321cecd46187e0be4baa44f2fe5b74e"
+    },
+    "purchase_order_items": {
+      "row_count": 35,
+      "content_md5": "6f13bdb0149fbf18e475cf11164f5c79"
+    },
+    "purchase_orders": {
+      "row_count": 2,
+      "content_md5": "8c46b6b1e7a730c52870f2f29e1076d7"
+    },
+    "refund_allocations": {
+      "row_count": 3,
+      "content_md5": "c756ef19c374a8dae7addf1607138182"
+    },
+    "refunds": {
+      "row_count": 2,
+      "content_md5": "db9548f75758fb567846222c72841db2"
+    },
+    "return_evidence": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "return_item_units": {
+      "row_count": 2,
+      "content_md5": "a02a5efbc690f075efb75a1d974323ab"
+    },
+    "return_items": {
+      "row_count": 2,
+      "content_md5": "7ae05739230af737c94c475f59d98ab1"
+    },
+    "return_requests": {
+      "row_count": 2,
+      "content_md5": "75ddd047610b318adc174095e5de0e45"
+    },
+    "schema_migrations": {
+      "row_count": 2,
+      "content_md5": "d28a83026802b81424e85094f715e561"
+    },
+    "session": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "setting_versions": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "shipment_events": {
+      "row_count": 10,
+      "content_md5": "e3b90875d2b6cf70eca415e9b90ed893"
+    },
+    "shipments": {
+      "row_count": 8,
+      "content_md5": "b51e0bdcd0e53689fd87fa89a1a93d29"
+    },
+    "staff_profiles": {
+      "row_count": 6,
+      "content_md5": "f180b7fdb5ee5469a32f491844bf14ea"
+    },
+    "stock_adjustments": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "stock_movements": {
+      "row_count": 49,
+      "content_md5": "a19f139f19bcc27059b9bbd2875d21e7"
+    },
+    "store_credit_accounts": {
+      "row_count": 2,
+      "content_md5": "c7cbe8e4a0bebb41ff6e3b0f14713222"
+    },
+    "store_credit_entries": {
+      "row_count": 3,
+      "content_md5": "c439269d65ddfc7b6f12549f973d0eae"
+    },
+    "suppliers": {
+      "row_count": 1,
+      "content_md5": "eebf30623ba6df60f0005adb64ddeb5b"
+    },
+    "trade_in_evidence": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "trade_in_inspections": {
+      "row_count": 1,
+      "content_md5": "216d5a39d208d6fe44ab953749c6742b"
+    },
+    "trade_in_items": {
+      "row_count": 1,
+      "content_md5": "f093335e2b0886e8f17b2bdfe8ae24d1"
+    },
+    "trade_in_quote_items": {
+      "row_count": 1,
+      "content_md5": "64e60c14622dda6ac1eef507b5d84ac5"
+    },
+    "trade_in_quotes": {
+      "row_count": 1,
+      "content_md5": "78d85456493fca752610029f7c6152ea"
+    },
+    "trade_in_requests": {
+      "row_count": 1,
+      "content_md5": "4e6c15f1a8a5ebe39afcca694fd1e902"
+    },
+    "trade_in_shipments": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "user": {
+      "row_count": 8,
+      "content_md5": "aa302c609130fe45880db0f9874faa15"
+    },
+    "variant_attribute_values": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "verification": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "warehouses": {
+      "row_count": 1,
+      "content_md5": "1d2fc3be127dec9c98c6703c39a70d7f"
+    },
+    "warranty_claims": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "warranty_entitlements": {
+      "row_count": 3,
+      "content_md5": "1733499dead6dbb4195f66e2a29266e6"
+    },
+    "warranty_events": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "warranty_evidence": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "warranty_plan_versions": {
+      "row_count": 4,
+      "content_md5": "614330f56dc15ed9b4ee0584b382fb3e"
+    },
+    "warranty_plans": {
+      "row_count": 4,
+      "content_md5": "a157fac04d08a435dabd3265124718ee"
+    },
+    "warranty_replacements": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "wishlists": {
+      "row_count": 0,
+      "content_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    }
+  },
+  "sequences": [
+    {
+      "sequencename": "identity_role_claims_Id_seq",
+      "last_value": null
+    },
+    {
+      "sequencename": "identity_user_claims_Id_seq",
+      "last_value": null
+    },
+    {
+      "sequencename": "invoice_number_seq",
+      "last_value": null
+    }
+  ],
+  "golden": {
+    "issued_count": 8,
+    "issued_vnd": "97130000",
+    "credits_vnd": "3500000"
+  },
+  "netVnd": "93630000",
+  "history": [
+    {
+      "MigrationId": "20261113070723_AdoptLegacyAndIdentity",
+      "ProductVersion": "10.0.7"
+    },
+    {
+      "MigrationId": "20261113072619_IntegrityRepairAndPreview",
+      "ProductVersion": "10.0.7"
+    },
+    {
+      "MigrationId": "20261113073844_WarrantyQuantityAndLedgerSources",
+      "ProductVersion": "10.0.7"
+    },
+    {
+      "MigrationId": "20261113075041_PolicySnapshotsAndCustody",
+      "ProductVersion": "10.0.7"
+    },
+    {
+      "MigrationId": "20261113080440_IdentityNamesAndFinancialHistory",
+      "ProductVersion": "10.0.7"
+    }
+  ],
+  "legacy": [
+    {
+      "name": "0001_core.sql",
+      "checksum": "a22cc34f8aa4415965825b95e7788459e7d8d225066be04013a743e96316e5a8"
+    },
+    {
+      "name": "0002_guards.sql",
+      "checksum": "937c733b762cda5e63ba6c45c98eece383882f174144ffc28f92fc9ffc03a282"
+    }
+  ],
+  "mediaChecks": [],
+  "categories": [
+    {
+      "code": "ACCESSORIES",
+      "name_vi": "Ph\u1EE5 ki\u1EC7n",
+      "name_en": "Accessories"
+    },
+    {
+      "code": "AIRPODS",
+      "name_vi": "AirPods",
+      "name_en": "AirPods"
+    },
+    {
+      "code": "DISPLAYS",
+      "name_vi": "M\u00E0n h\u00ECnh",
+      "name_en": "Displays"
+    },
+    {
+      "code": "IPAD",
+      "name_vi": "iPad",
+      "name_en": "iPad"
+    },
+    {
+      "code": "IPHONE",
+      "name_vi": "iPhone",
+      "name_en": "iPhone"
+    },
+    {
+      "code": "MAC",
+      "name_vi": "Mac",
+      "name_en": "Mac"
+    },
+    {
+      "code": "TV-HOME",
+      "name_vi": "TV \u0026 Nh\u00E0",
+      "name_en": "TV \u0026 Home"
+    },
+    {
+      "code": "VISION",
+      "name_vi": "Apple Vision",
+      "name_en": "Apple Vision"
+    },
+    {
+      "code": "WATCH",
+      "name_vi": "Apple Watch",
+      "name_en": "Apple Watch"
+    }
+  ],
+  "historicalStaff": [
+    {
+      "staff_code": "NV03",
+      "active": false,
+      "invoice_count": 2
+    }
+  ],
+  "matchedBackupSource": null
+}

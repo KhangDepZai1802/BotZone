@@ -1,0 +1,67 @@
+name: botzone
+
+# Infrastructure only. .NET API/worker and native WinForms run on the host.
+# Next.js calls the API and never receives PostgreSQL credentials.
+
+services:
+  db:
+    image: postgres:18.1-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: botzone
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: botzone_admin_local
+      TZ: UTC
+    ports:
+      - "127.0.0.1:54329:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d botzone"]
+      interval: 3s
+      timeout: 5s
+      retries: 30
+
+  mailpit:
+    image: axllent/mailpit:v1.27.10
+    restart: unless-stopped
+    environment:
+      MP_DATABASE: /data/mailpit.db
+      MP_MAX_MESSAGES: "5000"
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8025:8025"
+    volumes:
+      - mailpit-data:/data
+
+  bootstrap:
+    image: postgres:18.1-bookworm
+    restart: "no"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: botzone_admin_local
+    entrypoint: ["sh", "-ec"]
+    command:
+      - |
+        psql -h db -U postgres -d botzone -v ON_ERROR_STOP=1 <<'SQL'
+        DO $$$$ BEGIN
+          IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'botzone') THEN
+            CREATE ROLE botzone LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION PASSWORD 'botzone_local';
+          END IF;
+          IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'botzone_app') THEN
+            CREATE ROLE botzone_app LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION PASSWORD 'botzone_app_local';
+          END IF;
+        END $$$$;
+        ALTER DATABASE botzone OWNER TO botzone;
+        GRANT ALL ON SCHEMA public TO botzone;
+        GRANT CONNECT ON DATABASE botzone TO botzone_app;
+        GRANT USAGE ON SCHEMA public TO botzone_app;
+        ALTER DEFAULT PRIVILEGES FOR ROLE botzone IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO botzone_app;
+        ALTER DEFAULT PRIVILEGES FOR ROLE botzone IN SCHEMA public GRANT USAGE, SELECT ON SEQUENCES TO botzone_app;
+        SQL
+
+volumes:
+  postgres-data:
+  mailpit-data:

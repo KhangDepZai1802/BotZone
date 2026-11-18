@@ -1,0 +1,110 @@
+{
+  "history": [
+    {
+      "MigrationId": "20261113070723_AdoptLegacyAndIdentity",
+      "ProductVersion": "10.0.7"
+    }
+  ],
+  "legacy": [
+    {
+      "name": "0001_core.sql",
+      "checksum": "a22cc34f8aa4415965825b95e7788459e7d8d225066be04013a743e96316e5a8",
+      "applied_at": "2026-11-13T06:36:57.651Z"
+    },
+    {
+      "name": "0002_guards.sql",
+      "checksum": "937c733b762cda5e63ba6c45c98eece383882f174144ffc28f92fc9ffc03a282",
+      "applied_at": "2026-11-13T06:36:58.455Z"
+    }
+  ],
+  "tableCount": 90,
+  "changed": [
+    {
+      "table": "app_settings",
+      "before": 0,
+      "after": 1
+    }
+  ],
+  "identityColumns": [
+    {
+      "column_name": "id",
+      "data_type": "text"
+    },
+    {
+      "column_name": "name",
+      "data_type": "text"
+    },
+    {
+      "column_name": "email",
+      "data_type": "text"
+    },
+    {
+      "column_name": "email_verified",
+      "data_type": "boolean"
+    },
+    {
+      "column_name": "image",
+      "data_type": "text"
+    },
+    {
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "column_name": "access_failed_count",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "concurrency_stamp",
+      "data_type": "text"
+    },
+    {
+      "column_name": "lockout_enabled",
+      "data_type": "boolean"
+    },
+    {
+      "column_name": "lockout_end",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "column_name": "normalized_email",
+      "data_type": "character varying"
+    },
+    {
+      "column_name": "normalized_user_name",
+      "data_type": "character varying"
+    },
+    {
+      "column_name": "password_hash",
+      "data_type": "text"
+    },
+    {
+      "column_name": "password_reset_required",
+      "data_type": "boolean"
+    },
+    {
+      "column_name": "phone_number",
+      "data_type": "text"
+    },
+    {
+      "column_name": "phone_number_confirmed",
+      "data_type": "boolean"
+    },
+    {
+      "column_name": "security_stamp",
+      "data_type": "text"
+    },
+    {
+      "column_name": "two_factor_enabled",
+      "data_type": "boolean"
+    },
+    {
+      "column_name": "user_name",
+      "data_type": "character varying"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "generatedAt": "2026-11-13T08:57:56.757Z",
+  "sourceApi": "http://127.0.0.1:5080",
+  "source": "Authenticated owner API; exact G01–G08 filter; no seed or business commands",
+  "request": {
+    "kind": "list",
+    "query": {
+      "filter": {
+        "kind": "group",
+        "logic": "OR",
+        "children": [
+          {
+            "kind": "rule",
+            "field": "invoiceNo",
+            "op": "=",
+            "value": "G01"
+          },
+          {
+            "kind": "rule",
+            "field": "invoiceNo",
+            "op": "=",
+            "value": "G02"
+          },
+          {
+            "kind": "rule",
+            "field": "invoiceNo",
+            "op": "=",
+            "value": "G03"
+          },
+          {
+            "kind": "rule",
+            "field": "invoiceNo",
+            "op": "=",
+            "value": "G04"
+          },
+          {
+            "kind": "rule",
+            "field": "invoiceNo",
+            "op": "=",
+            "value": "G05"
+          },
+          {
+            "kind": "rule",
+            "field": "invoiceNo",
+            "op": "=",
+            "value": "G06"
+          },
+          {
+            "kind": "rule",
+            "field": "invoiceNo",
+            "op": "=",
+            "value": "G07"
+          },
+          {
+            "kind": "rule",
+            "field": "invoiceNo",
+            "op": "=",
+            "value": "G08"
+          }
+        ]
+      },
+      "sort": [
+        {
+          "field": "invoiceNo",
+          "direction": "asc"
+        }
+      ],
+      "page": 1,
+      "pageSize": 20
+    },
+    "formats": [
+      "xlsx",
+      "pdf"
+    ],
+    "locale": "vi"
+  },
+  "exportId": "e00c67dd-04ee-4ba2-b192-4b1b568bb44c",
+  "readAt": "2026-11-13T08:57:54.937914+00:00",
+  "rowCount": 8,
+  "totalVnd": "97130000",
+  "invoiceRefs": [
+    "G01",
+    "G02",
+    "G03",
+    "G04",
+    "G05",
+    "G06",
+    "G07",
+    "G08"
+  ],
+  "files": {
+    "xlsx": {
+      "path": "examples/exports/golden.xlsx",
+      "bytes": 12036,
+      "sha256": "5afeddd86fb7505600fc787f3bc44f2431038462d19a5b6006532e09345778f1"
+    },
+    "pdf": {
+      "path": "examples/exports/golden.pdf",
+      "bytes": 42099,
+      "sha256": "5b9484b55e9e44849405f72231521c1b66a46427342ad8179010fd7d89739382"
+    }
+  },
+  "verifiedAt": "2026-11-13T08:59:54.244189+00:00",
+  "verification": {
+    "expectedSource": "expected-results.json (BA literals, no DB derivation)",
+    "xlsxInvoiceRows": 8,
+    "xlsxDetailRows": 15,
+    "xlsxSerialLeadingZeroPreserved": true,
+    "issuedVnd": "97130000",
+    "adjustmentsVnd": "3500000",
+    "netVnd": "93630000",
+    "bothFilesSha256Verified": true,
+    "sameReadAtVerified": true,
+    "pdfPages": [
+      {
+        "page": 1,
+        "words": 248,
+        "outsideBounds": 0,
+        "image": "golden-page-1.png"
+      }
+    ]
+  }
+}

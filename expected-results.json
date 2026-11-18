@@ -1,0 +1,610 @@
+{
+  "schemaVersion": 1,
+  "profile": "golden",
+  "source": "BotZone_BA_v1.1_WinForms.md — Profile golden và Kết quả kỳ vọng đã đối chiếu số học",
+  "provenance": "BA literals and independent integer arithmetic; not generated from the database or application query under test.",
+  "fixtureTimeNote": "For CN01 and delivery/request dates where BA specifies only a day, the explicit hour matches DemoSeeder and the verified integration fixture; invoice timestamps and CN02 time follow BA.",
+  "currency": "VND",
+  "moneyEncoding": "decimal integer strings",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "fromInclusive": "2024-01-01",
+  "toExclusive": "2027-01-01",
+  "invoiceRefs": [
+    "G01",
+    "G02",
+    "G03",
+    "G04",
+    "G05",
+    "G06",
+    "G07",
+    "G08"
+  ],
+  "invoices": [
+    {
+      "ref": "G01",
+      "issuedAt": "2024-01-15T10:00:00+07:00",
+      "staff": "NV01",
+      "products": [
+        {
+          "model": "P13",
+          "quantity": 1,
+          "netVnd": "10000000"
+        },
+        {
+          "model": "AP2",
+          "quantity": 1,
+          "netVnd": "2000000"
+        }
+      ],
+      "careVnd": "0",
+      "shippingVnd": "0",
+      "totalVnd": "12000000"
+    },
+    {
+      "ref": "G02",
+      "issuedAt": "2024-11-20T14:00:00+07:00",
+      "staff": "NV02",
+      "products": [
+        {
+          "model": "P14",
+          "quantity": 1,
+          "netVnd": "15000000"
+        }
+      ],
+      "careVnd": "1000000",
+      "shippingVnd": "0",
+      "totalVnd": "16000000",
+      "payment": "unpaid"
+    },
+    {
+      "ref": "G03",
+      "issuedAt": "2025-01-10T09:00:00+07:00",
+      "staff": "NV01",
+      "products": [
+        {
+          "model": "P13",
+          "quantity": 2,
+          "netVnd": "18000000"
+        }
+      ],
+      "careVnd": "0",
+      "shippingVnd": "0",
+      "totalVnd": "18000000"
+    },
+    {
+      "ref": "G04",
+      "issuedAt": "2025-04-12T11:00:00+07:00",
+      "staff": "NV02",
+      "products": [
+        {
+          "model": "P14",
+          "quantity": 1,
+          "netVnd": "14000000"
+        },
+        {
+          "model": "AP2",
+          "quantity": 2,
+          "netVnd": "4000000"
+        }
+      ],
+      "careVnd": "0",
+      "shippingVnd": "0",
+      "totalVnd": "18000000"
+    },
+    {
+      "ref": "G05",
+      "issuedAt": "2025-12-31T23:59:00+07:00",
+      "staff": "NV03",
+      "products": [
+        {
+          "model": "P13",
+          "quantity": 1,
+          "netVnd": "8000000"
+        }
+      ],
+      "careVnd": "0",
+      "shippingVnd": "0",
+      "totalVnd": "8000000"
+    },
+    {
+      "ref": "G06",
+      "issuedAt": "2026-01-01T00:01:00+07:00",
+      "staff": "NV03",
+      "products": [
+        {
+          "model": "AP2",
+          "quantity": 1,
+          "netVnd": "1800000"
+        }
+      ],
+      "careVnd": "0",
+      "shippingVnd": "30000",
+      "totalVnd": "1830000"
+    },
+    {
+      "ref": "G07",
+      "issuedAt": "2026-04-05T15:00:00+07:00",
+      "staff": "NV01",
+      "products": [
+        {
+          "model": "P14",
+          "quantity": 1,
+          "netVnd": "12000000"
+        }
+      ],
+      "careVnd": "800000",
+      "shippingVnd": "0",
+      "totalVnd": "12800000"
+    },
+    {
+      "ref": "G08",
+      "issuedAt": "2026-11-01T10:00:00+07:00",
+      "staff": "NV02",
+      "products": [
+        {
+          "model": "P13",
+          "quantity": 1,
+          "netVnd": "7000000"
+        },
+        {
+          "model": "AP2",
+          "quantity": 2,
+          "netVnd": "3000000"
+        }
+      ],
+      "careVnd": "500000",
+      "shippingVnd": "0",
+      "totalVnd": "10500000",
+      "voucherVnd": "1000000",
+      "creditReceiptVnd": "3150000",
+      "cashReceiptVnd": "7350000"
+    }
+  ],
+  "totals": {
+    "invoiceCount": 8,
+    "issuedVnd": "97130000",
+    "adjustmentsVnd": "3500000",
+    "netVnd": "93630000",
+    "productIssuedVnd": "94800000",
+    "careIssuedVnd": "2300000",
+    "shippingIssuedVnd": "30000",
+    "receiptsVnd": "81130000",
+    "receiptCashVnd": "77980000",
+    "receiptCreditVnd": "3150000",
+    "refundsVnd": "3500000",
+    "refundCashVnd": "3050000",
+    "refundCreditVnd": "450000"
+  },
+  "years": [
+    {
+      "period": "2024",
+      "issuedVnd": "28000000",
+      "adjustmentsVnd": "0",
+      "netVnd": "28000000"
+    },
+    {
+      "period": "2025",
+      "issuedVnd": "44000000",
+      "adjustmentsVnd": "2000000",
+      "netVnd": "42000000"
+    },
+    {
+      "period": "2026",
+      "issuedVnd": "25130000",
+      "adjustmentsVnd": "1500000",
+      "netVnd": "23630000"
+    }
+  ],
+  "quarters": [
+    {
+      "period": "2024-Q1",
+      "issuedVnd": "12000000",
+      "adjustmentsVnd": "0",
+      "netVnd": "12000000"
+    },
+    {
+      "period": "2024-Q2",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2024-Q3",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2024-Q4",
+      "issuedVnd": "16000000",
+      "adjustmentsVnd": "0",
+      "netVnd": "16000000"
+    },
+    {
+      "period": "2025-Q1",
+      "issuedVnd": "18000000",
+      "adjustmentsVnd": "0",
+      "netVnd": "18000000"
+    },
+    {
+      "period": "2025-Q2",
+      "issuedVnd": "18000000",
+      "adjustmentsVnd": "2000000",
+      "netVnd": "16000000"
+    },
+    {
+      "period": "2025-Q3",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2025-Q4",
+      "issuedVnd": "8000000",
+      "adjustmentsVnd": "0",
+      "netVnd": "8000000"
+    },
+    {
+      "period": "2026-Q1",
+      "issuedVnd": "1830000",
+      "adjustmentsVnd": "0",
+      "netVnd": "1830000"
+    },
+    {
+      "period": "2026-Q2",
+      "issuedVnd": "12800000",
+      "adjustmentsVnd": "0",
+      "netVnd": "12800000"
+    },
+    {
+      "period": "2026-Q3",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2026-Q4",
+      "issuedVnd": "10500000",
+      "adjustmentsVnd": "1500000",
+      "netVnd": "9000000"
+    }
+  ],
+  "months": [
+    {
+      "period": "2024-01-01",
+      "issuedVnd": "12000000",
+      "adjustmentsVnd": "0",
+      "netVnd": "12000000"
+    },
+    {
+      "period": "2024-02-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2024-03-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2024-04-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2024-05-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2024-06-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2024-07-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2024-08-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2024-09-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2024-10-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2024-11-01",
+      "issuedVnd": "16000000",
+      "adjustmentsVnd": "0",
+      "netVnd": "16000000"
+    },
+    {
+      "period": "2024-12-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2025-01-01",
+      "issuedVnd": "18000000",
+      "adjustmentsVnd": "0",
+      "netVnd": "18000000"
+    },
+    {
+      "period": "2025-02-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2025-03-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2025-04-01",
+      "issuedVnd": "18000000",
+      "adjustmentsVnd": "0",
+      "netVnd": "18000000"
+    },
+    {
+      "period": "2025-05-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "2000000",
+      "netVnd": "-2000000"
+    },
+    {
+      "period": "2025-06-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2025-07-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2025-08-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2025-09-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2025-10-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2025-11-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2025-12-01",
+      "issuedVnd": "8000000",
+      "adjustmentsVnd": "0",
+      "netVnd": "8000000"
+    },
+    {
+      "period": "2026-01-01",
+      "issuedVnd": "1830000",
+      "adjustmentsVnd": "0",
+      "netVnd": "1830000"
+    },
+    {
+      "period": "2026-02-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2026-03-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2026-04-01",
+      "issuedVnd": "12800000",
+      "adjustmentsVnd": "0",
+      "netVnd": "12800000"
+    },
+    {
+      "period": "2026-05-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2026-06-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2026-07-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2026-08-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2026-09-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2026-10-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    },
+    {
+      "period": "2026-11-01",
+      "issuedVnd": "10500000",
+      "adjustmentsVnd": "1500000",
+      "netVnd": "9000000"
+    },
+    {
+      "period": "2026-12-01",
+      "issuedVnd": "0",
+      "adjustmentsVnd": "0",
+      "netVnd": "0"
+    }
+  ],
+  "staff": [
+    {
+      "staffCode": "NV01",
+      "issuedVnd": "42800000",
+      "adjustmentsVnd": "0",
+      "netVnd": "42800000"
+    },
+    {
+      "staffCode": "NV02",
+      "issuedVnd": "44500000",
+      "adjustmentsVnd": "3500000",
+      "netVnd": "41000000"
+    },
+    {
+      "staffCode": "NV03",
+      "issuedVnd": "9830000",
+      "adjustmentsVnd": "0",
+      "netVnd": "9830000",
+      "inactiveInNewDemoSeed": true
+    }
+  ],
+  "models": [
+    {
+      "model": "P13",
+      "issuedQuantity": 5,
+      "issuedVnd": "43000000",
+      "adjustmentsVnd": "0",
+      "netVnd": "43000000"
+    },
+    {
+      "model": "P14",
+      "issuedQuantity": 3,
+      "issuedVnd": "41000000",
+      "adjustmentsVnd": "0",
+      "netVnd": "41000000"
+    },
+    {
+      "model": "AP2",
+      "issuedQuantity": 6,
+      "returnedQuantity": 2,
+      "issuedVnd": "10800000",
+      "adjustmentsVnd": "3500000",
+      "netVnd": "7300000"
+    }
+  ],
+  "creditNotes": [
+    {
+      "ref": "CN01",
+      "invoiceRef": "G04",
+      "model": "AP2",
+      "quantity": 1,
+      "issuedAt": "2025-05-02T10:00:00+07:00",
+      "deliveredAt": "2025-04-20T09:00:00+07:00",
+      "requestedAt": "2025-05-01T09:00:00+07:00",
+      "amountVnd": "2000000",
+      "cashRefundVnd": "2000000",
+      "creditRefundVnd": "0"
+    },
+    {
+      "ref": "CN02",
+      "invoiceRef": "G08",
+      "model": "AP2",
+      "quantity": 1,
+      "issuedAt": "2026-11-13T10:30:00+07:00",
+      "deliveredAt": "2026-11-02T09:00:00+07:00",
+      "requestedAt": "2026-11-12T09:00:00+07:00",
+      "amountVnd": "1500000",
+      "cashRefundVnd": "1050000",
+      "creditRefundVnd": "450000"
+    }
+  ],
+  "filters": [
+    {
+      "name": "BA logical filter",
+      "expression": "total > 10000000 AND total < 20000000 AND (NV01 OR NV02) AND NOT contains AP2",
+      "invoiceRefs": [
+        "G02",
+        "G03",
+        "G07"
+      ],
+      "count": 3,
+      "totalVnd": "46800000"
+    },
+    {
+      "name": "Equal total still counts both invoices",
+      "expression": "total = 18000000",
+      "invoiceRefs": [
+        "G03",
+        "G04"
+      ],
+      "count": 2,
+      "totalVnd": "36000000"
+    }
+  ],
+  "boundary": {
+    "G05utc": "2025-12-31T16:59:00Z",
+    "G06utc": "2025-12-31T17:01:00Z",
+    "vietnamDate20260101InvoiceRefs": [
+      "G06"
+    ]
+  },
+  "exclusions": [
+    {
+      "ref": "D01",
+      "lifecycle": "draft",
+      "totalVnd": "99000000"
+    },
+    {
+      "ref": "CANCELLED01",
+      "lifecycle": "no invoice",
+      "orderStatus": "cancelled"
+    }
+  ],
+  "separatePaginationFixture": {
+    "prefix": "PAG",
+    "count": 75,
+    "pageSize": 20,
+    "totalVnd": "7502850",
+    "notPartOfGolden": true
+  }
+}

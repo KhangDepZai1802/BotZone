@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-label="Trạng thái component dùng chung">
+<rect x="0" y="0" width="1440" height="900" rx="0" fill="#FAFAF9" stroke="none" stroke-width="1"/>
+<rect x="0" y="0" width="1440" height="32" rx="0" fill="#F0F0F0" stroke="none" stroke-width="1"/>
+<text x="14" y="19.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="11.5" font-weight="400" text-anchor="start" fill="#63656D">BotZone · Quản trị cửa hàng</text>
+<line x1="1324" y1="17" x2="1335" y2="17" stroke="#63656D" stroke-width="1" stroke-linecap="round"/>
+<rect x="1369" y="10" width="10" height="10" rx="0" fill="none" stroke="#63656D" stroke-width="1"/>
+<line x1="1414.0" y1="11.0" x2="1424.0" y2="21.0" stroke="#63656D" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="1414.0" y1="21.0" x2="1424.0" y2="11.0" stroke="#63656D" stroke-width="1.4" stroke-linecap="round"/>
+<text x="48" y="102" font-family="Noto Sans, Segoe UI, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#202126">Những chi tiết làm giao diện dễ dùng.</text>
+<text x="48" y="136" font-family="Noto Sans, Segoe UI, sans-serif" font-size="15" font-weight="400" text-anchor="start" fill="#63656D">Cùng một cách hiển thị trạng thái trên mọi vai trò và mọi module.</text>
+<rect x="48" y="174" width="644" height="276" rx="8" fill="#FFFFFF" stroke="#E2E3E7" stroke-width="1"/>
+<text x="68" y="208" font-family="Noto Sans, Segoe UI, sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#202126">Trường nhập và phản hồi</text>
+<text x="70" y="245.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="13.5" font-weight="700" text-anchor="start" fill="#202126">Email</text>
+<rect x="70" y="256" width="284" height="40" rx="6" fill="#FFFFFF" stroke="#2459B8" stroke-width="2"/>
+<text x="82" y="280" font-family="Noto Sans, Segoe UI, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#202126">nhanvien@botzone.local</text>
+<text x="376" y="245.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="13.5" font-weight="700" text-anchor="start" fill="#202126">Mã giao dịch</text>
+<rect x="376" y="256" width="292" height="40" rx="6" fill="#FFFFFF" stroke="#8A8C95" stroke-width="1"/>
+<text x="388" y="280" font-family="Noto Sans, Segoe UI, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#202126"></text>
+<rect x="376" y="256" width="292" height="40" rx="6" fill="none" stroke="#A13035" stroke-width="2"/>
+<text x="376" y="319.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#A13035">Nhập mã giao dịch để đối chiếu.</text>
+<text x="70" y="349.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="13.5" font-weight="400" text-anchor="start" fill="#63656D">Focus rõ · Cho paste · Giữ nội dung khi lỗi</text>
+<text x="70" y="370.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="11.5" font-weight="400" text-anchor="start" fill="#63656D">Hai trạng thái của cùng một nút lưu:</text>
+<rect x="70" y="385" width="170" height="36" rx="6" fill="#6F233F" stroke="none" stroke-width="1"/>
+<text x="155.0" y="407.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="13.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">Lưu thay đổi</text>
+<rect x="254" y="385" width="164" height="36" rx="6" fill="#ECEDEF" stroke="none" stroke-width="1"/>
+<text x="336.0" y="407.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="13.5" font-weight="700" text-anchor="middle" fill="#73757D">Đang lưu…</text>
+<rect x="432" y="385" width="114" height="36" rx="6" fill="#FFFFFF" stroke="#E2E3E7" stroke-width="1"/>
+<text x="489.0" y="407.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="13.5" font-weight="700" text-anchor="middle" fill="#202126">Hủy</text>
+<rect x="716" y="174" width="676" height="276" rx="8" fill="#FFFFFF" stroke="#E2E3E7" stroke-width="1"/>
+<text x="736" y="208" font-family="Noto Sans, Segoe UI, sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#202126">Trạng thái có chữ, không chỉ có màu</text>
+<rect x="738" y="236" width="89" height="26" rx="5" fill="#EAF3EE" stroke="none" stroke-width="1"/>
+<text x="748" y="252.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#246B4E">Đã hoàn tất</text>
+<rect x="946" y="236" width="74" height="26" rx="5" fill="#FBF2DF" stroke="none" stroke-width="1"/>
+<text x="956" y="252.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#805714">Cần xử lý</text>
+<rect x="1154" y="236" width="83" height="26" rx="5" fill="#EDF2FC" stroke="none" stroke-width="1"/>
+<text x="1164" y="252.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#2459B8">Đang xử lý</text>
+<rect x="738" y="287" width="53" height="26" rx="5" fill="#FBECEE" stroke="none" stroke-width="1"/>
+<text x="748" y="303.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#A13035">Có lỗi</text>
+<rect x="946" y="287" width="77" height="26" rx="5" fill="#F0F1F3" stroke="none" stroke-width="1"/>
+<text x="956" y="303.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#5D6069">Bản nháp</text>
+<rect x="1154" y="287" width="68" height="26" rx="5" fill="#F0F1F3" stroke="none" stroke-width="1"/>
+<text x="1164" y="303.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#5D6069">Chỉ xem</text>
+<text x="738" y="368.0" font-family="Noto Sans, Segoe UI, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#63656D">Không dùng popup thông báo thành công cho mọi thao tác. Đặt phản hồi gần hành động; lỗi</text>
+<text x="738" y="389.7" font-family="Noto Sans, Segoe UI, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#63656D">quan trọng phải tồn tại cho đến khi được xử lý.</text>
+<rect x="48" y="474" width="644" height="324" rx="8" fill="#FFFFFF" stroke="#E2E3E7" stroke-width="1"/>
+<text x="68" y="508" font-family="Noto Sans, Segoe UI, sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#202126">Không có kết quả</text>
+<circle cx="367.2" cy="557.2" r="9.5" fill="none" stroke="#63656D" stroke-width="2.8499999999999996"/>
+<line x1="374.8" y1="564.8" x2="384.3" y2="574.3" stroke="#63656D" stroke-width="2.6599999999999997" stroke-linecap="round"/>
+<text x="370" y="624" font-family="Noto Sans, Segoe UI, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="#202126">Không có hóa đơn phù hợp.</text>
+<text x="370" y="657" font-family="Noto Sans, Segoe UI, sans-serif" font-size="14" font-weight="400" text-anchor="middle" fill="#63656D">Thử đổi khoảng ngày hoặc bỏ một điều kiện lọc.</text>
+<rect x="262" y="704" width="216" height="40" rx="6" fill="#FFFFFF" stroke="#E2E3E7" stroke-width="1"/>
+<text x="370.0" y="728.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="13.5" font-weight="700" text-anchor="middle" fill="#202126">Xóa bộ lọc</text>
+<rect x="716" y="474" width="676" height="324" rx="8" fill="#FFFFFF" stroke="#E2E3E7" stroke-width="1"/>
+<text x="736" y="508" font-family="Noto Sans, Segoe UI, sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#202126">Mất kết nối / Dữ liệu chưa được lưu</text>
+<rect x="738" y="535" width="632" height="57" rx="6" fill="#FBECEE" stroke="none" stroke-width="1"/>
+<text x="756" y="566" font-family="Noto Sans, Segoe UI, sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#A13035">Chưa kết nối được đến máy chủ.</text>
+<text x="738" y="629.0" font-family="Noto Sans, Segoe UI, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#63656D">Dữ liệu bạn đang nhập vẫn được giữ. Kiểm tra kết nối và thử lại. Không xác nhận thành công</text>
+<text x="738" y="650.7" font-family="Noto Sans, Segoe UI, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#63656D">khi máy chủ chưa ghi nhận.</text>
+<rect x="738" y="715" width="150" height="36" rx="6" fill="#6F233F" stroke="none" stroke-width="1"/>
+<text x="813.0" y="737.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="13.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">Thử lại</text>
+<rect x="902" y="715" width="200" height="36" rx="6" fill="#FFFFFF" stroke="#E2E3E7" stroke-width="1"/>
+<text x="1002.0" y="737.5" font-family="Noto Sans, Segoe UI, sans-serif" font-size="13.5" font-weight="700" text-anchor="middle" fill="#202126">Xem chi tiết lỗi</text>
+<text x="48" y="853" font-family="Noto Sans, Segoe UI, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#63656D">Bàn phím: Ctrl K đi đến chức năng · Ctrl F tìm trong danh sách · Ctrl S lưu · F5 làm mới · Esc đóng / quay lại</text>
+</svg>

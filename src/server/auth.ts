@@ -1,0 +1,11 @@
+import {betterAuth} from 'better-auth';
+import {drizzleAdapter} from '@better-auth/drizzle-adapter';
+import {db,pool} from './db';
+import * as schema from '../db/schema';
+import {randomUUID} from 'node:crypto';
+import type {Actor} from '../lib/contracts';
+import {AppError} from './errors';
+async function queueEmail(to:string,subject:string,url:string){await pool.query("INSERT INTO outbox_events(event_key,type,payload) VALUES($1,'email',$2)",[randomUUID(),JSON.stringify({to,subject,text:`${subject}\n\n${url}\n\nBotZone — email thử nghiệm local.`})]);}
+export const auth=betterAuth({database:drizzleAdapter(db,{provider:'pg',schema}),baseURL:process.env.BETTER_AUTH_URL||'http://localhost:3000',secret:process.env.BETTER_AUTH_SECRET,trustedOrigins:[process.env.BETTER_AUTH_URL||'http://localhost:3000','http://127.0.0.1:3000'],emailAndPassword:{enabled:true,requireEmailVerification:true,minPasswordLength:10,revokeSessionsOnPasswordReset:true,sendResetPassword:async({user,url})=>queueEmail(user.email,'Đặt lại mật khẩu BotZone',url)},emailVerification:{sendOnSignUp:true,autoSignInAfterVerification:true,sendVerificationEmail:async({user,url})=>queueEmail(user.email,'Xác minh email BotZone',url)},session:{cookieCache:{enabled:false}},advanced:{database:{generateId:()=>randomUUID()}},databaseHooks:{user:{create:{after:async(u)=>{await pool.query('INSERT INTO customer_profiles(user_id,display_name) VALUES($1,$2) ON CONFLICT DO NOTHING',[u.id,u.name]);await pool.query('INSERT INTO loyalty_accounts(user_id) VALUES($1) ON CONFLICT DO NOTHING',[u.id]);await pool.query('INSERT INTO store_credit_accounts(user_id) VALUES($1) ON CONFLICT DO NOTHING',[u.id]);}}}}});
+export async function getActor(headers:Headers):Promise<Actor|null>{const session=await auth.api.getSession({headers});if(!session)return null;const r=await pool.query('SELECT role,active FROM staff_profiles WHERE user_id=$1',[session.user.id]);if(r.rows[0]&&!r.rows[0].active)throw new AppError('FORBIDDEN','Tài khoản nhân viên đã bị khóa.',403);return{id:session.user.id,name:session.user.name,email:session.user.email,verified:session.user.emailVerified,role:r.rows[0]?.role||'customer'};}
+export async function authenticated(headers:Headers){const actor=await getActor(headers);if(!actor)throw new AppError('AUTH_REQUIRED','Vui lòng đăng nhập.',401);return actor;}

@@ -1,0 +1,349 @@
+[
+  {
+    "id": "LOGIN",
+    "title": "Đăng nhập",
+    "role": "Chung",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Đăng nhập dùng chung, không chọn role để tự nâng quyền.",
+      "Nhớ email, cho dán mật khẩu, lỗi xuất hiện cạnh trường và giữ focus hợp lý.",
+      "Giữ hành vi cửa sổ Windows; vùng thương hiệu thu gọn khi không đủ chiều cao."
+    ],
+    "hotspots": [
+      {
+        "x": 796,
+        "y": 560,
+        "w": 448,
+        "h": 46,
+        "to": "OWN-HOME",
+        "label": "Xem minh họa sau đăng nhập"
+      }
+    ]
+  },
+  {
+    "id": "OWN-HOME",
+    "title": "Tổng quan của chủ cửa hàng",
+    "role": "Chủ cửa hàng",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Chỉ số dẫn tới danh sách nguồn; quyết định cần xử lý nằm cùng màn.",
+      "Tách phát hành, điều chỉnh giảm và ròng kỳ; tiền thu và lợi nhuận có báo cáo riêng.",
+      "Owner giám sát nội dung nhưng không có hành động sửa hoặc xuất bản landing."
+    ],
+    "hotspots": [
+      {
+        "x": 1272,
+        "y": 125,
+        "w": 144,
+        "h": 36,
+        "to": "REP-INVOICE",
+        "label": "Xem báo cáo"
+      },
+      {
+        "x": 1030,
+        "y": 430,
+        "w": 360,
+        "h": 64,
+        "to": "ORD-DETAIL",
+        "label": "Xem hồ sơ cần quyết định"
+      }
+    ]
+  },
+  {
+    "id": "ORD-QUEUE",
+    "title": "Hàng chờ xử lý đơn",
+    "role": "Nhân viên xử lý đơn",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Màn đầu là hàng chờ công việc, không buộc nhân viên đi qua dashboard doanh thu.",
+      "Thanh toán và giao nhận có cột riêng; CTA theo trạng thái nghiệp vụ hợp lệ.",
+      "PC rộng có pane chi tiết; laptop nhỏ mở chi tiết trong cùng cửa sổ và giữ nguyên bộ lọc."
+    ],
+    "hotspots": [
+      {
+        "x": 248,
+        "y": 363,
+        "w": 728,
+        "h": 62,
+        "to": "ORD-DETAIL",
+        "label": "Mở đơn BZ-10248"
+      },
+      {
+        "x": 1016,
+        "y": 600,
+        "w": 380,
+        "h": 42,
+        "to": "ORD-DETAIL",
+        "label": "Kiểm tra thanh toán"
+      }
+    ]
+  },
+  {
+    "id": "ORD-DETAIL",
+    "title": "Chi tiết đơn và hành động kế tiếp",
+    "role": "Nhân viên xử lý đơn",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Thông tin đơn, giao nhận và tiền thu không bị gộp thành một trạng thái chung.",
+      "Thao tác tài chính nêu rõ số tiền, mã giao dịch và cần đối chiếu; API vẫn kiểm quyền và trạng thái.",
+      "Quay về giữ vị trí dòng, bộ lọc và tìm kiếm."
+    ],
+    "hotspots": [
+      {
+        "x": 1226,
+        "y": 125,
+        "w": 190,
+        "h": 36,
+        "to": "ORD-QUEUE",
+        "label": "Quay về danh sách"
+      }
+    ]
+  },
+  {
+    "id": "WH-WORK",
+    "title": "Bàn làm việc của nhân viên kho",
+    "role": "Nhân viên kho",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Vùng quét là thao tác chính, luôn rõ phiếu đang làm và số lượng còn thiếu.",
+      "Thiết bị theo serial; phụ kiện theo số lượng/lô đúng dữ liệu SKU.",
+      "Kho không có màn doanh thu hoặc xuất hóa đơn tài chính. Chênh lệch phải theo quyền duyệt hiện có."
+    ],
+    "hotspots": [
+      {
+        "x": 401,
+        "y": 210,
+        "w": 140,
+        "h": 34,
+        "to": "WH-RECEIPT",
+        "label": "Xem luồng nhập hàng"
+      }
+    ]
+  },
+  {
+    "id": "WH-RECEIPT",
+    "title": "Nhận hàng và đối chiếu chênh lệch",
+    "role": "Nhân viên kho",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Nhận một phần được trình bày rõ: dự kiến, thực nhận, chênh lệch.",
+      "Serial trùng, sai SKU và thiết bị đã xuất phải có lỗi cạnh dòng cùng cách sửa.",
+      "Giá vốn/ngoại lệ chỉ xuất hiện theo quyền thực tế; dữ liệu không bị tự cân về cho đủ phiếu."
+    ],
+    "hotspots": [
+      {
+        "x": 1236,
+        "y": 125,
+        "w": 180,
+        "h": 36,
+        "to": "WH-WORK",
+        "label": "Quay về kho"
+      }
+    ]
+  },
+  {
+    "id": "CNT-HOME",
+    "title": "Bàn làm việc của nhân viên nội dung",
+    "role": "Nhân viên nội dung",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Hàng đợi chỉ ra thiếu trường nào, thay vì bắt nhân viên tự mở từng sản phẩm tìm lỗi.",
+      "Bản nháp, bản công khai và thay đổi chưa xuất bản được phân biệt rõ.",
+      "Admin tiếng Việt; VI/EN là ngôn ngữ nội dung đang biên tập."
+    ],
+    "hotspots": [
+      {
+        "x": 1220,
+        "y": 125,
+        "w": 196,
+        "h": 36,
+        "to": "CNT-EDITOR",
+        "label": "Mở landing editor"
+      },
+      {
+        "x": 248,
+        "y": 562,
+        "w": 1168,
+        "h": 64,
+        "to": "CNT-EDITOR",
+        "label": "Sửa section Duo"
+      },
+      {
+        "x": 248,
+        "y": 626,
+        "w": 1168,
+        "h": 64,
+        "to": "CNT-PRODUCT",
+        "label": "Sửa bản dịch sản phẩm"
+      }
+    ]
+  },
+  {
+    "id": "CNT-EDITOR",
+    "title": "Landing editor native theo từng khối",
+    "role": "Nhân viên nội dung",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Cây section, biểu mẫu và bộ kiểm tra đều là control WinForms.",
+      "Preview mở renderer storefront; điện thoại ở đây là khung xem website bán hàng, không phải admin mobile.",
+      "Lưu nháp khác xuất bản. Preset 3D có giới hạn; không bắt người biên tập nhập shader/CSS."
+    ],
+    "hotspots": [
+      {
+        "x": 248,
+        "y": 32,
+        "w": 400,
+        "h": 64,
+        "to": "CNT-HOME",
+        "label": "Quay về bàn làm việc nội dung"
+      },
+      {
+        "x": 514,
+        "y": 337,
+        "w": 260,
+        "h": 34,
+        "to": "CNT-PRODUCT",
+        "label": "Xem mẫu biên tập VI/EN"
+      }
+    ]
+  },
+  {
+    "id": "CNT-PRODUCT",
+    "title": "Biên tập sản phẩm và bản dịch",
+    "role": "Nhân viên nội dung",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Tiếng Việt/English là hai ngữ cảnh biên tập rõ ràng, không lẫn trường dùng chung.",
+      "Giá, SKU và tồn chỉ đọc đối với role nội dung.",
+      "Ảnh media trong mock là minh họa thư viện; Codex phải liên kết đúng catalogue thật."
+    ],
+    "hotspots": [
+      {
+        "x": 224,
+        "y": 32,
+        "w": 500,
+        "h": 64,
+        "to": "CNT-HOME",
+        "label": "Quay về nội dung"
+      }
+    ]
+  },
+  {
+    "id": "INV-LIST",
+    "title": "Hóa đơn và tổng toàn bộ tập lọc",
+    "role": "Chủ cửa hàng",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Tổng trên toàn tập lọc khác tổng của các dòng đang tải; nhãn phải rõ.",
+      "Ròng của một tập hóa đơn (giảm lũy kế) khác ròng phát sinh theo kỳ trên báo cáo.",
+      "Hóa đơn đã phát hành chỉ đọc; Excel/PDF cùng phạm vi query và quyền."
+    ],
+    "hotspots": [
+      {
+        "x": 642,
+        "y": 264,
+        "w": 192,
+        "h": 40,
+        "to": "INV-FILTER",
+        "label": "Mở bộ lọc nâng cao"
+      }
+    ]
+  },
+  {
+    "id": "INV-FILTER",
+    "title": "Bộ lọc nâng cao dễ đọc",
+    "role": "Chủ cửa hàng",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Mỗi dòng có Trường–Toán tử–Giá trị; AND/OR/NOT hiện bằng nhóm và mô tả tiếng Việt.",
+      "Ví dụ OR có thể nhập bằng picker nhiều nhân viên, chuyển về AST OR theo contract hiện có.",
+      "Permission scope luôn áp ở server ngoài biểu thức; không đưa ô SQL tự do cho người dùng."
+    ],
+    "hotspots": [
+      {
+        "x": 1188,
+        "y": 777,
+        "w": 198,
+        "h": 40,
+        "to": "INV-LIST",
+        "label": "Xem kết quả minh họa"
+      },
+      {
+        "x": 1230,
+        "y": 125,
+        "w": 186,
+        "h": 36,
+        "to": "INV-LIST",
+        "label": "Quay về kết quả"
+      }
+    ]
+  },
+  {
+    "id": "REP-INVOICE",
+    "title": "Thống kê có drill-down và đối chiếu",
+    "role": "Chủ cửa hàng",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Có cả bảng thống kê và tổng; chart chỉ hỗ trợ nhận biết chênh lệch.",
+      "Bấm dòng mở danh sách chứng từ nguồn cùng phạm vi. Báo cáo nhân viên dùng responsible_staff_id.",
+      "Tab sản phẩm phân biệt lọc hóa đơn chứa sản phẩm với chỉ tính dòng sản phẩm được chọn."
+    ],
+    "hotspots": [
+      {
+        "x": 248,
+        "y": 651,
+        "w": 1168,
+        "h": 47,
+        "to": "INV-LIST",
+        "label": "Mở các hóa đơn nguồn"
+      }
+    ]
+  },
+  {
+    "id": "LAPTOP-COMPACT",
+    "title": "Bố cục gọn theo vùng làm việc",
+    "role": "Nhân viên xử lý đơn",
+    "width": 1068,
+    "height": 584,
+    "notes": [
+      "Mẫu 1068×584 logical: rail thu gọn, bỏ pane cố định để dành chỗ cho bảng.",
+      "Chi tiết mở toàn vùng nội dung và có đường quay về; không ép minimum size lớn hơn work area.",
+      "Đây là layout đề xuất, không thay thế kiểm resize/DPI trên executable Windows thật."
+    ],
+    "hotspots": [
+      {
+        "x": 862,
+        "y": 514,
+        "w": 182,
+        "h": 34,
+        "to": "ORD-DETAIL",
+        "label": "Xem cấu trúc chi tiết"
+      }
+    ]
+  },
+  {
+    "id": "SHARED-STATES",
+    "title": "Trạng thái component dùng chung",
+    "role": "Chung",
+    "width": 1440,
+    "height": 900,
+    "notes": [
+      "Label luôn hiện, focus có tương phản, lỗi gắn với trường và có cách phục hồi.",
+      "Phân biệt không có dữ liệu, không có kết quả lọc, mất kết nối, không đủ quyền và xung đột.",
+      "Không ghi “thành công” trước khi API commit; không mất dữ liệu chưa lưu khi chuyển màn."
+    ],
+    "hotspots": []
+  }
+]

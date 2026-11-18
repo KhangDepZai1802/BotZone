@@ -1,0 +1,87 @@
+{
+  "checkedAt": "2026-11-13T08:44:13.6567387+00:00",
+  "database": "botzone_baseline_test_20261113135743_c0d401c6",
+  "fixtures": [
+    {
+      "orderId": "6a5ab088-e611-48a7-9779-4b2295376acc",
+      "Method": "momo",
+      "Purpose": "actual-dispatcher-outcomes-and-retries",
+      "paidVnd": "1530000",
+      "refundedVnd": "1530000",
+      "cancelled": true,
+      "activeReservations": 0,
+      "refundResult": {
+        "refundId": "65b601e5-8727-49f0-baf2-2c6703b7d8e1",
+        "status": "completed",
+        "totalVnd": "1530000",
+        "cashVnd": "1530000",
+        "creditVnd": "0"
+      }
+    },
+    {
+      "orderId": "e33bb59d-9c64-4d3e-ac56-81a36e0dc309",
+      "Method": "visa",
+      "Purpose": "actual-dispatcher-outcomes-and-retries",
+      "paidVnd": "1530000",
+      "refundedVnd": "1530000",
+      "cancelled": true,
+      "activeReservations": 0,
+      "refundResult": {
+        "refundId": "6ec8be38-8673-43e8-a5ba-3b95509bea61",
+        "status": "completed",
+        "totalVnd": "1530000",
+        "cashVnd": "1530000",
+        "creditVnd": "0"
+      }
+    },
+    {
+      "orderId": "5edef869-db3b-4252-94e6-ba3b12e9c982",
+      "Method": "banking",
+      "Purpose": "customer-cannot-confirm-staff-only-tender",
+      "paidVnd": "1530000",
+      "refundedVnd": "1530000",
+      "cancelled": true,
+      "activeReservations": 0,
+      "refundResult": {
+        "refundId": "09454894-0fe1-43fe-81f2-3de0d77d7e18",
+        "status": "completed",
+        "totalVnd": "1530000",
+        "cashVnd": "1530000",
+        "creditVnd": "0"
+      }
+    },
+    {
+      "orderId": "6d77377b-8b7a-427e-8149-aed720924794",
+      "Method": "cod",
+      "Purpose": "customer-cannot-confirm-staff-only-tender",
+      "paidVnd": "0",
+      "refundedVnd": "0",
+      "cancelled": true,
+      "activeReservations": 0,
+      "refundResult": {
+        "refundId": null,
+        "status": "no_payment_to_refund",
+        "totalVnd": "0",
+        "creditVnd": "0",
+        "cashVnd": "0"
+      }
+    },
+    {
+      "orderId": "99344fd1-96b9-452a-b657-2cd88d6f9e19",
+      "Method": "visa",
+      "Purpose": "late-success-after-explicit-test-fixture-timeout",
+      "paidVnd": "1530000",
+      "refundedVnd": "1530000",
+      "cancelled": true,
+      "activeReservations": 0,
+      "refundResult": {
+        "refundId": "84d0176f-6e7c-403c-be3b-370d8261bf9e",
+        "status": "completed",
+        "totalVnd": "1530000",
+        "cashVnd": "1530000",
+        "creditVnd": "0"
+      }
+    }
+  ],
+  "noRowsDeleted": true
+}

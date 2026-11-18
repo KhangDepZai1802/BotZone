@@ -1,0 +1,102 @@
+[
+  {
+    "id": "hero-pro-max",
+    "fold": 0,
+    "tilt": 8,
+    "type": "hero",
+    "light": 2,
+    "model": "v003:iphone-18-pro-max",
+    "speed": 1,
+    "title": {
+      "en": "Burgundy. Make it yours.",
+      "vi": "Sắc Burgundy. Dấu ấn của bạn."
+    },
+    "camera": 5,
+    "colors": [
+      "#54393E",
+      "#27282B",
+      "#C5C7C9",
+      "#AFBEC8"
+    ],
+    "poster": "/models/v003/iphone-18-pro-max.webp",
+    "preset": "float",
+    "subtitle": {
+      "en": "Explore iPhone 18 Pro Max — simulated prices at BotZone.",
+      "vi": "Khám phá iPhone 18 Pro Max — giá bán mô phỏng tại BotZone."
+    },
+    "productSlug": "iphone-18-pro-max"
+  },
+  {
+    "id": "duo-story",
+    "fold": 180,
+    "tilt": 6,
+    "type": "duo",
+    "light": 2,
+    "model": "v003:iphone-duo",
+    "speed": 1,
+    "title": {
+      "en": "Unfold a new perspective.",
+      "vi": "Mở ra một góc nhìn mới."
+    },
+    "camera": 5,
+    "colors": [
+      "#2B3440",
+      "#DBDBD4"
+    ],
+    "poster": "/models/v003/iphone-duo.webp",
+    "preset": "fold",
+    "subtitle": {
+      "en": "iPhone Duo. Explore the unfolding motion.",
+      "vi": "iPhone Duo. Khám phá chuyển động mở và gập."
+    },
+    "productSlug": "iphone-duo"
+  },
+  {
+    "id": "collection-edit",
+    "fold": 0,
+    "tilt": 8,
+    "type": "collection",
+    "light": 2,
+    "model": "procedural:phone",
+    "speed": 1,
+    "title": {
+      "en": "Made for your world.",
+      "vi": "Dành cho thế giới của bạn."
+    },
+    "camera": 5,
+    "colors": [
+      "#4B1527"
+    ],
+    "poster": "/media/phone-front.svg",
+    "preset": "float",
+    "subtitle": {
+      "en": "Explore Apple products, from earlier generations to new possibilities.",
+      "vi": "Khám phá các dòng sản phẩm Apple, từ thế hệ trước đến lựa chọn mới."
+    },
+    "productSlug": ""
+  },
+  {
+    "id": "benefits",
+    "fold": 0,
+    "tilt": 8,
+    "type": "benefits",
+    "light": 2,
+    "model": "procedural:phone",
+    "speed": 1,
+    "title": {
+      "en": "Confidence in every experience.",
+      "vi": "An tâm trong từng trải nghiệm."
+    },
+    "camera": 5,
+    "colors": [
+      "#4B1527"
+    ],
+    "poster": "/media/phone-front.svg",
+    "preset": "float",
+    "subtitle": {
+      "en": "Clear information. Support throughout your journey.",
+      "vi": "Thông tin rõ ràng. Hỗ trợ xuyên suốt hành trình."
+    },
+    "productSlug": ""
+  }
+]

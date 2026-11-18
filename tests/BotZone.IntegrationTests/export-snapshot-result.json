@@ -1,0 +1,34 @@
+{
+  "ExportId": "465ffe47-4238-4446-afa9-70ebac714987",
+  "ReadAt": "2026-11-13T08:44:11.317993+00:00",
+  "writerCommittedAt": "2026-11-13T08:44:11.341475+00:00",
+  "readerBackendPid": 21724,
+  "writerBackendPid": 21722,
+  "isolation": "RepeatableRead",
+  "writerOverlapped": true,
+  "RowCount": 1,
+  "TotalVnd": "99000000",
+  "manifest": {
+    "kind": "detail",
+    "files": {
+      "pdf": {
+        "bytes": 40842,
+        "checksum": "cd7684e7162b13b445b9977437bd37e17211ae1008c8edb46b7f163221bea52e",
+        "filename": "465ffe47-4238-4446-afa9-70ebac714987.pdf",
+        "contentType": "application/pdf"
+      },
+      "xlsx": {
+        "bytes": 14167,
+        "checksum": "39aa9e4cf0d2af65f66149f33ce892fb460f20d78c4ace7b7f237df45189fad3",
+        "filename": "465ffe47-4238-4446-afa9-70ebac714987.xlsx",
+        "contentType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      }
+    },
+    "locale": "vi",
+    "invoiceIds": [
+      "60000746-bf94-d267-cd55-b926cee260ff"
+    ],
+    "datasetChecksum": "958748582ec490bfa8e586225d9f5a20aa41480b73ff142c2855c77d38228fc5"
+  },
+  "draftFixtureRestoredInFinally": true
+}

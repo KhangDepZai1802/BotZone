@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BotZone.Contracts/BotZone.Contracts.csproj" />
+    <Project Path="src/BotZone.Infrastructure/BotZone.Infrastructure.csproj" />
+    <Project Path="src/BotZone.Api/BotZone.Api.csproj" />
+    <Project Path="src/BotZone.Admin.WinForms/BotZone.Admin.WinForms.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BotZone.IntegrationTests/BotZone.IntegrationTests.csproj" />
+    <Project Path="tests/BotZone.DatabaseVerification/BotZone.DatabaseVerification.csproj" />
+  </Folder>
+</Solution>

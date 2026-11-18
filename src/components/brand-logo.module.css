@@ -1,0 +1,30 @@
+.mark {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 150px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 7px;
+}
+
+.image {
+  /* Present the supplied square artwork as a wordmark; keep the source intact. */
+  position: absolute;
+  width: 116.55%;
+  max-width: none;
+  height: auto;
+  left: -8.55%;
+  top: 50%;
+  transform: translateY(-49.44%);
+}
+
+.prominent {
+  width: 180px;
+  height: 46px;
+}
+
+@media (max-width: 650px) {
+  .mark { width: 126px; height: 34px; }
+  .prominent { width: 164px; height: 42px; }
+}

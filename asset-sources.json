@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-13",
+  "policy": "Serve local assets without runtime hotlinks or font CDNs. Product photography is individually identified in data/product-photos.json. Original illustrations and user-supplied 3D assets have separate provenance and are not official Apple geometry.",
+  "models": [
+    {
+      "path": "public/models/phone-illustration.glb",
+      "identifier": "procedural:phone",
+      "author": "BotZone project",
+      "license": "CC0-1.0",
+      "source": "public/models/source/create-models.mjs",
+      "bytes": 223388,
+      "sha256": "a6c9875e6e7db4ec695827d2e33bcccf3fdb5450d49d9f7b1ee56c9980e35513",
+      "supportsFold": false,
+      "colorMaterial": "BodyColorable",
+      "externalResources": false
+    },
+    {
+      "path": "public/models/duo-illustration.glb",
+      "identifier": "procedural:duo",
+      "author": "BotZone project",
+      "license": "CC0-1.0",
+      "source": "public/models/source/create-models.mjs",
+      "bytes": 233744,
+      "sha256": "92861cf303253c286b4d532c78d22feb3af0abd5024d298b9ad0643dc194953a",
+      "supportsFold": true,
+      "hingeNode": "Hinge",
+      "colorMaterial": "BodyColorable",
+      "externalResources": false
+    }
+  ],
+  "posters": {
+    "author": "BotZone project",
+    "license": "CC0-1.0",
+    "method": "Original code-authored SVG illustrations, without imported logos, raster images, meshes or textures.",
+    "files": [
+      "public/media/accessories.svg",
+      "public/media/airpods.svg",
+      "public/media/display.svg",
+      "public/media/duo.svg",
+      "public/media/home.svg",
+      "public/media/ipad.svg",
+      "public/media/mac.svg",
+      "public/media/phone-blue.svg",
+      "public/media/phone-burgundy.svg",
+      "public/media/phone-front.svg",
+      "public/media/vision.svg",
+      "public/media/watch.svg"
+    ]
+  },
+  "fonts": [
+    {
+      "path": "public/fonts/NotoSans-Regular.ttf",
+      "family": "Noto Sans",
+      "author": "The Noto Project Authors",
+      "sourceUrl": "https://raw.githubusercontent.com/notofonts/noto-fonts/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf",
+      "license": "OFL-1.1",
+      "licensePath": "public/fonts/OFL.txt",
+      "licenseSourceUrl": "https://raw.githubusercontent.com/notofonts/noto-fonts/main/LICENSE",
+      "bytes": 569208,
+      "sha256": "b85c38ecea8a7cfb39c24e395a4007474fa5a4fc864f6ee33309eb4948d232d5",
+      "usage": "Local web font and reusable Vietnamese-capable export font"
+    }
+  ],
+  "colorReferences": [
+    {
+      "name": "Burgundy",
+      "interfaceAccent": "#6b263d",
+      "illustrationMaterial": "#71374d",
+      "sourceUrl": "https://www.apple.com/vn/iphone-18-pro/specs/",
+      "samplePath": "public/media/phone-burgundy.svg",
+      "method": "Manually selected representative UI color based on the BA product color direction; not extracted from calibrated official photography and not an official Apple HEX."
+    },
+    {
+      "name": "Băng Thanh / Ice",
+      "interfaceAccent": "#a4bac9",
+      "illustrationMaterial": "#aac5d3",
+      "sourceUrl": "https://www.apple.com/vn/iphone-18-pro/specs/",
+      "samplePath": "public/media/phone-blue.svg",
+      "method": "Manually selected representative Pro-series cool accent. The Duo screen illustration uses #789ca9 and #b2cbd1; these are screen artwork colors, not Duo body colors. Official Duo page lists Trời Đêm and Trắng Ánh Sao."
+    },
+    {
+      "name": "Duo neutral bodies",
+      "illustrationMaterial": [
+        "#c6c7cb",
+        "#272b33"
+      ],
+      "sourceUrl": "https://www.apple.com/vn/iphone-duo/specs/",
+      "samplePath": "public/media/duo.svg",
+      "method": "Representative light and dark neutral materials for the official Trắng Ánh Sao and Trời Đêm names, verified on 2026-11-13. Not calibrated or official HEX values."
+    }
+  ],
+  "productionNotes": {
+    "blender": "No Blender session was available in the tool catalogue; parent agent localhost:9876 probe failed. These meshes were authored and exported with Three.js, not Blender. No claim of Blender validation is made.",
+    "limitations": "Simplified geometric illustrations. Exact device dimensions, official appearance and material color remain unverified. The preserved generator permits replacing the geometry after a permitted source/model review.",
+    "build": "node public/models/source/create-models.mjs",
+    "dependencyLicenses": "Three.js and GLTFExporter: MIT. React Three Fiber, Drei and GSAP are package dependencies; their package licenses remain in node_modules/package metadata. No external decoder CDN is used.",
+    "scope": "Legacy original illustration GLBs only. Supplied Blender v003 package has separate provenance below."
+  },
+  "productPhotography": {
+    "manifest": "data/product-photos.json",
+    "models": 35,
+    "images": 37,
+    "source": "Official Apple product, store, support and newsroom pages recorded for every asset",
+    "copyright": "Apple Inc.; no open or blanket redistribution license is asserted. Bundled for the user-requested local educational demo.",
+    "originalsPreserved": true,
+    "sourceCheckedAt": "2026-11-13"
+  },
+  "catalogueSpecifications": {
+    "manifest": "data/product-specifications.json",
+    "manifestSha256": "e4e9153c817068143e0e32f57d837d20061f740c221e60a40b3b66b0f05aac3e",
+    "models": 35,
+    "bilingualItems": 609,
+    "fieldIds": 75,
+    "sourceCheckedAt": "2026-11-13",
+    "sourceReport": "docs/catalogue-spec-sources.md",
+    "sourceEvidence": "artifacts/specifications-research",
+    "note": "Official Apple technical data summarized in VI/EN. Unverified fields are omitted; manufacturer options are separate from shop SKUs. Imported through the existing C# backend into products.specs without a migration."
+  },
+  "heroPackageV003": {
+    "version": "v003",
+    "source": "User-supplied BotZone_3D_Assets_v003 package; originals preserved outside this workspace",
+    "manifest": "docs/3d/v003/source/asset-manifest.json",
+    "manifestSha256": "a178b405377b634f3760cad168d0e8ddf1d2a64152198d892258e20f2a2a248a",
+    "licenseAndSources": "docs/3d/v003/source/LICENSES_AND_SOURCES.md",
+    "localRoot": "public/models/v003",
+    "files": [
+      {
+        "file": "iphone-18-pro-max-desktop.glb",
+        "bytes": 3232596,
+        "sha256": "a9b94e46477b13a5e18e148f4039d3321890de3d9f2053a31d73ff4d5a5a8f3a",
+        "matches": true
+      },
+      {
+        "file": "iphone-18-pro-max-mobile.glb",
+        "bytes": 2038128,
+        "sha256": "aedce816e094688a777b1daacc0414f9c1c3a3705a1eef2de79640b95300d0c8",
+        "matches": true
+      },
+      {
+        "file": "iphone-18-pro-max.webp",
+        "bytes": 55658,
+        "sha256": "6d5af009515148ee1fd7fdfcc92c4598e4d6314eccbbb9a0e2c361fc5d116a9f",
+        "matches": true
+      },
+      {
+        "file": "iphone-duo-desktop.glb",
+        "bytes": 4697068,
+        "sha256": "6be09394df5059d77f84c76e0b2bc4d9143cf030bd2a76f07f20479f94acb32d",
+        "matches": true
+      },
+      {
+        "file": "iphone-duo-mobile.glb",
+        "bytes": 2519684,
+        "sha256": "35999aa5fb952cdcd06edad76505076f1e3fd490ae66440be4211eaa509c1628",
+        "matches": true
+      },
+      {
+        "file": "iphone-duo.webp",
+        "bytes": 154028,
+        "sha256": "206e8da838cb131a9025ec560c8df6fa8acefd9455eb852f17a00c72f29f5aa6",
+        "matches": true
+      }
+    ],
+    "runtimeEvidence": "artifacts/3d-v003/final/results.json",
+    "integration": "docs/3d/v003/integration.md",
+    "note": "Independent Blender artwork supplied by the user; not official Apple meshes or manufacturing CAD. No source modification or preview HTML embedding."
+  }
+}

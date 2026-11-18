@@ -1,0 +1,1052 @@
+[
+  {
+    "modelCode": "P13",
+    "category": "iphone",
+    "slug": "iphone-13",
+    "name": "iPhone 13",
+    "sourceUrl": "https://support.apple.com/en-us/111872",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/p13.jpg",
+    "specs": {
+      "Generation": "2021",
+      "Storage range": "128 GB / 256 GB / 512 GB"
+    },
+    "variants": [
+      {
+        "sku": "P13-DEMO",
+        "options": {
+          "color": "Midnight",
+          "storage": "128GB"
+        },
+        "priceVnd": "8000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "P14",
+    "category": "iphone",
+    "slug": "iphone-14",
+    "name": "iPhone 14",
+    "sourceUrl": "https://support.apple.com/en-gb/111850",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/p14.jpg",
+    "specs": {
+      "Generation": "2022",
+      "Storage range": "128 GB / 256 GB / 512 GB"
+    },
+    "variants": [
+      {
+        "sku": "P14-DEMO",
+        "options": {
+          "color": "Midnight",
+          "storage": "128GB"
+        },
+        "priceVnd": "12000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "P15",
+    "category": "iphone",
+    "slug": "iphone-15",
+    "name": "iPhone 15",
+    "sourceUrl": "https://support.apple.com/en-us/111831",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/p15.jpg",
+    "specs": {
+      "Generation": "2023",
+      "Body": "Aluminum",
+      "Storage range": "128 GB / 256 GB / 512 GB"
+    },
+    "variants": [
+      {
+        "sku": "P15-DEMO",
+        "options": {
+          "color": "Blue",
+          "storage": "128GB"
+        },
+        "priceVnd": "15000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "P16",
+    "category": "iphone",
+    "slug": "iphone-16",
+    "name": "iPhone 16",
+    "sourceUrl": "https://www.apple.com/vn/iphone-16/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/p16.png",
+    "specs": {
+      "Chip": "A18",
+      "Display": "6.1-inch OLED"
+    },
+    "variants": [
+      {
+        "sku": "P16-DEMO",
+        "options": {
+          "color": "Black",
+          "storage": "128GB"
+        },
+        "priceVnd": "19000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "P17",
+    "category": "iphone",
+    "slug": "iphone-17",
+    "name": "iPhone 17",
+    "sourceUrl": "https://www.apple.com/vn/iphone-17/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/p17.png",
+    "specs": {
+      "Chip": "A19",
+      "Display": "6.3-inch OLED"
+    },
+    "variants": [
+      {
+        "sku": "P17-DEMO",
+        "options": {
+          "color": "White",
+          "storage": "256GB"
+        },
+        "priceVnd": "24000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "P18PRO",
+    "category": "iphone",
+    "slug": "iphone-18-pro",
+    "name": "iPhone 18 Pro",
+    "sourceUrl": "https://www.apple.com/vn/iphone-18-pro/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/p18pro.png",
+    "specs": {
+      "Chip": "A20 Pro",
+      "Display": "6.3-inch OLED",
+      "Body": "Aluminum"
+    },
+    "variants": [
+      {
+        "sku": "P18PRO-DEMO",
+        "options": {
+          "color": "Burgundy",
+          "storage": "256GB"
+        },
+        "priceVnd": "31000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "P18MAX",
+    "category": "iphone",
+    "slug": "iphone-18-pro-max",
+    "name": "iPhone 18 Pro Max",
+    "sourceUrl": "https://www.apple.com/vn/iphone-18-pro/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/p18max.png",
+    "specs": {
+      "Chip": "A20 Pro",
+      "Display": "6.9-inch OLED",
+      "Body": "Aluminum"
+    },
+    "variants": [
+      {
+        "sku": "P18MAX-DEMO",
+        "options": {
+          "color": "Burgundy",
+          "storage": "256GB"
+        },
+        "priceVnd": "35000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      },
+      {
+        "sku": "P18MAX-ICE-512-DEMO",
+        "options": {
+          "color": "Băng Thanh",
+          "storage": "512GB"
+        },
+        "priceVnd": "40000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "1500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 0
+      }
+    ]
+  },
+  {
+    "modelCode": "DUO",
+    "category": "iphone",
+    "slug": "iphone-duo",
+    "name": "iPhone Duo",
+    "sourceUrl": "https://www.apple.com/vn/iphone-duo/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/duo.png",
+    "specs": {
+      "Chip": "A20 Pro",
+      "Inner display": "7.6-inch OLED",
+      "Outer display": "5.4-inch OLED",
+      "Body": "Titanium"
+    },
+    "variants": [
+      {
+        "sku": "DUO-DEMO",
+        "options": {
+          "color": "Trắng Ánh Sao",
+          "storage": "256GB"
+        },
+        "priceVnd": "45000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      },
+      {
+        "sku": "DUO-NIGHT-512-DEMO",
+        "options": {
+          "color": "Trời Đêm",
+          "storage": "512GB"
+        },
+        "priceVnd": "49000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "1800000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 4
+      }
+    ]
+  },
+  {
+    "modelCode": "MBA5",
+    "category": "mac",
+    "slug": "macbook-air-m5",
+    "name": "MacBook Air 13-inch (M5)",
+    "sourceUrl": "https://www.apple.com/vn/macbook-air/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/mba5.jpg",
+    "specs": {
+      "Chip": "Apple M5",
+      "Display": "13.6-inch Liquid Retina"
+    },
+    "variants": [
+      {
+        "sku": "MBA5-DEMO",
+        "options": {
+          "chip": "M5",
+          "ram": "16GB",
+          "ssd": "512GB",
+          "color": "Sky Blue"
+        },
+        "priceVnd": "28000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "MBA4",
+    "category": "mac",
+    "slug": "macbook-air-m4",
+    "name": "MacBook Air 13-inch (M4)",
+    "sourceUrl": "https://support.apple.com/en-la/122209",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/mba4.jpg",
+    "specs": {
+      "Chip": "Apple M4",
+      "Display": "13.6-inch Liquid Retina",
+      "Generation": "2025"
+    },
+    "variants": [
+      {
+        "sku": "MBA4-DEMO",
+        "options": {
+          "chip": "M4",
+          "ram": "16GB",
+          "ssd": "256GB",
+          "color": "Silver"
+        },
+        "priceVnd": "23000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "MINI6",
+    "category": "mac",
+    "slug": "mac-mini-m6",
+    "name": "Mac mini (M6)",
+    "sourceUrl": "https://www.apple.com/vn/mac-mini/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/mini6.webp",
+    "specs": {
+      "Chip": "Apple M6",
+      "Memory": "16 GB unified"
+    },
+    "variants": [
+      {
+        "sku": "MINI6-DEMO",
+        "options": {
+          "chip": "M6",
+          "ram": "16GB",
+          "ssd": "256GB",
+          "color": "Silver"
+        },
+        "priceVnd": "20000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "IPA4",
+    "category": "ipad",
+    "slug": "ipad-air-11-m4",
+    "name": "iPad Air 11-inch (M4)",
+    "sourceUrl": "https://www.apple.com/vn/ipad-air/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/ipa4.jpg",
+    "specs": {
+      "Chip": "Apple M4",
+      "Display": "Liquid Retina",
+      "Pencil": "Apple Pencil Pro / USB-C"
+    },
+    "variants": [
+      {
+        "sku": "IPA4-DEMO",
+        "options": {
+          "color": "Blue",
+          "storage": "128GB",
+          "connectivity": "Wi-Fi"
+        },
+        "priceVnd": "17500000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "IPA3",
+    "category": "ipad",
+    "slug": "ipad-air-11-m3",
+    "name": "iPad Air 11-inch (M3)",
+    "sourceUrl": "https://support.apple.com/en-us/122241",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/ipa3.jpg",
+    "specs": {
+      "Chip": "Apple M3",
+      "Generation": "2025",
+      "Storage range": "128 GB / 256 GB / 512 GB / 1 TB"
+    },
+    "variants": [
+      {
+        "sku": "IPA3-DEMO",
+        "options": {
+          "color": "Starlight",
+          "storage": "128GB",
+          "connectivity": "Wi-Fi"
+        },
+        "priceVnd": "15000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "IPP5",
+    "category": "ipad",
+    "slug": "ipad-pro-11-m5",
+    "name": "iPad Pro 11-inch (M5)",
+    "sourceUrl": "https://www.apple.com/vn/ipad-pro/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/ipp5.jpg",
+    "specs": {
+      "Chip": "Apple M5",
+      "Memory": "12 GB on 256/512 GB models"
+    },
+    "variants": [
+      {
+        "sku": "IPP5-DEMO",
+        "options": {
+          "color": "Silver",
+          "storage": "256GB",
+          "connectivity": "Wi-Fi"
+        },
+        "priceVnd": "27000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "WATCH12",
+    "category": "watch",
+    "slug": "apple-watch-series-12",
+    "name": "Apple Watch Series 12",
+    "sourceUrl": "https://www.apple.com/apple-watch-series-12/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/watch12.jpg",
+    "specs": {
+      "Chip": "S11",
+      "Display": "Always-On Retina",
+      "Case sizes": "42 mm / 46 mm aluminum"
+    },
+    "variants": [
+      {
+        "sku": "WATCH12-DEMO",
+        "options": {
+          "size": "46mm",
+          "material": "Aluminum",
+          "color": "Dark Bronze",
+          "band": "Sport Band",
+          "connectivity": "GPS"
+        },
+        "priceVnd": "11500000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "WATCH11",
+    "category": "watch",
+    "slug": "apple-watch-series-11",
+    "name": "Apple Watch Series 11",
+    "sourceUrl": "https://support.apple.com/en-la/125093",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/watch11.jpg",
+    "specs": {
+      "Chip": "S10",
+      "Generation": "2025",
+      "Case sizes": "42 mm / 46 mm"
+    },
+    "variants": [
+      {
+        "sku": "WATCH11-DEMO",
+        "options": {
+          "size": "42mm",
+          "material": "Aluminum",
+          "color": "Silver",
+          "band": "Sport Band",
+          "connectivity": "GPS"
+        },
+        "priceVnd": "8500000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "AP3",
+    "category": "airpods",
+    "slug": "airpods-pro-3",
+    "name": "AirPods Pro 3",
+    "sourceUrl": "https://www.apple.com/vn/airpods-pro/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/ap3.jpg",
+    "specs": {
+      "Noise control": "Active Noise Cancellation",
+      "Case": "MagSafe charging case (USB-C)"
+    },
+    "variants": [
+      {
+        "sku": "AP3-DEMO",
+        "options": {
+          "color": "White"
+        },
+        "priceVnd": "6500000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "AP2",
+    "category": "airpods",
+    "slug": "airpods-pro-2",
+    "name": "AirPods Pro (2nd generation, USB-C)",
+    "sourceUrl": "https://support.apple.com/en-us/111834",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/ap2.png",
+    "specs": {
+      "Connection": "USB-C charging case",
+      "Generation": "2nd generation"
+    },
+    "variants": [
+      {
+        "sku": "AP2-DEMO",
+        "options": {
+          "color": "White"
+        },
+        "priceVnd": "1500000",
+        "trackingMode": "quantity",
+        "careFeeVnd": null,
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "APMAX2",
+    "category": "airpods",
+    "slug": "airpods-max-2",
+    "name": "AirPods Max 2",
+    "sourceUrl": "https://www.apple.com/vn/airpods-max/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/apmax2.jpg",
+    "specs": {
+      "Style": "Over-ear",
+      "Color options": "Midnight / Starlight / Blue / Purple / Orange"
+    },
+    "variants": [
+      {
+        "sku": "APMAX2-DEMO",
+        "options": {
+          "color": "Midnight"
+        },
+        "priceVnd": "14500000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "TVA19",
+    "category": "tv-home",
+    "slug": "apple-tv-4k-a19",
+    "name": "Apple TV 4K (A19)",
+    "sourceUrl": "https://www.apple.com/vn/apple-tv-4k/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/tva19.jpg",
+    "specs": {
+      "Chip": "A19",
+      "Network": "Wi-Fi 7 / Ethernet",
+      "Connection": "HDMI 2.1"
+    },
+    "variants": [
+      {
+        "sku": "TVA19-DEMO",
+        "options": {
+          "storage": "128GB",
+          "color": "Black"
+        },
+        "priceVnd": "4500000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "TV3",
+    "category": "tv-home",
+    "slug": "apple-tv-4k-3",
+    "name": "Apple TV 4K (3rd generation)",
+    "sourceUrl": "https://support.apple.com/en-gb/111839",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/tv3.png",
+    "specs": {
+      "Chip": "A15 Bionic",
+      "Network": "Wi-Fi 6",
+      "Generation": "2022"
+    },
+    "variants": [
+      {
+        "sku": "TV3-DEMO",
+        "options": {
+          "storage": "64GB",
+          "connectivity": "Wi-Fi",
+          "color": "Black"
+        },
+        "priceVnd": "3200000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "HOMEPOD2",
+    "category": "tv-home",
+    "slug": "homepod-2",
+    "name": "HomePod (2nd generation)",
+    "sourceUrl": "https://www.apple.com/homepod-2nd-generation/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/homepod2.jpg",
+    "specs": {
+      "Colors": "Midnight / White"
+    },
+    "variants": [
+      {
+        "sku": "HOMEPOD2-DEMO",
+        "options": {
+          "color": "White"
+        },
+        "priceVnd": "7800000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "VISION5",
+    "category": "vision",
+    "slug": "vision-pro-m5",
+    "name": "Apple Vision Pro (M5)",
+    "sourceUrl": "https://www.apple.com/apple-vision-pro/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/vision5.jpg",
+    "specs": {
+      "Chip": "Apple M5 + R1",
+      "Display": "Micro-OLED",
+      "Memory": "16 GB"
+    },
+    "variants": [
+      {
+        "sku": "VISION5-DEMO",
+        "options": {
+          "storage": "256GB"
+        },
+        "priceVnd": "85000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "VISION2",
+    "category": "vision",
+    "slug": "vision-pro-m2",
+    "name": "Apple Vision Pro (M2)",
+    "sourceUrl": "https://support.apple.com/en-la/117810",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/vision2.png",
+    "specs": {
+      "Chip": "Apple M2 + R1",
+      "Display": "Micro-OLED",
+      "Generation": "2024"
+    },
+    "variants": [
+      {
+        "sku": "VISION2-DEMO",
+        "options": {
+          "storage": "256GB"
+        },
+        "priceVnd": "65000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 0
+      }
+    ]
+  },
+  {
+    "modelCode": "STUDIO26",
+    "category": "displays",
+    "slug": "studio-display-2026",
+    "name": "Studio Display (2026)",
+    "sourceUrl": "https://www.apple.com/vn/studio-display/specs/",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/studio26.jpg",
+    "specs": {
+      "Display": "27-inch Retina 5K",
+      "Resolution": "5120 × 2880",
+      "Refresh rate": "60 Hz"
+    },
+    "variants": [
+      {
+        "sku": "STUDIO26-DEMO",
+        "options": {
+          "glass": "Standard",
+          "stand": "Tilt-adjustable"
+        },
+        "priceVnd": "40000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "STUDIO22",
+    "category": "displays",
+    "slug": "studio-display-2022",
+    "name": "Studio Display (2022)",
+    "sourceUrl": "https://support.apple.com/en-ca/111890",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/studio22.jpg",
+    "specs": {
+      "Display": "27-inch Retina 5K",
+      "Resolution": "5120 × 2880",
+      "Generation": "2022"
+    },
+    "variants": [
+      {
+        "sku": "STUDIO22-DEMO",
+        "options": {
+          "glass": "Standard",
+          "stand": "Tilt-adjustable"
+        },
+        "priceVnd": "32000000",
+        "trackingMode": "serialized",
+        "careFeeVnd": "500000",
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "AIRTAG2",
+    "category": "accessories",
+    "slug": "airtag-2",
+    "name": "AirTag (2nd generation)",
+    "sourceUrl": "https://support.apple.com/en-au/126203",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/airtag2.png",
+    "specs": {
+      "Battery": "Replaceable CR2032",
+      "Generation": "2026"
+    },
+    "variants": [
+      {
+        "sku": "AIRTAG2-DEMO",
+        "options": {
+          "pack": "1"
+        },
+        "priceVnd": "800000",
+        "trackingMode": "quantity",
+        "careFeeVnd": null,
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "AIRTAG1",
+    "category": "accessories",
+    "slug": "airtag-1",
+    "name": "AirTag (1st generation)",
+    "sourceUrl": "https://support.apple.com/en-gb/111847",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/airtag1.jpg",
+    "specs": {
+      "Battery": "Replaceable CR2032",
+      "Chip": "U1",
+      "Generation": "2021"
+    },
+    "variants": [
+      {
+        "sku": "AIRTAG1-DEMO",
+        "options": {
+          "pack": "1"
+        },
+        "priceVnd": "600000",
+        "trackingMode": "quantity",
+        "careFeeVnd": null,
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "PENCILPRO",
+    "category": "accessories",
+    "slug": "apple-pencil-pro",
+    "name": "Apple Pencil Pro",
+    "sourceUrl": "https://support.apple.com/en-ie/120123",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/pencilpro.jpg",
+    "specs": {
+      "Connection": "Bluetooth",
+      "Charging": "Magnetic"
+    },
+    "variants": [
+      {
+        "sku": "PENCILPRO-DEMO",
+        "options": {
+          "color": "White"
+        },
+        "priceVnd": "3000000",
+        "trackingMode": "quantity",
+        "careFeeVnd": null,
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ],
+    "compatibleSlugs": [
+      "ipad-air-11-m4",
+      "ipad-air-11-m3",
+      "ipad-pro-11-m5"
+    ]
+  },
+  {
+    "modelCode": "PENCILC",
+    "category": "accessories",
+    "slug": "apple-pencil-usbc",
+    "name": "Apple Pencil (USB-C)",
+    "sourceUrl": "https://support.apple.com/en-gb/121318",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/pencilc.jpg",
+    "specs": {
+      "Connection": "USB-C",
+      "Compatibility source": "https://support.apple.com/en-euro/guide/ipad/ipad47ee2e98/27/ipados/27"
+    },
+    "variants": [
+      {
+        "sku": "PENCILC-DEMO",
+        "options": {
+          "color": "White"
+        },
+        "priceVnd": "2000000",
+        "trackingMode": "quantity",
+        "careFeeVnd": null,
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ],
+    "compatibleSlugs": [
+      "ipad-air-11-m4",
+      "ipad-air-11-m3",
+      "ipad-pro-11-m5",
+      "iphone-duo"
+    ]
+  },
+  {
+    "modelCode": "KEYBOARDC",
+    "category": "accessories",
+    "slug": "magic-keyboard-usbc",
+    "name": "Magic Keyboard (USB-C)",
+    "sourceUrl": "https://support.apple.com/en-gb/121955",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/keyboardc.png",
+    "specs": {
+      "Charging": "USB-C"
+    },
+    "variants": [
+      {
+        "sku": "KEYBOARDC-DEMO",
+        "options": {
+          "connection": "USB-C"
+        },
+        "priceVnd": "2500000",
+        "trackingMode": "quantity",
+        "careFeeVnd": null,
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "MOUSEC",
+    "category": "accessories",
+    "slug": "magic-mouse-usbc",
+    "name": "Magic Mouse (USB-C)",
+    "sourceUrl": "https://support.apple.com/en-gb/121931",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/mousec.jpg",
+    "specs": {
+      "Connection": "Bluetooth / USB-C",
+      "Surface": "Multi-Touch"
+    },
+    "variants": [
+      {
+        "sku": "MOUSEC-DEMO",
+        "options": {
+          "color": "White"
+        },
+        "priceVnd": "2000000",
+        "trackingMode": "quantity",
+        "careFeeVnd": null,
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ],
+    "compatibleSlugs": [
+      "macbook-air-m5",
+      "macbook-air-m4",
+      "mac-mini-m6"
+    ]
+  },
+  {
+    "modelCode": "POWER20",
+    "category": "accessories",
+    "slug": "apple-20w-usbc-adapter",
+    "name": "20W USB-C Power Adapter",
+    "sourceUrl": "https://www.apple.com/shop/product/mwvv3am/a/20w-usb-c-power-adapter",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/power20.jpg",
+    "specs": {
+      "Power": "20 W",
+      "Connection": "USB-C"
+    },
+    "variants": [
+      {
+        "sku": "POWER20-DEMO",
+        "options": {
+          "color": "White",
+          "plug": "Type A"
+        },
+        "priceVnd": "550000",
+        "trackingMode": "quantity",
+        "careFeeVnd": null,
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ]
+  },
+  {
+    "modelCode": "CABLE60",
+    "category": "accessories",
+    "slug": "apple-60w-usbc-cable",
+    "name": "60W USB-C Charge Cable (1 m)",
+    "sourceUrl": "https://www.apple.com/shop/product/mw493am/a/60w-usb-c-charge-cable-1-m",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/cable60.jpg",
+    "specs": {
+      "Power": "Up to 60 W",
+      "Length": "1 m",
+      "Data": "USB 2"
+    },
+    "variants": [
+      {
+        "sku": "CABLE60-DEMO",
+        "options": {
+          "length": "1m",
+          "color": "White"
+        },
+        "priceVnd": "500000",
+        "trackingMode": "quantity",
+        "careFeeVnd": null,
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ],
+    "compatibleSlugs": [
+      "iphone-15",
+      "iphone-16",
+      "iphone-17",
+      "iphone-18-pro",
+      "iphone-18-pro-max",
+      "iphone-duo"
+    ]
+  },
+  {
+    "modelCode": "CASE18MAX",
+    "category": "accessories",
+    "slug": "iphone-18-pro-max-case",
+    "name": "iPhone 18 Pro Max Silicone Case with MagSafe",
+    "sourceUrl": "https://www.apple.com/shop/product/mk914zm/a/iphone-18-pro-max-silicone-case-with-magsafe-burgundy",
+    "sourceCheckedAt": "2026-11-13",
+    "priceType": "demo",
+    "poster": "/product-photos/case18max.jpg",
+    "specs": {
+      "Material": "Silicone",
+      "Compatibility": "iPhone 18 Pro Max"
+    },
+    "variants": [
+      {
+        "sku": "CASE18MAX-DEMO",
+        "options": {
+          "color": "Burgundy"
+        },
+        "priceVnd": "1300000",
+        "trackingMode": "quantity",
+        "careFeeVnd": null,
+        "standardWarrantyMonths": 12,
+        "stockQuantity": 6
+      }
+    ],
+    "compatibleSlugs": [
+      "iphone-18-pro-max"
+    ]
+  }
+]

@@ -1,0 +1,38 @@
+.detailColumns,
+.detailColumns > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.detailPage :global(.page-heading) > div {
+  min-width: 0;
+}
+
+.detailPage :global(.breadcrumb),
+.detailPage :global(.page-heading) h1,
+.detailPage :global(.timeline-item) strong {
+  overflow-wrap: anywhere;
+}
+
+.lineItems {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overscroll-behavior-x: contain;
+}
+
+.lineItems:focus-visible {
+  outline: 2px solid var(--burgundy, #6b263d);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .detailPage .detailColumns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .detailPage :global(.panel.row),
+  .detailPage :global(.summary-line) {
+    flex-wrap: wrap;
+  }
+}

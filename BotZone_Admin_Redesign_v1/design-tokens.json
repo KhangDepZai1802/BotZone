@@ -1,0 +1,88 @@
+{
+  "name": "BotZone Admin",
+  "version": "1.0",
+  "platform": "native Windows Forms; laptop and desktop PC",
+  "units": "logical px at 96 DPI unless named pt",
+  "colors": {
+    "bg": "#FAFAF9",
+    "surface": "#FFFFFF",
+    "rail": "#19191C",
+    "text": "#202126",
+    "muted": "#63656D",
+    "line": "#E2E3E7",
+    "control": "#8A8C95",
+    "wine": "#6F233F",
+    "soft": "#F5EBEF",
+    "green": "#246B4E",
+    "greenbg": "#EAF3EE",
+    "amber": "#805714",
+    "amberbg": "#FBF2DF",
+    "red": "#A13035",
+    "redbg": "#FBECEE",
+    "blue": "#2459B8",
+    "bluebg": "#EDF2FC",
+    "railmuted": "#B9BAC2"
+  },
+  "typography": {
+    "runtimeFamily": "Segoe UI",
+    "mockFamily": "Noto Sans",
+    "bodyPt": 10.5,
+    "labelPt": 10,
+    "headingPt": 20,
+    "moneyPt": 22,
+    "lineHeight": 1.45
+  },
+  "spacing": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32
+  ],
+  "radius": {
+    "control": 6,
+    "surface": 8,
+    "tag": 5
+  },
+  "sizes": {
+    "sidebar": 224,
+    "sidebarCollapsed": 64,
+    "topbar": 64,
+    "statusbar": 24,
+    "field": 40,
+    "button": 36,
+    "primaryButton": 40,
+    "tableHeader": 40,
+    "tableRowComfortable": 48,
+    "tableRowTwoLines": 64,
+    "icon": 18
+  },
+  "breakpointsLogical": {
+    "wideSplit": 1440,
+    "normal": 1120,
+    "compact": 900,
+    "belowCompact": "navigation collapses; scroll forms; no offscreen primary actions"
+  },
+  "motion": {
+    "feedbackMs": 100,
+    "transitionMs": 160,
+    "transitionMaxMs": 180,
+    "easing": "ease-out cubic",
+    "busy": "indeterminate while the real operation is pending; no minimum delay",
+    "interruption": "replace previous transition; cancel obsolete reads; preserve write idempotency",
+    "honorWindowsAnimationPreference": true
+  },
+  "decisions": {
+    "adminLanguage": "vi-VN",
+    "reportCurrency": "VND",
+    "publicContentLanguages": [
+      "vi",
+      "en"
+    ],
+    "roleSource": "authenticated server permissions",
+    "mobileAdmin": false,
+    "storefrontMobilePreview": true,
+    "onePrimaryActionPerContext": true
+  }
+}

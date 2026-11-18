@@ -1,0 +1,45 @@
+{
+  "checkedAt": "2026-11-13T08:44:16.3919828+00:00",
+  "database": "botzone_baseline_test_20261113135743_c0d401c6",
+  "cases": [
+    {
+      "orderId": "45ddb0ed-e133-4c93-b25d-2e33628c270f",
+      "withDraft": false,
+      "invoiceId": "e0671b6c-c481-4413-8c61-e19ac99475ea",
+      "invoiceNo": "BZ-HD-00000040",
+      "retryStable": true
+    },
+    {
+      "orderId": "10709b3c-7550-4dd6-a73a-a5cfc5058a6c",
+      "withDraft": true,
+      "invoiceId": "6a7dc04b-54c1-40be-881d-d94e2c125eda",
+      "invoiceNo": "BZ-HD-00000041",
+      "retryStable": true
+    },
+    {
+      "orderId": "557429fb-3c9e-49cc-97f2-a1096aa5a946",
+      "fault": "missing current staff at invoice stage",
+      "stockRestored": true,
+      "draftUnissued": true
+    }
+  ],
+  "cleanup": [
+    {
+      "orderId": "45ddb0ed-e133-4c93-b25d-2e33628c270f",
+      "closedBy": "inspected returned shipment and issued credit note",
+      "newStockRestored": true,
+      "fakeRefund": false
+    },
+    {
+      "orderId": "10709b3c-7550-4dd6-a73a-a5cfc5058a6c",
+      "closedBy": "inspected returned shipment and issued credit note",
+      "newStockRestored": true,
+      "fakeRefund": false
+    },
+    {
+      "orderId": "557429fb-3c9e-49cc-97f2-a1096aa5a946",
+      "closedBy": "cancel order command"
+    }
+  ],
+  "noRowsDeletedByTest": true
+}

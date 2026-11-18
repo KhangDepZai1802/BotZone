@@ -1,0 +1,372 @@
+{
+  "database": "botzone_baseline_test_20261113135743_c0d401c6",
+  "startedAt": "2026-11-13T08:43:58.7595624+00:00",
+  "finishedAt": "2026-11-13T08:44:16.6977274+00:00",
+  "tests": [
+    {
+      "name": "seed golden",
+      "passed": true,
+      "milliseconds": 1557.7338
+    },
+    {
+      "name": "seed idempotent; Identity hashes verify",
+      "passed": true,
+      "milliseconds": 587.7316
+    },
+    {
+      "name": "TS01 parameterization and field whitelist",
+      "passed": true,
+      "milliseconds": 12.1258
+    },
+    {
+      "name": "TS02 report permission outside OR and NOT",
+      "passed": true,
+      "milliseconds": 0.7261
+    },
+    {
+      "name": "TS03 customer detail only; staff role denies",
+      "passed": true,
+      "milliseconds": 0.3952
+    },
+    {
+      "name": "TS04 not_contains uses NOT EXISTS",
+      "passed": true,
+      "milliseconds": 0.7786
+    },
+    {
+      "name": "TS05 Vietnam day equality half-open",
+      "passed": true,
+      "milliseconds": 11.2067
+    },
+    {
+      "name": "TS06 Vietnam date operator boundaries",
+      "passed": true,
+      "milliseconds": 1.979
+    },
+    {
+      "name": "TS07 BIGINT exact; unsafe JSON number rejected",
+      "passed": true,
+      "milliseconds": 4.342
+    },
+    {
+      "name": "TS08 explicit null and NOT semantics",
+      "passed": true,
+      "milliseconds": 0.5311
+    },
+    {
+      "name": "TS09 bounds depth and leaves",
+      "passed": true,
+      "milliseconds": 0.4759
+    },
+    {
+      "name": "TS10 stable sort and report event window",
+      "passed": true,
+      "milliseconds": 0.4372
+    },
+    {
+      "name": "golden 8 issued / 97,130,000 and draft exclusions",
+      "passed": true,
+      "milliseconds": 259.94
+    },
+    {
+      "name": "golden exact logical filter 46,800,000",
+      "passed": true,
+      "milliseconds": 31.2461
+    },
+    {
+      "name": "issued year totals and Vietnam boundary",
+      "passed": true,
+      "milliseconds": 63.8828
+    },
+    {
+      "name": "staff totals and permission scope",
+      "passed": true,
+      "milliseconds": 47.5152
+    },
+    {
+      "name": "product totals exclude Care and shipping",
+      "passed": true,
+      "milliseconds": 25.697
+    },
+    {
+      "name": "credit, net, receipts and original-source refunds",
+      "passed": true,
+      "milliseconds": 165.8015
+    },
+    {
+      "name": "adjustment event date; zero months",
+      "passed": true,
+      "milliseconds": 40.402
+    },
+    {
+      "name": "customer ownership and non-financial roles",
+      "passed": true,
+      "milliseconds": 111.4842
+    },
+    {
+      "name": "75 invoice pagination fixture; exact sum across pages",
+      "passed": true,
+      "milliseconds": 95.5763
+    },
+    {
+      "name": "list XLSX/PDF same snapshot, 75 rows not current page",
+      "passed": true,
+      "milliseconds": 4492.1522
+    },
+    {
+      "name": "detail and report exports contain actual rows and serial text",
+      "passed": true,
+      "milliseconds": 326.1093
+    },
+    {
+      "name": "legacy null variant snapshots render detail PDF",
+      "passed": true,
+      "milliseconds": 124.9788
+    },
+    {
+      "name": "PDF pagination review artifacts include complete list report and detail",
+      "passed": true,
+      "milliseconds": 450.6268
+    },
+    {
+      "name": "DB guard issued cannot become draft",
+      "passed": true,
+      "milliseconds": 18.3779
+    },
+    {
+      "name": "DB guard issued cannot delete",
+      "passed": true,
+      "milliseconds": 3.9085
+    },
+    {
+      "name": "DB guard issued line immutable",
+      "passed": true,
+      "milliseconds": 3.8369
+    },
+    {
+      "name": "DB guard frozen unit immutable",
+      "passed": true,
+      "milliseconds": 5.3015
+    },
+    {
+      "name": "DB guard completed refund cannot reopen",
+      "passed": true,
+      "milliseconds": 3.3633
+    },
+    {
+      "name": "DB guard refund source allocations append only",
+      "passed": true,
+      "milliseconds": 3.6858
+    },
+    {
+      "name": "DB guard issued credit old parent cannot move",
+      "passed": true,
+      "milliseconds": 13.7039
+    },
+    {
+      "name": "DB guard used promotion target immutable",
+      "passed": true,
+      "milliseconds": 6.0509
+    },
+    {
+      "name": "DB guard wrong allocation SKU rejected",
+      "passed": true,
+      "milliseconds": 5.865
+    },
+    {
+      "name": "DB guard receipt cannot exceed approved PO",
+      "passed": true,
+      "milliseconds": 10.8353
+    },
+    {
+      "name": "DB guard tender cannot overfund unit",
+      "passed": true,
+      "milliseconds": 24.7729
+    },
+    {
+      "name": "DB guard duplicate business SKU rejected",
+      "passed": true,
+      "milliseconds": 12.7082
+    },
+    {
+      "name": "DB guard invalid FK rejected",
+      "passed": true,
+      "milliseconds": 4.9106
+    },
+    {
+      "name": "DB guard unfinished order cannot commit",
+      "passed": true,
+      "milliseconds": 9.5842
+    },
+    {
+      "name": "DB guard draft invoice invalid header cannot issue",
+      "passed": true,
+      "milliseconds": 14.7608
+    },
+    {
+      "name": "after-sales trade-in approval / acceptance / credit exactly once",
+      "passed": true,
+      "milliseconds": 299.4924
+    },
+    {
+      "name": "after-sales new quote invalidates old acceptance and expiry never accepts",
+      "passed": true,
+      "milliseconds": 1233.0439
+    },
+    {
+      "name": "after-sales partial return uses fixed ordinal / mixed tenders / no new stock",
+      "passed": true,
+      "milliseconds": 212.6308
+    },
+    {
+      "name": "after-sales full eligible return refunds original shipping",
+      "passed": true,
+      "milliseconds": 70.5622
+    },
+    {
+      "name": "after-sales Care excludes accidental / same SKU replacement preserves dates",
+      "passed": true,
+      "milliseconds": 129.2568
+    },
+    {
+      "name": "after-sales role / ownership and return expiry",
+      "passed": true,
+      "milliseconds": 12.3567
+    },
+    {
+      "name": "after-sales actual checkout partial odd VND and points keep frozen unit",
+      "passed": true,
+      "milliseconds": 388.7696
+    },
+    {
+      "name": "after-sales paid unissued cancellation refunds original sources once",
+      "passed": true,
+      "milliseconds": 134.4565
+    },
+    {
+      "name": "after-sales quantity Care replacement records lot custody without revenue",
+      "passed": true,
+      "milliseconds": 230.8586
+    },
+    {
+      "name": "after-sales failed COD delivery closes invoice with no fake refund",
+      "passed": true,
+      "milliseconds": 88.9961
+    },
+    {
+      "name": "after-sales unopened failed-delivery stock requires owner approval",
+      "passed": true,
+      "milliseconds": 56.0437
+    },
+    {
+      "name": "after-sales returned product cancels and refunds unused Care",
+      "passed": true,
+      "milliseconds": 66.1133
+    },
+    {
+      "name": "after-sales remote rejected trade-in records both freight directions without credit",
+      "passed": true,
+      "milliseconds": 110.4073
+    },
+    {
+      "name": "policy point value 2000 applies only to new frozen units",
+      "passed": true,
+      "milliseconds": 129.5439
+    },
+    {
+      "name": "concurrency separate connections reserve last stock only once",
+      "passed": true,
+      "milliseconds": 106.8482
+    },
+    {
+      "name": "concurrency separate customers contest final voucher quota",
+      "passed": true,
+      "milliseconds": 157.8254
+    },
+    {
+      "name": "concurrency same payment idempotency key returns one receipt",
+      "passed": true,
+      "milliseconds": 127.8085
+    },
+    {
+      "name": "concurrency different refund requests cannot exceed paid source",
+      "passed": true,
+      "milliseconds": 49.9347
+    },
+    {
+      "name": "DB-T14 export keeps one snapshot across an overlapping committed writer",
+      "passed": true,
+      "milliseconds": 200.2004
+    },
+    {
+      "name": "warehouse order projection keeps packing identifiers and excludes financial fields",
+      "passed": true,
+      "milliseconds": 21.1029
+    },
+    {
+      "name": "BA query-catalog SQL executes read-only and returns expected golden sets",
+      "passed": true,
+      "milliseconds": 26.0765
+    },
+    {
+      "name": "dispatcher momo customer scenarios failed pending expired cancelled success and idempotent retries",
+      "passed": true,
+      "milliseconds": 343.8069
+    },
+    {
+      "name": "dispatcher visa customer scenarios failed pending expired cancelled success and idempotent retries",
+      "passed": true,
+      "milliseconds": 416.0848
+    },
+    {
+      "name": "dispatcher denies customer banking COD and foreign payment commands before cached result",
+      "passed": true,
+      "milliseconds": 318.3089
+    },
+    {
+      "name": "dispatcher late demo success enters reconciliation and releases expired reservation",
+      "passed": true,
+      "milliseconds": 250.2095
+    },
+    {
+      "name": "DB-T02 expired minimum and wrong-target vouchers rejected against real catalog",
+      "passed": true,
+      "milliseconds": 142.8213
+    },
+    {
+      "name": "DB-T05 every golden month and quarter issued adjustment and net including zeros",
+      "passed": true,
+      "milliseconds": 177.2186
+    },
+    {
+      "name": "DB-T06 current staff rename and order reassignment do not move invoice snapshot revenue",
+      "passed": true,
+      "milliseconds": 31.8187
+    },
+    {
+      "name": "DB-T09 nested precedence and equality inequality produce exact distinct golden IDs",
+      "passed": true,
+      "milliseconds": 144.6197
+    },
+    {
+      "name": "DB-T17 issue without draft and retry preserves one invoice number and one stock movement",
+      "passed": true,
+      "milliseconds": 344.3011
+    },
+    {
+      "name": "DB-T17 issue existing draft and retry preserves one invoice number and one stock movement",
+      "passed": true,
+      "milliseconds": 715.7197
+    },
+    {
+      "name": "DB-T17 invoice validation failure after stock mutation rolls back handoff transaction",
+      "passed": true,
+      "milliseconds": 335.3767
+    },
+    {
+      "name": "EXPLAIN ANALYZE BUFFERS actual list and three report queries",
+      "passed": true,
+      "milliseconds": 284.5761
+    }
+  ]
+}

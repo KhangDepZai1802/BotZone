@@ -1,0 +1,950 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="3347" viewBox="0 0 2200 3347" role="img" aria-labelledby="title desc">
+<title id="title">BotZone physical PostgreSQL ERD</title>
+<desc id="desc">100 tables and 182 foreign keys captured from the database. Arrows point from child to referenced parent. Hover table or relationship for metadata.</desc>
+<defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#68717c"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif}.edge{fill:none;stroke:#68717c;stroke-width:1;opacity:.16;marker-end:url(#arrow)}.edge:hover{stroke:#a11c45;stroke-width:4;opacity:1}.node:hover rect{stroke:#111;stroke-width:3}.heading{font-size:23px;font-weight:600}.table{font-size:17px;font-weight:600}.meta{font-size:11px;fill:#59616a}</style>
+<rect width="100%" height="100%" fill="#f5f6f8"/><text x="30" y="35" font-size="27" font-weight="700">BotZone · physical ERD</text><text x="30" y="61" font-size="14">100 tables · 182 foreign keys · child → parent · hover for full definition · zoom in to inspect</text>
+<rect x="30" y="90" width="695" height="852" rx="14" fill="white" stroke="#d5d9df"/><text class="heading" x="50" y="122" fill="#6b263d">System &amp; audit</text>
+<rect x="755" y="90" width="695" height="852" rx="14" fill="white" stroke="#d5d9df"/><text class="heading" x="775" y="122" fill="#315a74">Identity &amp; people</text>
+<rect x="1480" y="90" width="695" height="852" rx="14" fill="white" stroke="#d5d9df"/><text class="heading" x="1500" y="122" fill="#3e6b55">Catalogue</text>
+<rect x="30" y="978" width="695" height="852" rx="14" fill="white" stroke="#d5d9df"/><text class="heading" x="50" y="1010" fill="#725b2e">Cart &amp; promotions</text>
+<rect x="755" y="978" width="695" height="852" rx="14" fill="white" stroke="#d5d9df"/><text class="heading" x="775" y="1010" fill="#59528a">Invoices &amp; refunds</text>
+<rect x="1480" y="978" width="695" height="852" rx="14" fill="white" stroke="#d5d9df"/><text class="heading" x="1500" y="1010" fill="#866071">Inventory &amp; purchasing</text>
+<rect x="30" y="1866" width="695" height="632" rx="14" fill="white" stroke="#d5d9df"/><text class="heading" x="50" y="1898" fill="#3c6875">Landing &amp; media</text>
+<rect x="755" y="1866" width="695" height="632" rx="14" fill="white" stroke="#d5d9df"/><text class="heading" x="775" y="1898" fill="#817044">Customer ledgers</text>
+<rect x="1480" y="1866" width="695" height="632" rx="14" fill="white" stroke="#d5d9df"/><text class="heading" x="1500" y="1898" fill="#586a45">Orders &amp; payments</text>
+<rect x="30" y="2534" width="695" height="687" rx="14" fill="white" stroke="#d5d9df"/><text class="heading" x="50" y="2566" fill="#6b597c">Returns &amp; trade in</text>
+<rect x="755" y="2534" width="695" height="687" rx="14" fill="white" stroke="#d5d9df"/><text class="heading" x="775" y="2566" fill="#58616b">Warranty</text>
+<path class="edge" d="M1430,163.5 C1452,163.5 1452,823.5 1430,823.5"><title>account: account_user_id_fkey — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id) ON DELETE CASCADE</title></path>
+<path class="edge" d="M1430,218.5 C1481,218.5 1481,823.5 1430,823.5"><title>addresses: addresses_user_id_fkey — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M2155,163.5 C2208,163.5 2208,218.5 2155,218.5"><title>attribute_definitions: attribute_definitions_category_id_fkey — FOREIGN KEY (category_id) REFERENCES categories(id)</title></path>
+<path class="edge" d="M705,273.5 C1456,273.5 1456,823.5 1430,823.5"><title>audit_events: audit_events_actor_user_id_fkey — FOREIGN KEY (actor_user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M1430,273.5 C1475,273.5 1475,823.5 1430,823.5"><title>auth_sessions: FK_auth_sessions_user_user_id — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id) ON DELETE RESTRICT</title></path>
+<path class="edge" d="M705,1051.5 C1469,1051.5 1469,823.5 1430,823.5"><title>benefit_holds: benefit_holds_customer_id_fkey — FOREIGN KEY (customer_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M705,1051.5 C2184,1051.5 2184,2159.5 2155,2159.5"><title>benefit_holds: benefit_holds_order_id_customer_id_fkey — FOREIGN KEY (order_id, customer_id) REFERENCES orders(id, customer_id)</title></path>
+<path class="edge" d="M705,1106.5 C754,1106.5 754,1161.5 705,1161.5"><title>cart_items: cart_items_cart_id_fkey — FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE</title></path>
+<path class="edge" d="M705,1106.5 C2175,1106.5 2175,493.5 2155,493.5"><title>cart_items: cart_items_variant_id_fkey — FOREIGN KEY (variant_id) REFERENCES product_variants(id)</title></path>
+<path class="edge" d="M705,1161.5 C745,1161.5 745,1326.5 705,1326.5"><title>carts: carts_applied_promotion_version_id_fkey — FOREIGN KEY (applied_promotion_version_id) REFERENCES promotion_versions(id)</title></path>
+<path class="edge" d="M705,1161.5 C1454,1161.5 1454,823.5 1430,823.5"><title>carts: carts_customer_id_fkey — FOREIGN KEY (customer_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M1430,1051.5 C1467,1051.5 1467,1106.5 1430,1106.5"><title>credit_note_item_units: credit_note_item_units_credit_note_item_id_fkey — FOREIGN KEY (credit_note_item_id) REFERENCES credit_note_items(id)</title></path>
+<path class="edge" d="M1430,1051.5 C2187,1051.5 2187,1994.5 2155,1994.5"><title>credit_note_item_units: credit_note_item_units_order_item_unit_amount_id_fkey — FOREIGN KEY (order_item_unit_amount_id) REFERENCES order_item_unit_amounts(id)</title></path>
+<path class="edge" d="M1430,1106.5 C1478,1106.5 1478,1161.5 1430,1161.5"><title>credit_note_items: credit_note_items_credit_note_id_fkey — FOREIGN KEY (credit_note_id) REFERENCES credit_notes(id)</title></path>
+<path class="edge" d="M1430,1106.5 C1450,1106.5 1450,1271.5 1430,1271.5"><title>credit_note_items: credit_note_items_invoice_item_id_fkey — FOREIGN KEY (invoice_item_id) REFERENCES invoice_items(id)</title></path>
+<path class="edge" d="M1430,1161.5 C1460,1161.5 1460,823.5 1430,823.5"><title>credit_notes: credit_notes_approved_by_user_id_fkey — FOREIGN KEY (approved_by_user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M1430,1161.5 C1468,1161.5 1468,1326.5 1430,1326.5"><title>credit_notes: credit_notes_invoice_id_order_id_fkey — FOREIGN KEY (invoice_id, order_id) REFERENCES invoices(id, order_id)</title></path>
+<path class="edge" d="M1430,1161.5 C1453,1161.5 1453,2772.5 705,2772.5"><title>credit_notes: credit_notes_return_request_id_order_id_fkey — FOREIGN KEY (return_request_id, order_id) REFERENCES return_requests(id, order_id)</title></path>
+<path class="edge" d="M1430,1161.5 C2181,1161.5 2181,2434.5 2155,2434.5"><title>credit_notes: credit_notes_shipment_id_order_id_fkey — FOREIGN KEY (shipment_id, order_id) REFERENCES shipments(id, order_id)</title></path>
+<path class="edge" d="M1430,1161.5 C1465,1161.5 1465,2607.5 1430,2607.5"><title>credit_notes: credit_notes_warranty_claim_id_fkey — FOREIGN KEY (warranty_claim_id) REFERENCES warranty_claims(id)</title></path>
+<path class="edge" d="M1430,328.5 C1468,328.5 1468,823.5 1430,823.5"><title>customer_profiles: customer_profiles_user_id_fkey — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M2155,1051.5 C2209,1051.5 2209,1491.5 2155,1491.5"><title>goods_receipt_items: goods_receipt_items_purchase_order_item_id_purchase_order__fkey — FOREIGN KEY (purchase_order_item_id, purchase_order_id) REFERENCES purchase_order_items(id, purchase_order_id)</title></path>
+<path class="edge" d="M2155,1051.5 C2177,1051.5 2177,1106.5 2155,1106.5"><title>goods_receipt_items: goods_receipt_items_receipt_id_purchase_order_id_fkey — FOREIGN KEY (receipt_id, purchase_order_id) REFERENCES goods_receipts(id, purchase_order_id)</title></path>
+<path class="edge" d="M2155,1106.5 C2218,1106.5 2218,1546.5 2155,1546.5"><title>goods_receipts: goods_receipts_purchase_order_id_fkey — FOREIGN KEY (purchase_order_id) REFERENCES purchase_orders(id)</title></path>
+<path class="edge" d="M2155,1106.5 C2207,1106.5 2207,823.5 1430,823.5"><title>goods_receipts: goods_receipts_received_by_fkey — FOREIGN KEY (received_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M1430,383.5 C1493,383.5 1493,438.5 1430,438.5"><title>identity_role_claims: FK_identity_role_claims_identity_roles_role_id — FOREIGN KEY (role_id) REFERENCES identity_roles(id) ON DELETE CASCADE</title></path>
+<path class="edge" d="M1430,493.5 C1483,493.5 1483,823.5 1430,823.5"><title>identity_user_claims: FK_identity_user_claims_user_user_id — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id) ON DELETE CASCADE</title></path>
+<path class="edge" d="M1430,548.5 C1457,548.5 1457,823.5 1430,823.5"><title>identity_user_logins: FK_identity_user_logins_user_user_id — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id) ON DELETE CASCADE</title></path>
+<path class="edge" d="M1430,603.5 C1467,603.5 1467,438.5 1430,438.5"><title>identity_user_roles: FK_identity_user_roles_identity_roles_role_id — FOREIGN KEY (role_id) REFERENCES identity_roles(id) ON DELETE CASCADE</title></path>
+<path class="edge" d="M1430,603.5 C1489,603.5 1489,823.5 1430,823.5"><title>identity_user_roles: FK_identity_user_roles_user_user_id — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id) ON DELETE CASCADE</title></path>
+<path class="edge" d="M1430,658.5 C1465,658.5 1465,823.5 1430,823.5"><title>identity_user_tokens: FK_identity_user_tokens_user_user_id — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id) ON DELETE CASCADE</title></path>
+<path class="edge" d="M2155,1161.5 C2208,1161.5 2208,1436.5 2155,1436.5"><title>inventory_allocations: inventory_allocations_inventory_unit_id_lot_id_fkey — FOREIGN KEY (inventory_unit_id, lot_id) REFERENCES inventory_units(id, lot_id)</title></path>
+<path class="edge" d="M2155,1161.5 C2199,1161.5 2199,1271.5 2155,1271.5"><title>inventory_allocations: inventory_allocations_lot_id_fkey — FOREIGN KEY (lot_id) REFERENCES inventory_lots(id)</title></path>
+<path class="edge" d="M2155,1161.5 C2210,1161.5 2210,2049.5 2155,2049.5"><title>inventory_allocations: inventory_allocations_order_item_id_fkey — FOREIGN KEY (order_item_id) REFERENCES order_items(id)</title></path>
+<path class="edge" d="M2155,1161.5 C2194,1161.5 2194,1994.5 2155,1994.5"><title>inventory_allocations: inventory_allocations_order_item_unit_amount_id_order_item_fkey — FOREIGN KEY (order_item_unit_amount_id, order_item_id) REFERENCES order_item_unit_amounts(id, order_item_id)</title></path>
+<path class="edge" d="M2155,1216.5 C2195,1216.5 2195,1436.5 2155,1436.5"><title>inventory_identifiers: inventory_identifiers_inventory_unit_id_fkey — FOREIGN KEY (inventory_unit_id) REFERENCES inventory_units(id)</title></path>
+<path class="edge" d="M2155,1271.5 C2186,1271.5 2186,1051.5 2155,1051.5"><title>inventory_lots: inventory_lots_receipt_item_id_fkey — FOREIGN KEY (receipt_item_id) REFERENCES goods_receipt_items(id)</title></path>
+<path class="edge" d="M2155,1271.5 C2209,1271.5 2209,493.5 2155,493.5"><title>inventory_lots: inventory_lots_variant_id_fkey — FOREIGN KEY (variant_id) REFERENCES product_variants(id)</title></path>
+<path class="edge" d="M2155,1271.5 C2206,1271.5 2206,1766.5 2155,1766.5"><title>inventory_lots: inventory_lots_warehouse_id_fkey — FOREIGN KEY (warehouse_id) REFERENCES warehouses(id)</title></path>
+<path class="edge" d="M2155,1326.5 C2202,1326.5 2202,1271.5 2155,1271.5"><title>inventory_quarantine: FK_inventory_quarantine_inventory_lots_lot_id — FOREIGN KEY (lot_id) REFERENCES inventory_lots(id) ON DELETE RESTRICT</title></path>
+<path class="edge" d="M2155,1326.5 C2179,1326.5 2179,1994.5 2155,1994.5"><title>inventory_quarantine: FK_inventory_quarantine_order_item_unit_amounts_order_item_uni~ — FOREIGN KEY (order_item_unit_amount_id) REFERENCES order_item_unit_amounts(id) ON DELETE RESTRICT</title></path>
+<path class="edge" d="M2155,1381.5 C2215,1381.5 2215,2049.5 2155,2049.5"><title>inventory_reservations: inventory_reservations_order_item_id_fkey — FOREIGN KEY (order_item_id) REFERENCES order_items(id)</title></path>
+<path class="edge" d="M2155,1381.5 C2176,1381.5 2176,493.5 2155,493.5"><title>inventory_reservations: inventory_reservations_variant_id_fkey — FOREIGN KEY (variant_id) REFERENCES product_variants(id)</title></path>
+<path class="edge" d="M2155,1436.5 C2215,1436.5 2215,1271.5 2155,1271.5"><title>inventory_units: inventory_units_lot_id_fkey — FOREIGN KEY (lot_id) REFERENCES inventory_lots(id)</title></path>
+<path class="edge" d="M1430,1216.5 C1473,1216.5 1473,823.5 1430,823.5"><title>invoice_exports: invoice_exports_requested_by_user_id_fkey — FOREIGN KEY (requested_by_user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M1430,1271.5 C1485,1271.5 1485,1326.5 1430,1326.5"><title>invoice_items: invoice_items_invoice_id_order_id_fkey — FOREIGN KEY (invoice_id, order_id) REFERENCES invoices(id, order_id)</title></path>
+<path class="edge" d="M1430,1271.5 C2212,1271.5 2212,2049.5 2155,2049.5"><title>invoice_items: invoice_items_order_item_id_order_id_fkey — FOREIGN KEY (order_item_id, order_id) REFERENCES order_items(id, order_id)</title></path>
+<path class="edge" d="M1430,1271.5 C1480,1271.5 1480,1271.5 1430,1271.5"><title>invoice_items: invoice_items_parent_invoice_item_id_invoice_id_fkey — FOREIGN KEY (parent_invoice_item_id, invoice_id) REFERENCES invoice_items(id, invoice_id)</title></path>
+<path class="edge" d="M1430,1271.5 C2195,1271.5 2195,548.5 2155,548.5"><title>invoice_items: invoice_items_product_id_fkey — FOREIGN KEY (product_id) REFERENCES products(id)</title></path>
+<path class="edge" d="M1430,1271.5 C2177,1271.5 2177,493.5 2155,493.5"><title>invoice_items: invoice_items_variant_id_product_id_fkey — FOREIGN KEY (variant_id, product_id) REFERENCES product_variants(id, product_id)</title></path>
+<path class="edge" d="M1430,1326.5 C1462,1326.5 1462,823.5 1430,823.5"><title>invoices: invoices_customer_id_fkey — FOREIGN KEY (customer_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M1430,1326.5 C1459,1326.5 1459,823.5 1430,823.5"><title>invoices: invoices_issued_by_user_id_fkey — FOREIGN KEY (issued_by_user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M1430,1326.5 C2177,1326.5 2177,2159.5 2155,2159.5"><title>invoices: invoices_order_id_customer_id_fkey — FOREIGN KEY (order_id, customer_id) REFERENCES orders(id, customer_id)</title></path>
+<path class="edge" d="M1430,1326.5 C2205,1326.5 2205,2159.5 2155,2159.5"><title>invoices: invoices_order_id_fkey — FOREIGN KEY (order_id) REFERENCES orders(id)</title></path>
+<path class="edge" d="M1430,1326.5 C1452,1326.5 1452,768.5 1430,768.5"><title>invoices: invoices_responsible_staff_id_fkey — FOREIGN KEY (responsible_staff_id) REFERENCES staff_profiles(user_id)</title></path>
+<path class="edge" d="M705,1939.5 C741,1939.5 741,2049.5 705,2049.5"><title>landing_drafts: landing_drafts_page_id_fkey — FOREIGN KEY (page_id) REFERENCES landing_pages(id)</title></path>
+<path class="edge" d="M705,1939.5 C1450,1939.5 1450,823.5 1430,823.5"><title>landing_drafts: landing_drafts_updated_by_fkey — FOREIGN KEY (updated_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M705,1994.5 C750,1994.5 750,2214.5 705,2214.5"><title>landing_media_refs: landing_media_refs_landing_version_id_fkey — FOREIGN KEY (landing_version_id) REFERENCES landing_versions(id)</title></path>
+<path class="edge" d="M705,1994.5 C740,1994.5 740,2269.5 705,2269.5"><title>landing_media_refs: landing_media_refs_media_id_fkey — FOREIGN KEY (media_id) REFERENCES media_assets(id)</title></path>
+<path class="edge" d="M705,2104.5 C738,2104.5 738,1939.5 705,1939.5"><title>landing_preview_grants: FK_landing_preview_grants_landing_drafts_page_id — FOREIGN KEY (page_id) REFERENCES landing_drafts(page_id) ON DELETE RESTRICT</title></path>
+<path class="edge" d="M705,2104.5 C757,2104.5 757,2049.5 705,2049.5"><title>landing_preview_grants: FK_landing_preview_grants_landing_pages_page_id — FOREIGN KEY (page_id) REFERENCES landing_pages(id) ON DELETE RESTRICT</title></path>
+<path class="edge" d="M705,2104.5 C759,2104.5 759,2214.5 705,2214.5"><title>landing_preview_grants: FK_landing_preview_grants_landing_versions_version_id — FOREIGN KEY (version_id) REFERENCES landing_versions(id) ON DELETE RESTRICT</title></path>
+<path class="edge" d="M705,2104.5 C1457,2104.5 1457,823.5 1430,823.5"><title>landing_preview_grants: FK_landing_preview_grants_user_issued_by — FOREIGN KEY (issued_by) REFERENCES &quot;user&quot;(id) ON DELETE RESTRICT</title></path>
+<path class="edge" d="M705,2159.5 C1461,2159.5 1461,823.5 1430,823.5"><title>landing_publications: landing_publications_published_by_fkey — FOREIGN KEY (published_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M705,2159.5 C759,2159.5 759,2214.5 705,2214.5"><title>landing_publications: landing_publications_version_id_page_id_fkey — FOREIGN KEY (version_id, page_id) REFERENCES landing_versions(id, page_id)</title></path>
+<path class="edge" d="M705,2214.5 C1455,2214.5 1455,823.5 1430,823.5"><title>landing_versions: landing_versions_created_by_fkey — FOREIGN KEY (created_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M705,2214.5 C761,2214.5 761,2049.5 705,2049.5"><title>landing_versions: landing_versions_page_id_fkey — FOREIGN KEY (page_id) REFERENCES landing_pages(id)</title></path>
+<path class="edge" d="M1430,1939.5 C1454,1939.5 1454,823.5 1430,823.5"><title>loyalty_accounts: loyalty_accounts_user_id_fkey — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M1430,1994.5 C2215,1994.5 2215,2159.5 2155,2159.5"><title>loyalty_entries: loyalty_entries_order_id_fkey — FOREIGN KEY (order_id) REFERENCES orders(id)</title></path>
+<path class="edge" d="M1430,1994.5 C2213,1994.5 2213,1994.5 2155,1994.5"><title>loyalty_entries: loyalty_entries_unit_id_fkey — FOREIGN KEY (unit_id) REFERENCES order_item_unit_amounts(id)</title></path>
+<path class="edge" d="M1430,1994.5 C1487,1994.5 1487,1939.5 1430,1939.5"><title>loyalty_entries: loyalty_entries_user_id_fkey — FOREIGN KEY (user_id) REFERENCES loyalty_accounts(user_id)</title></path>
+<path class="edge" d="M705,2269.5 C1494,2269.5 1494,823.5 1430,823.5"><title>media_assets: media_assets_owner_user_id_fkey — FOREIGN KEY (owner_user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M705,383.5 C1453,383.5 1453,823.5 1430,823.5"><title>notifications: notifications_recipient_user_id_fkey — FOREIGN KEY (recipient_user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M2155,1939.5 C2219,1939.5 2219,2049.5 2155,2049.5"><title>order_adjustments: order_adjustments_order_item_id_fkey — FOREIGN KEY (order_item_id) REFERENCES order_items(id)</title></path>
+<path class="edge" d="M2155,1939.5 C2201,1939.5 2201,1216.5 705,1216.5"><title>order_adjustments: order_adjustments_promotion_redemption_id_fkey — FOREIGN KEY (promotion_redemption_id) REFERENCES promotion_redemptions(id)</title></path>
+<path class="edge" d="M2155,1994.5 C2186,1994.5 2186,2049.5 2155,2049.5"><title>order_item_unit_amounts: order_item_unit_amounts_order_item_id_fkey — FOREIGN KEY (order_item_id) REFERENCES order_items(id)</title></path>
+<path class="edge" d="M2155,1994.5 C2213,1994.5 2213,1994.5 2155,1994.5"><title>order_item_unit_amounts: order_item_unit_amounts_parent_unit_amount_id_fkey — FOREIGN KEY (parent_unit_amount_id) REFERENCES order_item_unit_amounts(id)</title></path>
+<path class="edge" d="M2155,2049.5 C2207,2049.5 2207,2159.5 2155,2159.5"><title>order_items: order_items_order_id_fkey — FOREIGN KEY (order_id) REFERENCES orders(id)</title></path>
+<path class="edge" d="M2155,2049.5 C2203,2049.5 2203,2049.5 2155,2049.5"><title>order_items: order_items_parent_item_id_order_id_fkey — FOREIGN KEY (parent_item_id, order_id) REFERENCES order_items(id, order_id)</title></path>
+<path class="edge" d="M2155,2049.5 C2211,2049.5 2211,548.5 2155,548.5"><title>order_items: order_items_product_id_fkey — FOREIGN KEY (product_id) REFERENCES products(id)</title></path>
+<path class="edge" d="M2155,2049.5 C2193,2049.5 2193,493.5 2155,493.5"><title>order_items: order_items_variant_id_product_id_fkey — FOREIGN KEY (variant_id, product_id) REFERENCES product_variants(id, product_id)</title></path>
+<path class="edge" d="M2155,2104.5 C2204,2104.5 2204,1994.5 2155,1994.5"><title>order_tender_allocations: order_tender_allocations_order_item_unit_amount_id_fkey — FOREIGN KEY (order_item_unit_amount_id) REFERENCES order_item_unit_amounts(id)</title></path>
+<path class="edge" d="M2155,2104.5 C2208,2104.5 2208,2324.5 2155,2324.5"><title>order_tender_allocations: order_tender_allocations_receipt_id_fkey — FOREIGN KEY (receipt_id) REFERENCES payment_receipts(id)</title></path>
+<path class="edge" d="M2155,2159.5 C2203,2159.5 2203,823.5 1430,823.5"><title>orders: orders_customer_id_fkey — FOREIGN KEY (customer_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M2155,2159.5 C2193,2159.5 2193,768.5 1430,768.5"><title>orders: orders_responsible_staff_id_fkey — FOREIGN KEY (responsible_staff_id) REFERENCES staff_profiles(user_id)</title></path>
+<path class="edge" d="M2155,2214.5 C2184,2214.5 2184,2159.5 2155,2159.5"><title>payment_attempts: payment_attempts_order_id_fkey — FOREIGN KEY (order_id) REFERENCES orders(id)</title></path>
+<path class="edge" d="M2155,2269.5 C2196,2269.5 2196,2214.5 2155,2214.5"><title>payment_events: payment_events_payment_attempt_id_fkey — FOREIGN KEY (payment_attempt_id) REFERENCES payment_attempts(id)</title></path>
+<path class="edge" d="M2155,2324.5 C2210,2324.5 2210,2159.5 2155,2159.5"><title>payment_receipts: payment_receipts_order_id_fkey — FOREIGN KEY (order_id) REFERENCES orders(id)</title></path>
+<path class="edge" d="M2155,2324.5 C2208,2324.5 2208,2214.5 2155,2214.5"><title>payment_receipts: payment_receipts_payment_attempt_id_order_id_fkey — FOREIGN KEY (payment_attempt_id, order_id) REFERENCES payment_attempts(id, order_id)</title></path>
+<path class="edge" d="M2155,273.5 C2216,273.5 2216,163.5 2155,163.5"><title>product_attribute_values: product_attribute_values_attribute_id_fkey — FOREIGN KEY (attribute_id) REFERENCES attribute_definitions(id)</title></path>
+<path class="edge" d="M2155,273.5 C2185,273.5 2185,548.5 2155,548.5"><title>product_attribute_values: product_attribute_values_product_id_fkey — FOREIGN KEY (product_id) REFERENCES products(id)</title></path>
+<path class="edge" d="M2155,328.5 C2178,328.5 2178,548.5 2155,548.5"><title>product_compatibilities: product_compatibilities_accessory_product_id_fkey — FOREIGN KEY (accessory_product_id) REFERENCES products(id)</title></path>
+<path class="edge" d="M2155,328.5 C2213,328.5 2213,548.5 2155,548.5"><title>product_compatibilities: product_compatibilities_target_product_id_fkey — FOREIGN KEY (target_product_id) REFERENCES products(id)</title></path>
+<path class="edge" d="M2155,383.5 C2194,383.5 2194,2269.5 705,2269.5"><title>product_media: product_media_media_id_fkey — FOREIGN KEY (media_id) REFERENCES media_assets(id)</title></path>
+<path class="edge" d="M2155,383.5 C2181,383.5 2181,548.5 2155,548.5"><title>product_media: product_media_product_id_fkey — FOREIGN KEY (product_id) REFERENCES products(id)</title></path>
+<path class="edge" d="M2155,383.5 C2208,383.5 2208,493.5 2155,493.5"><title>product_media: product_media_variant_id_product_id_fkey — FOREIGN KEY (variant_id, product_id) REFERENCES product_variants(id, product_id)</title></path>
+<path class="edge" d="M2155,438.5 C2218,438.5 2218,548.5 2155,548.5"><title>product_translations: product_translations_product_id_fkey — FOREIGN KEY (product_id) REFERENCES products(id)</title></path>
+<path class="edge" d="M2155,493.5 C2181,493.5 2181,548.5 2155,548.5"><title>product_variants: product_variants_product_id_fkey — FOREIGN KEY (product_id) REFERENCES products(id)</title></path>
+<path class="edge" d="M2155,548.5 C2187,548.5 2187,218.5 2155,218.5"><title>products: products_category_id_fkey — FOREIGN KEY (category_id) REFERENCES categories(id)</title></path>
+<path class="edge" d="M705,1216.5 C1491,1216.5 1491,823.5 1430,823.5"><title>promotion_redemptions: promotion_redemptions_customer_id_fkey — FOREIGN KEY (customer_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M705,1216.5 C2206,1216.5 2206,2159.5 2155,2159.5"><title>promotion_redemptions: promotion_redemptions_order_id_customer_id_fkey — FOREIGN KEY (order_id, customer_id) REFERENCES orders(id, customer_id)</title></path>
+<path class="edge" d="M705,1216.5 C748,1216.5 748,1381.5 705,1381.5"><title>promotion_redemptions: promotion_redemptions_promotion_id_fkey — FOREIGN KEY (promotion_id) REFERENCES promotions(id)</title></path>
+<path class="edge" d="M705,1216.5 C761,1216.5 761,1326.5 705,1326.5"><title>promotion_redemptions: promotion_redemptions_promotion_version_id_promotion_id_fkey — FOREIGN KEY (promotion_version_id, promotion_id) REFERENCES promotion_versions(id, promotion_id)</title></path>
+<path class="edge" d="M705,1271.5 C2214,1271.5 2214,218.5 2155,218.5"><title>promotion_targets: promotion_targets_category_id_fkey — FOREIGN KEY (category_id) REFERENCES categories(id)</title></path>
+<path class="edge" d="M705,1271.5 C2211,1271.5 2211,548.5 2155,548.5"><title>promotion_targets: promotion_targets_product_id_fkey — FOREIGN KEY (product_id) REFERENCES products(id)</title></path>
+<path class="edge" d="M705,1271.5 C735,1271.5 735,1326.5 705,1326.5"><title>promotion_targets: promotion_targets_promotion_version_id_fkey — FOREIGN KEY (promotion_version_id) REFERENCES promotion_versions(id)</title></path>
+<path class="edge" d="M705,1271.5 C2199,1271.5 2199,493.5 2155,493.5"><title>promotion_targets: promotion_targets_variant_id_fkey — FOREIGN KEY (variant_id) REFERENCES product_variants(id)</title></path>
+<path class="edge" d="M705,1326.5 C758,1326.5 758,1381.5 705,1381.5"><title>promotion_versions: promotion_versions_promotion_id_fkey — FOREIGN KEY (promotion_id) REFERENCES promotions(id)</title></path>
+<path class="edge" d="M2155,1491.5 C2180,1491.5 2180,1546.5 2155,1546.5"><title>purchase_order_items: purchase_order_items_purchase_order_id_fkey — FOREIGN KEY (purchase_order_id) REFERENCES purchase_orders(id)</title></path>
+<path class="edge" d="M2155,1491.5 C2208,1491.5 2208,493.5 2155,493.5"><title>purchase_order_items: purchase_order_items_variant_id_fkey — FOREIGN KEY (variant_id) REFERENCES product_variants(id)</title></path>
+<path class="edge" d="M2155,1546.5 C2209,1546.5 2209,823.5 1430,823.5"><title>purchase_orders: purchase_orders_approved_by_fkey — FOREIGN KEY (approved_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M2155,1546.5 C2207,1546.5 2207,823.5 1430,823.5"><title>purchase_orders: purchase_orders_created_by_fkey — FOREIGN KEY (created_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M2155,1546.5 C2214,1546.5 2214,1711.5 2155,1711.5"><title>purchase_orders: purchase_orders_supplier_id_fkey — FOREIGN KEY (supplier_id) REFERENCES suppliers(id)</title></path>
+<path class="edge" d="M1430,1381.5 C2201,1381.5 2201,1994.5 2155,1994.5"><title>refund_allocations: refund_allocations_order_item_unit_amount_id_fkey — FOREIGN KEY (order_item_unit_amount_id) REFERENCES order_item_unit_amounts(id)</title></path>
+<path class="edge" d="M1430,1381.5 C2211,1381.5 2211,2324.5 2155,2324.5"><title>refund_allocations: refund_allocations_payment_receipt_id_fkey — FOREIGN KEY (payment_receipt_id) REFERENCES payment_receipts(id)</title></path>
+<path class="edge" d="M1430,1381.5 C1466,1381.5 1466,1436.5 1430,1436.5"><title>refund_allocations: refund_allocations_refund_id_fkey — FOREIGN KEY (refund_id) REFERENCES refunds(id)</title></path>
+<path class="edge" d="M1430,1436.5 C1489,1436.5 1489,823.5 1430,823.5"><title>refunds: refunds_approved_by_fkey — FOREIGN KEY (approved_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M1430,1436.5 C1453,1436.5 1453,1161.5 1430,1161.5"><title>refunds: refunds_credit_note_id_order_id_fkey — FOREIGN KEY (credit_note_id, order_id) REFERENCES credit_notes(id, order_id)</title></path>
+<path class="edge" d="M1430,1436.5 C2190,1436.5 2190,2159.5 2155,2159.5"><title>refunds: refunds_order_id_fkey — FOREIGN KEY (order_id) REFERENCES orders(id)</title></path>
+<path class="edge" d="M705,2607.5 C745,2607.5 745,2269.5 705,2269.5"><title>return_evidence: return_evidence_media_id_fkey — FOREIGN KEY (media_id) REFERENCES media_assets(id)</title></path>
+<path class="edge" d="M705,2607.5 C742,2607.5 742,2772.5 705,2772.5"><title>return_evidence: return_evidence_return_request_id_fkey — FOREIGN KEY (return_request_id) REFERENCES return_requests(id)</title></path>
+<path class="edge" d="M705,2662.5 C2181,2662.5 2181,1436.5 2155,1436.5"><title>return_item_units: return_item_units_inventory_unit_id_fkey — FOREIGN KEY (inventory_unit_id) REFERENCES inventory_units(id)</title></path>
+<path class="edge" d="M705,2662.5 C2207,2662.5 2207,1994.5 2155,1994.5"><title>return_item_units: return_item_units_order_item_unit_amount_id_order_item_id_fkey — FOREIGN KEY (order_item_unit_amount_id, order_item_id) REFERENCES order_item_unit_amounts(id, order_item_id)</title></path>
+<path class="edge" d="M705,2662.5 C761,2662.5 761,2717.5 705,2717.5"><title>return_item_units: return_item_units_return_item_id_order_item_id_fkey — FOREIGN KEY (return_item_id, order_item_id) REFERENCES return_items(id, order_item_id)</title></path>
+<path class="edge" d="M705,2717.5 C2180,2717.5 2180,2049.5 2155,2049.5"><title>return_items: return_items_order_item_id_order_id_fkey — FOREIGN KEY (order_item_id, order_id) REFERENCES order_items(id, order_id)</title></path>
+<path class="edge" d="M705,2717.5 C758,2717.5 758,2772.5 705,2772.5"><title>return_items: return_items_return_request_id_order_id_fkey — FOREIGN KEY (return_request_id, order_id) REFERENCES return_requests(id, order_id)</title></path>
+<path class="edge" d="M705,2772.5 C1493,2772.5 1493,823.5 1430,823.5"><title>return_requests: return_requests_inspected_by_fkey — FOREIGN KEY (inspected_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M705,2772.5 C2207,2772.5 2207,2159.5 2155,2159.5"><title>return_requests: return_requests_order_id_customer_id_fkey — FOREIGN KEY (order_id, customer_id) REFERENCES orders(id, customer_id)</title></path>
+<path class="edge" d="M1430,713.5 C1475,713.5 1475,823.5 1430,823.5"><title>session: session_user_id_fkey — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id) ON DELETE CASCADE</title></path>
+<path class="edge" d="M705,548.5 C1474,548.5 1474,823.5 1430,823.5"><title>setting_versions: setting_versions_changed_by_fkey — FOREIGN KEY (changed_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M705,548.5 C725,548.5 725,218.5 705,218.5"><title>setting_versions: setting_versions_key_fkey — FOREIGN KEY (key) REFERENCES app_settings(key)</title></path>
+<path class="edge" d="M2155,2379.5 C2176,2379.5 2176,2434.5 2155,2434.5"><title>shipment_events: shipment_events_shipment_id_fkey — FOREIGN KEY (shipment_id) REFERENCES shipments(id)</title></path>
+<path class="edge" d="M2155,2434.5 C2193,2434.5 2193,2159.5 2155,2159.5"><title>shipments: shipments_order_id_fkey — FOREIGN KEY (order_id) REFERENCES orders(id)</title></path>
+<path class="edge" d="M2155,2434.5 C2182,2434.5 2182,2434.5 2155,2434.5"><title>shipments: shipments_retry_of_fkey — FOREIGN KEY (retry_of) REFERENCES shipments(id)</title></path>
+<path class="edge" d="M1430,768.5 C1478,768.5 1478,823.5 1430,823.5"><title>staff_profiles: staff_profiles_user_id_fkey — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M2155,1601.5 C2175,1601.5 2175,823.5 1430,823.5"><title>stock_adjustments: stock_adjustments_approved_by_fkey — FOREIGN KEY (approved_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M2155,1601.5 C2216,1601.5 2216,1271.5 2155,1271.5"><title>stock_adjustments: stock_adjustments_lot_id_fkey — FOREIGN KEY (lot_id) REFERENCES inventory_lots(id)</title></path>
+<path class="edge" d="M2155,1601.5 C2198,1601.5 2198,823.5 1430,823.5"><title>stock_adjustments: stock_adjustments_requested_by_fkey — FOREIGN KEY (requested_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M2155,1656.5 C2208,1656.5 2208,823.5 1430,823.5"><title>stock_movements: stock_movements_actor_user_id_fkey — FOREIGN KEY (actor_user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M2155,1656.5 C2211,1656.5 2211,1271.5 2155,1271.5"><title>stock_movements: stock_movements_lot_id_variant_id_fkey — FOREIGN KEY (lot_id, variant_id) REFERENCES inventory_lots(id, variant_id)</title></path>
+<path class="edge" d="M2155,1656.5 C2217,1656.5 2217,1436.5 2155,1436.5"><title>stock_movements: stock_movements_unit_id_lot_id_fkey — FOREIGN KEY (unit_id, lot_id) REFERENCES inventory_units(id, lot_id)</title></path>
+<path class="edge" d="M2155,1656.5 C2201,1656.5 2201,493.5 2155,493.5"><title>stock_movements: stock_movements_variant_id_fkey — FOREIGN KEY (variant_id) REFERENCES product_variants(id)</title></path>
+<path class="edge" d="M1430,2049.5 C1464,2049.5 1464,823.5 1430,823.5"><title>store_credit_accounts: store_credit_accounts_user_id_fkey — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M1430,2104.5 C2180,2104.5 2180,2159.5 2155,2159.5"><title>store_credit_entries: store_credit_entries_order_id_fkey — FOREIGN KEY (order_id) REFERENCES orders(id)</title></path>
+<path class="edge" d="M1430,2104.5 C1459,2104.5 1459,2992.5 705,2992.5"><title>store_credit_entries: store_credit_entries_quote_item_id_fkey — FOREIGN KEY (quote_item_id) REFERENCES trade_in_quote_items(id)</title></path>
+<path class="edge" d="M1430,2104.5 C1469,2104.5 1469,1436.5 1430,1436.5"><title>store_credit_entries: store_credit_entries_refund_id_fkey — FOREIGN KEY (refund_id) REFERENCES refunds(id)</title></path>
+<path class="edge" d="M1430,2104.5 C1469,2104.5 1469,2937.5 705,2937.5"><title>store_credit_entries: store_credit_entries_trade_in_item_id_fkey — FOREIGN KEY (trade_in_item_id) REFERENCES trade_in_items(id)</title></path>
+<path class="edge" d="M1430,2104.5 C1452,2104.5 1452,2049.5 1430,2049.5"><title>store_credit_entries: store_credit_entries_user_id_fkey — FOREIGN KEY (user_id) REFERENCES store_credit_accounts(user_id)</title></path>
+<path class="edge" d="M705,2827.5 C763,2827.5 763,2882.5 705,2882.5"><title>trade_in_evidence: trade_in_evidence_inspection_id_fkey — FOREIGN KEY (inspection_id) REFERENCES trade_in_inspections(id)</title></path>
+<path class="edge" d="M705,2827.5 C731,2827.5 731,2269.5 705,2269.5"><title>trade_in_evidence: trade_in_evidence_media_id_fkey — FOREIGN KEY (media_id) REFERENCES media_assets(id)</title></path>
+<path class="edge" d="M705,2882.5 C1478,2882.5 1478,768.5 1430,768.5"><title>trade_in_inspections: trade_in_inspections_inspector_staff_id_fkey — FOREIGN KEY (inspector_staff_id) REFERENCES staff_profiles(user_id)</title></path>
+<path class="edge" d="M705,2882.5 C744,2882.5 744,2937.5 705,2937.5"><title>trade_in_inspections: trade_in_inspections_item_id_fkey — FOREIGN KEY (item_id) REFERENCES trade_in_items(id)</title></path>
+<path class="edge" d="M705,2937.5 C2209,2937.5 2209,1436.5 2155,1436.5"><title>trade_in_items: trade_in_items_inventory_unit_id_fkey — FOREIGN KEY (inventory_unit_id) REFERENCES inventory_units(id)</title></path>
+<path class="edge" d="M705,2937.5 C2194,2937.5 2194,548.5 2155,548.5"><title>trade_in_items: trade_in_items_product_id_fkey — FOREIGN KEY (product_id) REFERENCES products(id)</title></path>
+<path class="edge" d="M705,2937.5 C752,2937.5 752,3102.5 705,3102.5"><title>trade_in_items: trade_in_items_request_id_fkey — FOREIGN KEY (request_id) REFERENCES trade_in_requests(id)</title></path>
+<path class="edge" d="M705,2937.5 C2176,2937.5 2176,493.5 2155,493.5"><title>trade_in_items: trade_in_items_variant_id_product_id_fkey — FOREIGN KEY (variant_id, product_id) REFERENCES product_variants(id, product_id)</title></path>
+<path class="edge" d="M705,2992.5 C746,2992.5 746,2937.5 705,2937.5"><title>trade_in_quote_items: trade_in_quote_items_item_id_request_id_fkey — FOREIGN KEY (item_id, request_id) REFERENCES trade_in_items(id, request_id)</title></path>
+<path class="edge" d="M705,2992.5 C738,2992.5 738,3047.5 705,3047.5"><title>trade_in_quote_items: trade_in_quote_items_quote_id_request_id_fkey — FOREIGN KEY (quote_id, request_id) REFERENCES trade_in_quotes(id, request_id)</title></path>
+<path class="edge" d="M705,3047.5 C1481,3047.5 1481,823.5 1430,823.5"><title>trade_in_quotes: trade_in_quotes_approved_by_fkey — FOREIGN KEY (approved_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M705,3047.5 C1454,3047.5 1454,823.5 1430,823.5"><title>trade_in_quotes: trade_in_quotes_quoted_by_fkey — FOREIGN KEY (quoted_by) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M705,3047.5 C744,3047.5 744,3102.5 705,3102.5"><title>trade_in_quotes: trade_in_quotes_request_id_fkey — FOREIGN KEY (request_id) REFERENCES trade_in_requests(id)</title></path>
+<path class="edge" d="M705,3102.5 C1478,3102.5 1478,823.5 1430,823.5"><title>trade_in_requests: trade_in_requests_customer_id_fkey — FOREIGN KEY (customer_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M705,3157.5 C743,3157.5 743,3102.5 705,3102.5"><title>trade_in_shipments: trade_in_shipments_request_id_fkey — FOREIGN KEY (request_id) REFERENCES trade_in_requests(id)</title></path>
+<path class="edge" d="M2155,603.5 C2204,603.5 2204,163.5 2155,163.5"><title>variant_attribute_values: variant_attribute_values_attribute_id_fkey — FOREIGN KEY (attribute_id) REFERENCES attribute_definitions(id)</title></path>
+<path class="edge" d="M2155,603.5 C2206,603.5 2206,493.5 2155,493.5"><title>variant_attribute_values: variant_attribute_values_variant_id_fkey — FOREIGN KEY (variant_id) REFERENCES product_variants(id)</title></path>
+<path class="edge" d="M1430,2607.5 C1490,2607.5 1490,2662.5 1430,2662.5"><title>warranty_claims: warranty_claims_entitlement_id_fkey — FOREIGN KEY (entitlement_id) REFERENCES warranty_entitlements(id)</title></path>
+<path class="edge" d="M1430,2662.5 C2211,2662.5 2211,1436.5 2155,1436.5"><title>warranty_entitlements: warranty_entitlements_inventory_unit_id_fkey — FOREIGN KEY (inventory_unit_id) REFERENCES inventory_units(id)</title></path>
+<path class="edge" d="M1430,2662.5 C2216,2662.5 2216,1994.5 2155,1994.5"><title>warranty_entitlements: warranty_entitlements_order_item_unit_amount_id_fkey — FOREIGN KEY (order_item_unit_amount_id) REFERENCES order_item_unit_amounts(id)</title></path>
+<path class="edge" d="M1430,2662.5 C1458,2662.5 1458,2827.5 1430,2827.5"><title>warranty_entitlements: warranty_entitlements_plan_version_id_fkey — FOREIGN KEY (plan_version_id) REFERENCES warranty_plan_versions(id)</title></path>
+<path class="edge" d="M1430,2717.5 C1492,2717.5 1492,823.5 1430,823.5"><title>warranty_events: warranty_events_actor_id_fkey — FOREIGN KEY (actor_id) REFERENCES &quot;user&quot;(id)</title></path>
+<path class="edge" d="M1430,2717.5 C1473,2717.5 1473,2607.5 1430,2607.5"><title>warranty_events: warranty_events_claim_id_fkey — FOREIGN KEY (claim_id) REFERENCES warranty_claims(id)</title></path>
+<path class="edge" d="M1430,2772.5 C1467,2772.5 1467,2607.5 1430,2607.5"><title>warranty_evidence: warranty_evidence_claim_id_fkey — FOREIGN KEY (claim_id) REFERENCES warranty_claims(id)</title></path>
+<path class="edge" d="M1430,2772.5 C1461,2772.5 1461,2269.5 705,2269.5"><title>warranty_evidence: warranty_evidence_media_id_fkey — FOREIGN KEY (media_id) REFERENCES media_assets(id)</title></path>
+<path class="edge" d="M1430,2827.5 C1457,2827.5 1457,2882.5 1430,2882.5"><title>warranty_plan_versions: warranty_plan_versions_plan_id_fkey — FOREIGN KEY (plan_id) REFERENCES warranty_plans(id)</title></path>
+<path class="edge" d="M1430,2937.5 C2217,2937.5 2217,1271.5 2155,1271.5"><title>warranty_replacements: FK_warranty_replacements_inventory_lots_new_lot_id — FOREIGN KEY (new_lot_id) REFERENCES inventory_lots(id) ON DELETE RESTRICT</title></path>
+<path class="edge" d="M1430,2937.5 C2206,2937.5 2206,1271.5 2155,1271.5"><title>warranty_replacements: FK_warranty_replacements_inventory_lots_old_lot_id — FOREIGN KEY (old_lot_id) REFERENCES inventory_lots(id) ON DELETE RESTRICT</title></path>
+<path class="edge" d="M1430,2937.5 C2204,2937.5 2204,1994.5 2155,1994.5"><title>warranty_replacements: FK_warranty_replacements_order_item_unit_amounts_order_item_un~ — FOREIGN KEY (order_item_unit_amount_id) REFERENCES order_item_unit_amounts(id) ON DELETE RESTRICT</title></path>
+<path class="edge" d="M1430,2937.5 C1465,2937.5 1465,2607.5 1430,2607.5"><title>warranty_replacements: warranty_replacements_claim_id_fkey — FOREIGN KEY (claim_id) REFERENCES warranty_claims(id)</title></path>
+<path class="edge" d="M1430,2937.5 C2185,2937.5 2185,1436.5 2155,1436.5"><title>warranty_replacements: warranty_replacements_new_unit_id_fkey — FOREIGN KEY (new_unit_id) REFERENCES inventory_units(id)</title></path>
+<path class="edge" d="M1430,2937.5 C2219,2937.5 2219,1436.5 2155,1436.5"><title>warranty_replacements: warranty_replacements_old_unit_id_fkey — FOREIGN KEY (old_unit_id) REFERENCES inventory_units(id)</title></path>
+<path class="edge" d="M705,1436.5 C2212,1436.5 2212,548.5 2155,548.5"><title>wishlists: wishlists_product_id_fkey — FOREIGN KEY (product_id) REFERENCES products(id)</title></path>
+<path class="edge" d="M705,1436.5 C1480,1436.5 1480,823.5 1430,823.5"><title>wishlists: wishlists_user_id_fkey — FOREIGN KEY (user_id) REFERENCES &quot;user&quot;(id)</title></path>
+<g class="node"><title>__EFMigrationsHistory
+MigrationId: character varying(150) NOT NULL
+ProductVersion: character varying(32) NOT NULL</title><rect x="50" y="142" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b263d"/><text class="table" x="62" y="161" fill="#20242b">__EFMigrationsHistory</text><text class="meta" x="62" y="177">PK: MigrationId · 2 columns</text></g>
+<g class="node"><title>account
+id: text NOT NULL
+account_id: text NOT NULL
+provider_id: text NOT NULL
+user_id: text NOT NULL
+access_token: text NULL
+refresh_token: text NULL
+id_token: text NULL
+access_token_expires_at: timestamp with time zone NULL
+refresh_token_expires_at: timestamp with time zone NULL
+scope: text NULL
+password: text NULL
+created_at: timestamp with time zone NOT NULL
+updated_at: timestamp with time zone NOT NULL</title><rect x="775" y="142" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="161" fill="#20242b">account</text><text class="meta" x="787" y="177">PK: id · 13 columns</text></g>
+<g class="node"><title>addresses
+id: uuid NOT NULL
+user_id: text NOT NULL
+recipient: text NOT NULL
+phone: text NOT NULL
+province: text NOT NULL
+ward: text NOT NULL
+address_line: text NOT NULL
+is_default: boolean NOT NULL</title><rect x="775" y="197" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="216" fill="#20242b">addresses</text><text class="meta" x="787" y="232">PK: id · 8 columns</text></g>
+<g class="node"><title>app_settings
+key: text NOT NULL
+value: jsonb NOT NULL
+version: integer NOT NULL</title><rect x="50" y="197" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b263d"/><text class="table" x="62" y="216" fill="#20242b">app_settings</text><text class="meta" x="62" y="232">PK: key · 3 columns</text></g>
+<g class="node"><title>attribute_definitions
+id: uuid NOT NULL
+category_id: uuid NOT NULL
+code: text NOT NULL
+value_type: text NOT NULL
+unit: text NULL
+compare_enabled: boolean NOT NULL</title><rect x="1500" y="142" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3e6b55"/><text class="table" x="1512" y="161" fill="#20242b">attribute_definitions</text><text class="meta" x="1512" y="177">PK: id · 6 columns</text></g>
+<g class="node"><title>audit_events
+id: uuid NOT NULL
+actor_user_id: text NULL
+action: text NOT NULL
+entity_type: text NOT NULL
+entity_id: text NULL
+before_data: jsonb NULL
+after_data: jsonb NULL
+reason: text NULL
+occurred_at: timestamp with time zone NOT NULL
+correlation_id: text NULL</title><rect x="50" y="252" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b263d"/><text class="table" x="62" y="271" fill="#20242b">audit_events</text><text class="meta" x="62" y="287">PK: id · 10 columns</text></g>
+<g class="node"><title>auth_sessions
+id: uuid NOT NULL
+user_id: text NOT NULL
+client_type: text NOT NULL
+created_at: timestamp with time zone NOT NULL
+expires_at: timestamp with time zone NOT NULL
+revoked_at: timestamp with time zone NULL</title><rect x="775" y="252" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="271" fill="#20242b">auth_sessions</text><text class="meta" x="787" y="287">PK: id · 6 columns</text></g>
+<g class="node"><title>benefit_holds
+id: uuid NOT NULL
+customer_id: text NOT NULL
+order_id: uuid NOT NULL
+kind: text NOT NULL
+amount: bigint NOT NULL
+expires_at: timestamp with time zone NOT NULL
+status: text NOT NULL</title><rect x="50" y="1030" width="655" height="43" rx="7" fill="#fafbfc" stroke="#725b2e"/><text class="table" x="62" y="1049" fill="#20242b">benefit_holds</text><text class="meta" x="62" y="1065">PK: id · 7 columns</text></g>
+<g class="node"><title>cart_items
+id: uuid NOT NULL
+cart_id: uuid NOT NULL
+variant_id: uuid NOT NULL
+quantity: integer NOT NULL
+care: boolean NOT NULL</title><rect x="50" y="1085" width="655" height="43" rx="7" fill="#fafbfc" stroke="#725b2e"/><text class="table" x="62" y="1104" fill="#20242b">cart_items</text><text class="meta" x="62" y="1120">PK: id · 5 columns</text></g>
+<g class="node"><title>carts
+id: uuid NOT NULL
+customer_id: text NOT NULL
+applied_promotion_version_id: uuid NULL
+revision: integer NOT NULL</title><rect x="50" y="1140" width="655" height="43" rx="7" fill="#fafbfc" stroke="#725b2e"/><text class="table" x="62" y="1159" fill="#20242b">carts</text><text class="meta" x="62" y="1175">PK: id · 4 columns</text></g>
+<g class="node"><title>categories
+id: uuid NOT NULL
+code: text NOT NULL
+slug: text NOT NULL
+name_vi: text NOT NULL
+name_en: text NOT NULL
+active: boolean NOT NULL</title><rect x="1500" y="197" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3e6b55"/><text class="table" x="1512" y="216" fill="#20242b">categories</text><text class="meta" x="1512" y="232">PK: id · 6 columns</text></g>
+<g class="node"><title>credit_note_item_units
+credit_note_item_id: uuid NOT NULL
+order_item_unit_amount_id: uuid NOT NULL
+amount_vnd: bigint NOT NULL</title><rect x="775" y="1030" width="655" height="43" rx="7" fill="#fafbfc" stroke="#59528a"/><text class="table" x="787" y="1049" fill="#20242b">credit_note_item_units</text><text class="meta" x="787" y="1065">PK: credit_note_item_id, order_item_unit_amount_id · 3 columns</text></g>
+<g class="node"><title>credit_note_items
+id: uuid NOT NULL
+credit_note_id: uuid NOT NULL
+invoice_item_id: uuid NOT NULL
+quantity: integer NULL
+amount_vnd: bigint NOT NULL</title><rect x="775" y="1085" width="655" height="43" rx="7" fill="#fafbfc" stroke="#59528a"/><text class="table" x="787" y="1104" fill="#20242b">credit_note_items</text><text class="meta" x="787" y="1120">PK: id · 5 columns</text></g>
+<g class="node"><title>credit_notes
+id: uuid NOT NULL
+credit_note_no: text NOT NULL
+invoice_id: uuid NOT NULL
+order_id: uuid NOT NULL
+status: text NOT NULL
+issued_at: timestamp with time zone NULL
+return_request_id: uuid NULL
+warranty_claim_id: uuid NULL
+shipment_id: uuid NULL
+reason: text NOT NULL
+total_vnd: bigint NOT NULL
+approved_by_user_id: text NOT NULL
+event_key: text NOT NULL</title><rect x="775" y="1140" width="655" height="43" rx="7" fill="#fafbfc" stroke="#59528a"/><text class="table" x="787" y="1159" fill="#20242b">credit_notes</text><text class="meta" x="787" y="1175">PK: id · 13 columns</text></g>
+<g class="node"><title>customer_profiles
+user_id: text NOT NULL
+display_name: text NOT NULL
+phone: text NULL</title><rect x="775" y="307" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="326" fill="#20242b">customer_profiles</text><text class="meta" x="787" y="342">PK: user_id · 3 columns</text></g>
+<g class="node"><title>goods_receipt_items
+id: uuid NOT NULL
+receipt_id: uuid NOT NULL
+purchase_order_id: uuid NOT NULL
+purchase_order_item_id: uuid NOT NULL
+received_qty: integer NOT NULL
+unit_cost_vnd: bigint NOT NULL</title><rect x="1500" y="1030" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1049" fill="#20242b">goods_receipt_items</text><text class="meta" x="1512" y="1065">PK: id · 6 columns</text></g>
+<g class="node"><title>goods_receipts
+id: uuid NOT NULL
+purchase_order_id: uuid NOT NULL
+receipt_no: text NOT NULL
+received_by: text NOT NULL
+received_at: timestamp with time zone NOT NULL
+event_key: text NOT NULL</title><rect x="1500" y="1085" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1104" fill="#20242b">goods_receipts</text><text class="meta" x="1512" y="1120">PK: id · 6 columns</text></g>
+<g class="node"><title>idempotency_records
+scope: text NOT NULL
+key: text NOT NULL
+request_hash: text NOT NULL
+result: jsonb NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="50" y="307" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b263d"/><text class="table" x="62" y="326" fill="#20242b">idempotency_records</text><text class="meta" x="62" y="342">PK: scope, key · 5 columns</text></g>
+<g class="node"><title>identity_role_claims
+id: integer NOT NULL
+role_id: text NOT NULL
+claim_type: text NULL
+claim_value: text NULL</title><rect x="775" y="362" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="381" fill="#20242b">identity_role_claims</text><text class="meta" x="787" y="397">PK: id · 4 columns</text></g>
+<g class="node"><title>identity_roles
+id: text NOT NULL
+name: character varying(256) NULL
+normalized_name: character varying(256) NULL
+concurrency_stamp: text NULL</title><rect x="775" y="417" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="436" fill="#20242b">identity_roles</text><text class="meta" x="787" y="452">PK: id · 4 columns</text></g>
+<g class="node"><title>identity_user_claims
+id: integer NOT NULL
+user_id: text NOT NULL
+claim_type: text NULL
+claim_value: text NULL</title><rect x="775" y="472" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="491" fill="#20242b">identity_user_claims</text><text class="meta" x="787" y="507">PK: id · 4 columns</text></g>
+<g class="node"><title>identity_user_logins
+login_provider: text NOT NULL
+provider_key: text NOT NULL
+provider_display_name: text NULL
+user_id: text NOT NULL</title><rect x="775" y="527" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="546" fill="#20242b">identity_user_logins</text><text class="meta" x="787" y="562">PK: login_provider, provider_key · 4 columns</text></g>
+<g class="node"><title>identity_user_roles
+user_id: text NOT NULL
+role_id: text NOT NULL</title><rect x="775" y="582" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="601" fill="#20242b">identity_user_roles</text><text class="meta" x="787" y="617">PK: user_id, role_id · 2 columns</text></g>
+<g class="node"><title>identity_user_tokens
+user_id: text NOT NULL
+login_provider: text NOT NULL
+name: text NOT NULL
+value: text NULL</title><rect x="775" y="637" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="656" fill="#20242b">identity_user_tokens</text><text class="meta" x="787" y="672">PK: user_id, login_provider, name · 4 columns</text></g>
+<g class="node"><title>inventory_allocations
+id: uuid NOT NULL
+order_item_id: uuid NOT NULL
+order_item_unit_amount_id: uuid NOT NULL
+lot_id: uuid NOT NULL
+inventory_unit_id: uuid NULL
+quantity: integer NOT NULL
+cost_vnd: bigint NOT NULL
+state: text NOT NULL</title><rect x="1500" y="1140" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1159" fill="#20242b">inventory_allocations</text><text class="meta" x="1512" y="1175">PK: id · 8 columns</text></g>
+<g class="node"><title>inventory_identifiers
+id: uuid NOT NULL
+inventory_unit_id: uuid NOT NULL
+kind: text NOT NULL
+normalized_value: text NOT NULL</title><rect x="1500" y="1195" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1214" fill="#20242b">inventory_identifiers</text><text class="meta" x="1512" y="1230">PK: id · 4 columns</text></g>
+<g class="node"><title>inventory_lots
+id: uuid NOT NULL
+warehouse_id: uuid NOT NULL
+variant_id: uuid NOT NULL
+receipt_item_id: uuid NOT NULL
+received_at: timestamp with time zone NOT NULL
+unit_cost_vnd: bigint NOT NULL
+qty_on_hand: integer NOT NULL
+qty_reserved: integer NOT NULL</title><rect x="1500" y="1250" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1269" fill="#20242b">inventory_lots</text><text class="meta" x="1512" y="1285">PK: id · 8 columns</text></g>
+<g class="node"><title>inventory_quarantine
+id: uuid NOT NULL
+order_item_unit_amount_id: uuid NOT NULL
+lot_id: uuid NOT NULL
+quantity: integer NOT NULL
+state: text NOT NULL
+reason: text NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="1500" y="1305" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1324" fill="#20242b">inventory_quarantine</text><text class="meta" x="1512" y="1340">PK: id · 7 columns</text></g>
+<g class="node"><title>inventory_reservations
+id: uuid NOT NULL
+order_item_id: uuid NOT NULL
+variant_id: uuid NOT NULL
+quantity: integer NOT NULL
+expires_at: timestamp with time zone NOT NULL
+status: text NOT NULL</title><rect x="1500" y="1360" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1379" fill="#20242b">inventory_reservations</text><text class="meta" x="1512" y="1395">PK: id · 6 columns</text></g>
+<g class="node"><title>inventory_units
+id: uuid NOT NULL
+lot_id: uuid NOT NULL
+condition_status: text NOT NULL
+custody_status: text NOT NULL</title><rect x="1500" y="1415" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1434" fill="#20242b">inventory_units</text><text class="meta" x="1512" y="1450">PK: id · 4 columns</text></g>
+<g class="node"><title>invoice_exports
+id: uuid NOT NULL
+requested_by_user_id: text NOT NULL
+query_json: jsonb NOT NULL
+read_at: timestamp with time zone NOT NULL
+row_count: integer NOT NULL
+total_vnd: bigint NOT NULL
+status: text NOT NULL
+expires_at: timestamp with time zone NOT NULL
+file_manifest: jsonb NOT NULL
+role_snapshot: text NOT NULL</title><rect x="775" y="1195" width="655" height="43" rx="7" fill="#fafbfc" stroke="#59528a"/><text class="table" x="787" y="1214" fill="#20242b">invoice_exports</text><text class="meta" x="787" y="1230">PK: id · 10 columns</text></g>
+<g class="node"><title>invoice_items
+id: uuid NOT NULL
+invoice_id: uuid NOT NULL
+order_id: uuid NOT NULL
+order_item_id: uuid NOT NULL
+line_no: integer NOT NULL
+line_type: text NOT NULL
+product_id: uuid NULL
+variant_id: uuid NULL
+parent_invoice_item_id: uuid NULL
+sku_snapshot: text NOT NULL
+name_snapshot: text NOT NULL
+variant_snapshot: jsonb NOT NULL
+quantity: integer NOT NULL
+unit_price_vnd: bigint NOT NULL
+voucher_discount_vnd: bigint NOT NULL
+points_discount_vnd: bigint NOT NULL
+net_amount_vnd: bigint NOT NULL</title><rect x="775" y="1250" width="655" height="43" rx="7" fill="#fafbfc" stroke="#59528a"/><text class="table" x="787" y="1269" fill="#20242b">invoice_items</text><text class="meta" x="787" y="1285">PK: id · 17 columns</text></g>
+<g class="node"><title>invoices
+id: uuid NOT NULL
+invoice_no: text NULL
+order_id: uuid NOT NULL
+lifecycle: text NOT NULL
+issued_at: timestamp with time zone NULL
+customer_id: text NOT NULL
+responsible_staff_id: text NULL
+issued_by_user_id: text NULL
+currency: text NOT NULL
+subtotal_vnd: bigint NOT NULL
+discount_total_vnd: bigint NOT NULL
+grand_total_vnd: bigint NOT NULL
+customer_snapshot: jsonb NOT NULL
+staff_snapshot: jsonb NOT NULL</title><rect x="775" y="1305" width="655" height="43" rx="7" fill="#fafbfc" stroke="#59528a"/><text class="table" x="787" y="1324" fill="#20242b">invoices</text><text class="meta" x="787" y="1340">PK: id · 14 columns</text></g>
+<g class="node"><title>landing_drafts
+page_id: uuid NOT NULL
+revision: integer NOT NULL
+sections: jsonb NOT NULL
+updated_by: text NULL
+updated_at: timestamp with time zone NOT NULL</title><rect x="50" y="1918" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3c6875"/><text class="table" x="62" y="1937" fill="#20242b">landing_drafts</text><text class="meta" x="62" y="1953">PK: page_id · 5 columns</text></g>
+<g class="node"><title>landing_media_refs
+landing_version_id: uuid NOT NULL
+media_id: uuid NOT NULL</title><rect x="50" y="1973" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3c6875"/><text class="table" x="62" y="1992" fill="#20242b">landing_media_refs</text><text class="meta" x="62" y="2008">PK: landing_version_id, media_id · 2 columns</text></g>
+<g class="node"><title>landing_pages
+id: uuid NOT NULL
+slug: text NOT NULL</title><rect x="50" y="2028" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3c6875"/><text class="table" x="62" y="2047" fill="#20242b">landing_pages</text><text class="meta" x="62" y="2063">PK: id · 2 columns</text></g>
+<g class="node"><title>landing_preview_grants
+id: uuid NOT NULL
+code_hash: text NOT NULL
+page_id: uuid NOT NULL
+draft_revision: integer NOT NULL
+version_id: uuid NULL
+issued_by: text NOT NULL
+expires_at: timestamp with time zone NOT NULL
+redeemed_at: timestamp with time zone NULL
+revoked_at: timestamp with time zone NULL
+created_at: timestamp with time zone NOT NULL
+sections_snapshot: jsonb NOT NULL
+session_hash: text NULL</title><rect x="50" y="2083" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3c6875"/><text class="table" x="62" y="2102" fill="#20242b">landing_preview_grants</text><text class="meta" x="62" y="2118">PK: id · 12 columns</text></g>
+<g class="node"><title>landing_publications
+id: uuid NOT NULL
+page_id: uuid NOT NULL
+version_id: uuid NOT NULL
+published_by: text NOT NULL
+published_at: timestamp with time zone NOT NULL</title><rect x="50" y="2138" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3c6875"/><text class="table" x="62" y="2157" fill="#20242b">landing_publications</text><text class="meta" x="62" y="2173">PK: id · 5 columns</text></g>
+<g class="node"><title>landing_versions
+id: uuid NOT NULL
+page_id: uuid NOT NULL
+version_no: integer NOT NULL
+sections: jsonb NOT NULL
+created_by: text NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="50" y="2193" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3c6875"/><text class="table" x="62" y="2212" fill="#20242b">landing_versions</text><text class="meta" x="62" y="2228">PK: id · 6 columns</text></g>
+<g class="node"><title>loyalty_accounts
+user_id: text NOT NULL
+balance_points: integer NOT NULL
+net_spend_vnd: bigint NOT NULL</title><rect x="775" y="1918" width="655" height="43" rx="7" fill="#fafbfc" stroke="#817044"/><text class="table" x="787" y="1937" fill="#20242b">loyalty_accounts</text><text class="meta" x="787" y="1953">PK: user_id · 3 columns</text></g>
+<g class="node"><title>loyalty_entries
+id: uuid NOT NULL
+user_id: text NOT NULL
+delta: integer NOT NULL
+kind: text NOT NULL
+order_id: uuid NOT NULL
+unit_id: uuid NULL
+event_key: text NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="775" y="1973" width="655" height="43" rx="7" fill="#fafbfc" stroke="#817044"/><text class="table" x="787" y="1992" fill="#20242b">loyalty_entries</text><text class="meta" x="787" y="2008">PK: id · 8 columns</text></g>
+<g class="node"><title>media_assets
+id: uuid NOT NULL
+storage_key: text NOT NULL
+visibility: text NOT NULL
+mime: text NOT NULL
+size_bytes: bigint NOT NULL
+checksum: text NOT NULL
+validation_status: text NOT NULL
+source_url: text NULL
+license_note: text NULL
+owner_user_id: text NULL
+metadata: jsonb NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="50" y="2248" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3c6875"/><text class="table" x="62" y="2267" fill="#20242b">media_assets</text><text class="meta" x="62" y="2283">PK: id · 12 columns</text></g>
+<g class="node"><title>notifications
+id: uuid NOT NULL
+recipient_user_id: text NOT NULL
+type: text NOT NULL
+message: text NOT NULL
+entity_id: uuid NULL
+read_at: timestamp with time zone NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="50" y="362" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b263d"/><text class="table" x="62" y="381" fill="#20242b">notifications</text><text class="meta" x="62" y="397">PK: id · 7 columns</text></g>
+<g class="node"><title>order_adjustments
+id: uuid NOT NULL
+order_item_id: uuid NOT NULL
+kind: text NOT NULL
+promotion_redemption_id: uuid NULL
+amount_vnd: bigint NOT NULL
+source_event_key: text NOT NULL</title><rect x="1500" y="1918" width="655" height="43" rx="7" fill="#fafbfc" stroke="#586a45"/><text class="table" x="1512" y="1937" fill="#20242b">order_adjustments</text><text class="meta" x="1512" y="1953">PK: id · 6 columns</text></g>
+<g class="node"><title>order_item_unit_amounts
+id: uuid NOT NULL
+order_item_id: uuid NOT NULL
+unit_ordinal: integer NOT NULL
+parent_unit_amount_id: uuid NULL
+gross_vnd: bigint NOT NULL
+voucher_discount_vnd: bigint NOT NULL
+redeemed_points: integer NOT NULL
+points_discount_vnd: bigint NOT NULL
+net_amount_vnd: bigint NOT NULL
+credit_planned_vnd: bigint NOT NULL
+cash_planned_vnd: bigint NOT NULL
+point_value_vnd: bigint NOT NULL</title><rect x="1500" y="1973" width="655" height="43" rx="7" fill="#fafbfc" stroke="#586a45"/><text class="table" x="1512" y="1992" fill="#20242b">order_item_unit_amounts</text><text class="meta" x="1512" y="2008">PK: id · 12 columns</text></g>
+<g class="node"><title>order_items
+id: uuid NOT NULL
+order_id: uuid NOT NULL
+line_no: integer NOT NULL
+line_type: text NOT NULL
+product_id: uuid NULL
+variant_id: uuid NULL
+parent_item_id: uuid NULL
+quantity: integer NOT NULL
+unit_price_vnd: bigint NOT NULL
+voucher_discount_vnd: bigint NOT NULL
+points_discount_vnd: bigint NOT NULL
+net_amount_vnd: bigint NOT NULL
+snapshot: jsonb NOT NULL</title><rect x="1500" y="2028" width="655" height="43" rx="7" fill="#fafbfc" stroke="#586a45"/><text class="table" x="1512" y="2047" fill="#20242b">order_items</text><text class="meta" x="1512" y="2063">PK: id · 13 columns</text></g>
+<g class="node"><title>order_tender_allocations
+id: uuid NOT NULL
+order_item_unit_amount_id: uuid NOT NULL
+receipt_id: uuid NOT NULL
+amount_vnd: bigint NOT NULL</title><rect x="1500" y="2083" width="655" height="43" rx="7" fill="#fafbfc" stroke="#586a45"/><text class="table" x="1512" y="2102" fill="#20242b">order_tender_allocations</text><text class="meta" x="1512" y="2118">PK: id · 4 columns</text></g>
+<g class="node"><title>orders
+id: uuid NOT NULL
+order_no: text NOT NULL
+customer_id: text NOT NULL
+responsible_staff_id: text NULL
+order_status: text NOT NULL
+payment_method: text NOT NULL
+address_snapshot: jsonb NOT NULL
+total_vnd: bigint NOT NULL
+currency: text NOT NULL
+exchange_rate_vnd: numeric NOT NULL
+policy_snapshot: jsonb NOT NULL
+expires_at: timestamp with time zone NOT NULL
+created_at: timestamp with time zone NOT NULL
+delivered_at: timestamp with time zone NULL</title><rect x="1500" y="2138" width="655" height="43" rx="7" fill="#fafbfc" stroke="#586a45"/><text class="table" x="1512" y="2157" fill="#20242b">orders</text><text class="meta" x="1512" y="2173">PK: id · 14 columns</text></g>
+<g class="node"><title>outbox_events
+id: uuid NOT NULL
+event_key: text NOT NULL
+type: text NOT NULL
+payload: jsonb NOT NULL
+status: text NOT NULL
+attempts: integer NOT NULL
+next_attempt_at: timestamp with time zone NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="50" y="417" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b263d"/><text class="table" x="62" y="436" fill="#20242b">outbox_events</text><text class="meta" x="62" y="452">PK: id · 8 columns</text></g>
+<g class="node"><title>payment_attempts
+id: uuid NOT NULL
+order_id: uuid NOT NULL
+method: text NOT NULL
+status: text NOT NULL
+requested_amount_vnd: bigint NOT NULL
+request_key: text NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="1500" y="2193" width="655" height="43" rx="7" fill="#fafbfc" stroke="#586a45"/><text class="table" x="1512" y="2212" fill="#20242b">payment_attempts</text><text class="meta" x="1512" y="2228">PK: id · 7 columns</text></g>
+<g class="node"><title>payment_events
+id: uuid NOT NULL
+payment_attempt_id: uuid NOT NULL
+event_key: text NOT NULL
+event_type: text NOT NULL
+payload_digest: text NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="1500" y="2248" width="655" height="43" rx="7" fill="#fafbfc" stroke="#586a45"/><text class="table" x="1512" y="2267" fill="#20242b">payment_events</text><text class="meta" x="1512" y="2283">PK: id · 6 columns</text></g>
+<g class="node"><title>payment_receipts
+id: uuid NOT NULL
+order_id: uuid NOT NULL
+payment_attempt_id: uuid NULL
+tender_kind: text NOT NULL
+amount_vnd: bigint NOT NULL
+received_at: timestamp with time zone NOT NULL
+source_event_key: text NOT NULL</title><rect x="1500" y="2303" width="655" height="43" rx="7" fill="#fafbfc" stroke="#586a45"/><text class="table" x="1512" y="2322" fill="#20242b">payment_receipts</text><text class="meta" x="1512" y="2338">PK: id · 7 columns</text></g>
+<g class="node"><title>product_attribute_values
+product_id: uuid NOT NULL
+attribute_id: uuid NOT NULL
+value_text: text NULL
+value_number: numeric NULL
+value_boolean: boolean NULL</title><rect x="1500" y="252" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3e6b55"/><text class="table" x="1512" y="271" fill="#20242b">product_attribute_values</text><text class="meta" x="1512" y="287">PK: product_id, attribute_id · 5 columns</text></g>
+<g class="node"><title>product_compatibilities
+accessory_product_id: uuid NOT NULL
+target_product_id: uuid NOT NULL</title><rect x="1500" y="307" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3e6b55"/><text class="table" x="1512" y="326" fill="#20242b">product_compatibilities</text><text class="meta" x="1512" y="342">PK: accessory_product_id, target_product_id · 2 columns</text></g>
+<g class="node"><title>product_media
+id: uuid NOT NULL
+product_id: uuid NOT NULL
+variant_id: uuid NULL
+media_id: uuid NOT NULL
+position: integer NOT NULL
+role: text NOT NULL</title><rect x="1500" y="362" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3e6b55"/><text class="table" x="1512" y="381" fill="#20242b">product_media</text><text class="meta" x="1512" y="397">PK: id · 6 columns</text></g>
+<g class="node"><title>product_translations
+product_id: uuid NOT NULL
+locale: text NOT NULL
+name: text NOT NULL
+description: text NOT NULL
+seo_title: text NOT NULL
+content_status: text NOT NULL</title><rect x="1500" y="417" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3e6b55"/><text class="table" x="1512" y="436" fill="#20242b">product_translations</text><text class="meta" x="1512" y="452">PK: product_id, locale · 6 columns</text></g>
+<g class="node"><title>product_variants
+id: uuid NOT NULL
+product_id: uuid NOT NULL
+sku: text NOT NULL
+option_signature: text NOT NULL
+options: jsonb NOT NULL
+price_vnd: bigint NOT NULL
+tracking_mode: text NOT NULL
+active: boolean NOT NULL
+standard_warranty_months: integer NOT NULL
+care_fee_vnd: bigint NULL</title><rect x="1500" y="472" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3e6b55"/><text class="table" x="1512" y="491" fill="#20242b">product_variants</text><text class="meta" x="1512" y="507">PK: id · 10 columns</text></g>
+<g class="node"><title>products
+id: uuid NOT NULL
+category_id: uuid NOT NULL
+slug: text NOT NULL
+model_code: text NOT NULL
+business_status: text NOT NULL
+generation: text NULL
+source_url: text NOT NULL
+specs: jsonb NOT NULL
+poster: text NOT NULL</title><rect x="1500" y="527" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3e6b55"/><text class="table" x="1512" y="546" fill="#20242b">products</text><text class="meta" x="1512" y="562">PK: id · 9 columns</text></g>
+<g class="node"><title>promotion_redemptions
+id: uuid NOT NULL
+promotion_id: uuid NOT NULL
+promotion_version_id: uuid NOT NULL
+customer_id: text NOT NULL
+order_id: uuid NOT NULL
+status: text NOT NULL
+amount_vnd: bigint NOT NULL
+expires_at: timestamp with time zone NOT NULL
+idempotency_key: text NOT NULL</title><rect x="50" y="1195" width="655" height="43" rx="7" fill="#fafbfc" stroke="#725b2e"/><text class="table" x="62" y="1214" fill="#20242b">promotion_redemptions</text><text class="meta" x="62" y="1230">PK: id · 9 columns</text></g>
+<g class="node"><title>promotion_targets
+id: uuid NOT NULL
+promotion_version_id: uuid NOT NULL
+variant_id: uuid NULL
+product_id: uuid NULL
+category_id: uuid NULL</title><rect x="50" y="1250" width="655" height="43" rx="7" fill="#fafbfc" stroke="#725b2e"/><text class="table" x="62" y="1269" fill="#20242b">promotion_targets</text><text class="meta" x="62" y="1285">PK: id · 5 columns</text></g>
+<g class="node"><title>promotion_versions
+id: uuid NOT NULL
+promotion_id: uuid NOT NULL
+version_no: integer NOT NULL
+discount_type: text NOT NULL
+value: bigint NOT NULL
+max_discount_vnd: bigint NULL
+min_purchase_vnd: bigint NOT NULL
+starts_at: timestamp with time zone NOT NULL
+ends_at: timestamp with time zone NOT NULL
+all_products: boolean NOT NULL</title><rect x="50" y="1305" width="655" height="43" rx="7" fill="#fafbfc" stroke="#725b2e"/><text class="table" x="62" y="1324" fill="#20242b">promotion_versions</text><text class="meta" x="62" y="1340">PK: id · 10 columns</text></g>
+<g class="node"><title>promotions
+id: uuid NOT NULL
+code_normalized: text NOT NULL
+active: boolean NOT NULL
+max_uses: integer NULL
+max_uses_per_customer: integer NULL</title><rect x="50" y="1360" width="655" height="43" rx="7" fill="#fafbfc" stroke="#725b2e"/><text class="table" x="62" y="1379" fill="#20242b">promotions</text><text class="meta" x="62" y="1395">PK: id · 5 columns</text></g>
+<g class="node"><title>purchase_order_items
+id: uuid NOT NULL
+purchase_order_id: uuid NOT NULL
+variant_id: uuid NOT NULL
+quantity: integer NOT NULL
+unit_cost_vnd: bigint NOT NULL</title><rect x="1500" y="1470" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1489" fill="#20242b">purchase_order_items</text><text class="meta" x="1512" y="1505">PK: id · 5 columns</text></g>
+<g class="node"><title>purchase_orders
+id: uuid NOT NULL
+supplier_id: uuid NOT NULL
+code: text NOT NULL
+status: text NOT NULL
+created_by: text NOT NULL
+approved_by: text NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="1500" y="1525" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1544" fill="#20242b">purchase_orders</text><text class="meta" x="1512" y="1560">PK: id · 7 columns</text></g>
+<g class="node"><title>refund_allocations
+id: uuid NOT NULL
+refund_id: uuid NOT NULL
+payment_receipt_id: uuid NOT NULL
+order_item_unit_amount_id: uuid NOT NULL
+amount_vnd: bigint NOT NULL</title><rect x="775" y="1360" width="655" height="43" rx="7" fill="#fafbfc" stroke="#59528a"/><text class="table" x="787" y="1379" fill="#20242b">refund_allocations</text><text class="meta" x="787" y="1395">PK: id · 5 columns</text></g>
+<g class="node"><title>refunds
+id: uuid NOT NULL
+order_id: uuid NOT NULL
+credit_note_id: uuid NULL
+status: text NOT NULL
+amount_vnd: bigint NOT NULL
+approved_by: text NOT NULL
+completed_at: timestamp with time zone NULL
+idempotency_key: text NOT NULL</title><rect x="775" y="1415" width="655" height="43" rx="7" fill="#fafbfc" stroke="#59528a"/><text class="table" x="787" y="1434" fill="#20242b">refunds</text><text class="meta" x="787" y="1450">PK: id · 8 columns</text></g>
+<g class="node"><title>return_evidence
+return_request_id: uuid NOT NULL
+media_id: uuid NOT NULL</title><rect x="50" y="2586" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b597c"/><text class="table" x="62" y="2605" fill="#20242b">return_evidence</text><text class="meta" x="62" y="2621">PK: return_request_id, media_id · 2 columns</text></g>
+<g class="node"><title>return_item_units
+return_item_id: uuid NOT NULL
+order_item_id: uuid NOT NULL
+order_item_unit_amount_id: uuid NOT NULL
+inventory_unit_id: uuid NULL</title><rect x="50" y="2641" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b597c"/><text class="table" x="62" y="2660" fill="#20242b">return_item_units</text><text class="meta" x="62" y="2676">PK: return_item_id, order_item_unit_amount_id · 4 columns</text></g>
+<g class="node"><title>return_items
+id: uuid NOT NULL
+return_request_id: uuid NOT NULL
+order_id: uuid NOT NULL
+order_item_id: uuid NOT NULL
+qty: integer NOT NULL
+actual_received_identifier: text NULL</title><rect x="50" y="2696" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b597c"/><text class="table" x="62" y="2715" fill="#20242b">return_items</text><text class="meta" x="62" y="2731">PK: id · 6 columns</text></g>
+<g class="node"><title>return_requests
+id: uuid NOT NULL
+order_id: uuid NOT NULL
+customer_id: text NOT NULL
+state: text NOT NULL
+reason: text NOT NULL
+created_at: timestamp with time zone NOT NULL
+inspection_result: text NULL
+inspected_by: text NULL
+inspected_at: timestamp with time zone NULL
+fee_vnd: bigint NOT NULL</title><rect x="50" y="2751" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b597c"/><text class="table" x="62" y="2770" fill="#20242b">return_requests</text><text class="meta" x="62" y="2786">PK: id · 10 columns</text></g>
+<g class="node"><title>schema_migrations
+name: text NOT NULL
+checksum: text NOT NULL
+applied_at: timestamp with time zone NOT NULL</title><rect x="50" y="472" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b263d"/><text class="table" x="62" y="491" fill="#20242b">schema_migrations</text><text class="meta" x="62" y="507">PK: name · 3 columns</text></g>
+<g class="node"><title>session
+id: text NOT NULL
+expires_at: timestamp with time zone NOT NULL
+token: text NOT NULL
+created_at: timestamp with time zone NOT NULL
+updated_at: timestamp with time zone NOT NULL
+ip_address: text NULL
+user_agent: text NULL
+user_id: text NOT NULL</title><rect x="775" y="692" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="711" fill="#20242b">session</text><text class="meta" x="787" y="727">PK: id · 8 columns</text></g>
+<g class="node"><title>setting_versions
+id: uuid NOT NULL
+key: text NOT NULL
+version_no: integer NOT NULL
+value: jsonb NOT NULL
+changed_by: text NULL
+changed_at: timestamp with time zone NOT NULL</title><rect x="50" y="527" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b263d"/><text class="table" x="62" y="546" fill="#20242b">setting_versions</text><text class="meta" x="62" y="562">PK: id · 6 columns</text></g>
+<g class="node"><title>shipment_events
+id: uuid NOT NULL
+shipment_id: uuid NOT NULL
+status: text NOT NULL
+occurred_at: timestamp with time zone NOT NULL
+event_key: text NOT NULL</title><rect x="1500" y="2358" width="655" height="43" rx="7" fill="#fafbfc" stroke="#586a45"/><text class="table" x="1512" y="2377" fill="#20242b">shipment_events</text><text class="meta" x="1512" y="2393">PK: id · 5 columns</text></g>
+<g class="node"><title>shipments
+id: uuid NOT NULL
+order_id: uuid NOT NULL
+tracking_no: text NOT NULL
+status: text NOT NULL
+retry_of: uuid NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="1500" y="2413" width="655" height="43" rx="7" fill="#fafbfc" stroke="#586a45"/><text class="table" x="1512" y="2432" fill="#20242b">shipments</text><text class="meta" x="1512" y="2448">PK: id · 6 columns</text></g>
+<g class="node"><title>staff_profiles
+user_id: text NOT NULL
+staff_code: text NOT NULL
+role: text NOT NULL
+active: boolean NOT NULL</title><rect x="775" y="747" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="766" fill="#20242b">staff_profiles</text><text class="meta" x="787" y="782">PK: user_id · 4 columns</text></g>
+<g class="node"><title>stock_adjustments
+id: uuid NOT NULL
+lot_id: uuid NOT NULL
+quantity_delta: integer NOT NULL
+reason: text NOT NULL
+requested_by: text NOT NULL
+approved_by: text NULL
+status: text NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="1500" y="1580" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1599" fill="#20242b">stock_adjustments</text><text class="meta" x="1512" y="1615">PK: id · 8 columns</text></g>
+<g class="node"><title>stock_movements
+id: uuid NOT NULL
+variant_id: uuid NOT NULL
+lot_id: uuid NOT NULL
+unit_id: uuid NULL
+quantity_delta: integer NOT NULL
+kind: text NOT NULL
+source_event_key: text NOT NULL
+actor_user_id: text NULL
+reason: text NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="1500" y="1635" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1654" fill="#20242b">stock_movements</text><text class="meta" x="1512" y="1670">PK: id · 10 columns</text></g>
+<g class="node"><title>store_credit_accounts
+user_id: text NOT NULL
+balance_vnd: bigint NOT NULL</title><rect x="775" y="2028" width="655" height="43" rx="7" fill="#fafbfc" stroke="#817044"/><text class="table" x="787" y="2047" fill="#20242b">store_credit_accounts</text><text class="meta" x="787" y="2063">PK: user_id · 2 columns</text></g>
+<g class="node"><title>store_credit_entries
+id: uuid NOT NULL
+user_id: text NOT NULL
+delta_vnd: bigint NOT NULL
+kind: text NOT NULL
+trade_in_item_id: uuid NULL
+quote_item_id: uuid NULL
+order_id: uuid NULL
+refund_id: uuid NULL
+event_key: text NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="775" y="2083" width="655" height="43" rx="7" fill="#fafbfc" stroke="#817044"/><text class="table" x="787" y="2102" fill="#20242b">store_credit_entries</text><text class="meta" x="787" y="2118">PK: id · 10 columns</text></g>
+<g class="node"><title>suppliers
+id: uuid NOT NULL
+code: text NOT NULL
+name: text NOT NULL
+contact: text NOT NULL
+active: boolean NOT NULL</title><rect x="1500" y="1690" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1709" fill="#20242b">suppliers</text><text class="meta" x="1512" y="1725">PK: id · 5 columns</text></g>
+<g class="node"><title>trade_in_evidence
+inspection_id: uuid NOT NULL
+media_id: uuid NOT NULL</title><rect x="50" y="2806" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b597c"/><text class="table" x="62" y="2825" fill="#20242b">trade_in_evidence</text><text class="meta" x="62" y="2841">PK: inspection_id, media_id · 2 columns</text></g>
+<g class="node"><title>trade_in_inspections
+id: uuid NOT NULL
+item_id: uuid NOT NULL
+inspector_staff_id: text NOT NULL
+checklist_version: integer NOT NULL
+assessed_condition: jsonb NOT NULL
+inspected_at: timestamp with time zone NOT NULL</title><rect x="50" y="2861" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b597c"/><text class="table" x="62" y="2880" fill="#20242b">trade_in_inspections</text><text class="meta" x="62" y="2896">PK: id · 6 columns</text></g>
+<g class="node"><title>trade_in_items
+id: uuid NOT NULL
+request_id: uuid NOT NULL
+product_id: uuid NOT NULL
+variant_id: uuid NULL
+qty: integer NOT NULL
+identifier: text NULL
+internal_code: text NOT NULL
+condition_snapshot: jsonb NOT NULL
+state: text NOT NULL
+inventory_unit_id: uuid NULL</title><rect x="50" y="2916" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b597c"/><text class="table" x="62" y="2935" fill="#20242b">trade_in_items</text><text class="meta" x="62" y="2951">PK: id · 10 columns</text></g>
+<g class="node"><title>trade_in_quote_items
+id: uuid NOT NULL
+quote_id: uuid NOT NULL
+request_id: uuid NOT NULL
+item_id: uuid NOT NULL
+offered_vnd: bigint NOT NULL
+decision: text NOT NULL
+decided_at: timestamp with time zone NULL</title><rect x="50" y="2971" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b597c"/><text class="table" x="62" y="2990" fill="#20242b">trade_in_quote_items</text><text class="meta" x="62" y="3006">PK: id · 7 columns</text></g>
+<g class="node"><title>trade_in_quotes
+id: uuid NOT NULL
+request_id: uuid NOT NULL
+version_no: integer NOT NULL
+expires_at: timestamp with time zone NOT NULL
+quoted_by: text NOT NULL
+approved_by: text NULL</title><rect x="50" y="3026" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b597c"/><text class="table" x="62" y="3045" fill="#20242b">trade_in_quotes</text><text class="meta" x="62" y="3061">PK: id · 6 columns</text></g>
+<g class="node"><title>trade_in_requests
+id: uuid NOT NULL
+customer_id: text NOT NULL
+reception_method: text NOT NULL
+state: text NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="50" y="3081" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b597c"/><text class="table" x="62" y="3100" fill="#20242b">trade_in_requests</text><text class="meta" x="62" y="3116">PK: id · 5 columns</text></g>
+<g class="node"><title>trade_in_shipments
+id: uuid NOT NULL
+request_id: uuid NOT NULL
+direction: text NOT NULL
+tracking_no: text NOT NULL
+fee_vnd: bigint NOT NULL
+state: text NOT NULL</title><rect x="50" y="3136" width="655" height="43" rx="7" fill="#fafbfc" stroke="#6b597c"/><text class="table" x="62" y="3155" fill="#20242b">trade_in_shipments</text><text class="meta" x="62" y="3171">PK: id · 6 columns</text></g>
+<g class="node"><title>user
+id: text NOT NULL
+name: text NOT NULL
+email: text NOT NULL
+email_verified: boolean NOT NULL
+image: text NULL
+created_at: timestamp with time zone NOT NULL
+updated_at: timestamp with time zone NOT NULL
+access_failed_count: integer NOT NULL
+concurrency_stamp: text NULL
+lockout_enabled: boolean NOT NULL
+lockout_end: timestamp with time zone NULL
+normalized_email: character varying(256) NULL
+normalized_user_name: character varying(256) NULL
+password_hash: text NULL
+password_reset_required: boolean NOT NULL
+phone_number: text NULL
+phone_number_confirmed: boolean NOT NULL
+security_stamp: text NULL
+two_factor_enabled: boolean NOT NULL
+user_name: character varying(256) NULL</title><rect x="775" y="802" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="821" fill="#20242b">user</text><text class="meta" x="787" y="837">PK: id · 20 columns</text></g>
+<g class="node"><title>variant_attribute_values
+variant_id: uuid NOT NULL
+attribute_id: uuid NOT NULL
+value_text: text NULL
+value_number: numeric NULL
+value_boolean: boolean NULL</title><rect x="1500" y="582" width="655" height="43" rx="7" fill="#fafbfc" stroke="#3e6b55"/><text class="table" x="1512" y="601" fill="#20242b">variant_attribute_values</text><text class="meta" x="1512" y="617">PK: variant_id, attribute_id · 5 columns</text></g>
+<g class="node"><title>verification
+id: text NOT NULL
+identifier: text NOT NULL
+value: text NOT NULL
+expires_at: timestamp with time zone NOT NULL
+created_at: timestamp with time zone NOT NULL
+updated_at: timestamp with time zone NOT NULL</title><rect x="775" y="857" width="655" height="43" rx="7" fill="#fafbfc" stroke="#315a74"/><text class="table" x="787" y="876" fill="#20242b">verification</text><text class="meta" x="787" y="892">PK: id · 6 columns</text></g>
+<g class="node"><title>warehouses
+id: uuid NOT NULL
+code: text NOT NULL
+name: text NOT NULL</title><rect x="1500" y="1745" width="655" height="43" rx="7" fill="#fafbfc" stroke="#866071"/><text class="table" x="1512" y="1764" fill="#20242b">warehouses</text><text class="meta" x="1512" y="1780">PK: id · 3 columns</text></g>
+<g class="node"><title>warranty_claims
+id: uuid NOT NULL
+entitlement_id: uuid NOT NULL
+state: text NOT NULL
+description: text NOT NULL
+damage_kind: text NOT NULL
+inspection_result: text NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="775" y="2586" width="655" height="43" rx="7" fill="#fafbfc" stroke="#58616b"/><text class="table" x="787" y="2605" fill="#20242b">warranty_claims</text><text class="meta" x="787" y="2621">PK: id · 7 columns</text></g>
+<g class="node"><title>warranty_entitlements
+id: uuid NOT NULL
+order_item_unit_amount_id: uuid NOT NULL
+plan_version_id: uuid NOT NULL
+inventory_unit_id: uuid NULL
+starts_on: date NULL
+ends_on: date NULL
+state: text NOT NULL
+used: boolean NOT NULL</title><rect x="775" y="2641" width="655" height="43" rx="7" fill="#fafbfc" stroke="#58616b"/><text class="table" x="787" y="2660" fill="#20242b">warranty_entitlements</text><text class="meta" x="787" y="2676">PK: id · 8 columns</text></g>
+<g class="node"><title>warranty_events
+id: uuid NOT NULL
+claim_id: uuid NOT NULL
+actor_id: text NOT NULL
+event: text NOT NULL
+note: text NOT NULL
+created_at: timestamp with time zone NOT NULL</title><rect x="775" y="2696" width="655" height="43" rx="7" fill="#fafbfc" stroke="#58616b"/><text class="table" x="787" y="2715" fill="#20242b">warranty_events</text><text class="meta" x="787" y="2731">PK: id · 6 columns</text></g>
+<g class="node"><title>warranty_evidence
+claim_id: uuid NOT NULL
+media_id: uuid NOT NULL</title><rect x="775" y="2751" width="655" height="43" rx="7" fill="#fafbfc" stroke="#58616b"/><text class="table" x="787" y="2770" fill="#20242b">warranty_evidence</text><text class="meta" x="787" y="2786">PK: claim_id, media_id · 2 columns</text></g>
+<g class="node"><title>warranty_plan_versions
+id: uuid NOT NULL
+plan_id: uuid NOT NULL
+version_no: integer NOT NULL
+term_months: integer NOT NULL
+fee_vnd: bigint NOT NULL
+policy_snapshot: jsonb NOT NULL</title><rect x="775" y="2806" width="655" height="43" rx="7" fill="#fafbfc" stroke="#58616b"/><text class="table" x="787" y="2825" fill="#20242b">warranty_plan_versions</text><text class="meta" x="787" y="2841">PK: id · 6 columns</text></g>
+<g class="node"><title>warranty_plans
+id: uuid NOT NULL
+code: text NOT NULL
+active: boolean NOT NULL</title><rect x="775" y="2861" width="655" height="43" rx="7" fill="#fafbfc" stroke="#58616b"/><text class="table" x="787" y="2880" fill="#20242b">warranty_plans</text><text class="meta" x="787" y="2896">PK: id · 3 columns</text></g>
+<g class="node"><title>warranty_replacements
+id: uuid NOT NULL
+claim_id: uuid NOT NULL
+old_unit_id: uuid NULL
+new_unit_id: uuid NULL
+created_at: timestamp with time zone NOT NULL
+new_lot_id: uuid NULL
+old_lot_id: uuid NULL
+order_item_unit_amount_id: uuid NULL</title><rect x="775" y="2916" width="655" height="43" rx="7" fill="#fafbfc" stroke="#58616b"/><text class="table" x="787" y="2935" fill="#20242b">warranty_replacements</text><text class="meta" x="787" y="2951">PK: id · 8 columns</text></g>
+<g class="node"><title>wishlists
+user_id: text NOT NULL
+product_id: uuid NOT NULL</title><rect x="50" y="1415" width="655" height="43" rx="7" fill="#fafbfc" stroke="#725b2e"/><text class="table" x="62" y="1434" fill="#20242b">wishlists</text><text class="meta" x="62" y="1450">PK: user_id, product_id · 2 columns</text></g>
+<text x="30" y="3287" font-size="13">Captured 2026-11-13T08:20:29.145581+00:00 · Full column/default/check/index definitions: data-dictionary.md</text>
+</svg>

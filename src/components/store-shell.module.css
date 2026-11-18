@@ -1,0 +1,13 @@
+.authShell { min-height:100dvh; display:flex; flex-direction:column; background-color:#f8f2f2; background-image:radial-gradient(ellipse at 7% 12%,rgba(248,223,204,.9) 0,rgba(248,223,204,0) 52%),radial-gradient(ellipse at 93% 15%,rgba(223,215,244,.86) 0,rgba(223,215,244,0) 50%),radial-gradient(ellipse at 48% 94%,rgba(241,209,224,.7) 0,rgba(241,209,224,0) 57%),linear-gradient(125deg,#fbf7ee 0%,#f7edf2 49%,#f2effa 100%); background-attachment:scroll; }
+.authHeader { display:flex; align-items:center; justify-content:space-between; gap:24px; width:min(1160px,100%); margin:0 auto; padding:20px 24px; }
+.authHeader>div { display:flex; align-items:center; gap:22px; }
+.backShop { display:flex; align-items:center; gap:8px; font-size:12px; min-height:44px; color:#766773; }
+.authShell>main { flex:1; display:flex; align-items:center; }
+.authFooter { font-size:10px; text-align:center; color:#81727e; padding:16px 24px 20px; margin:0; }
+.withDock { padding-bottom:170px; }
+.withDock :global(button),.withDock :global(a),.withDock :global(input) { scroll-margin-bottom:200px; }
+@media(max-width:767px) {
+ .authHeader { padding:16px 22px; gap:12px; }.authHeader>div{gap:8px}.backShop{font-size:11px}.authHeader :global(.wordmark){font-size:26px}.authFooter{font-size:9px;padding:14px 20px 22px}.authShell>main{align-items:flex-start}.authShell{background-attachment:scroll;background-image:radial-gradient(ellipse at 0% 5%,rgba(248,223,204,.94) 0,rgba(248,223,204,0) 58%),radial-gradient(ellipse at 100% 24%,rgba(220,211,243,.8) 0,rgba(220,211,243,0) 60%),linear-gradient(155deg,#fbf5eb 0%,#f6eaf1 55%,#eeeaf8 100%)}
+ .withDock {padding-bottom:235px}.withDock :global(button),.withDock :global(a),.withDock :global(input){scroll-margin-bottom:250px}
+}
+@media(max-width:380px) { .backShop span {max-width:75px;line-height:1.4} }

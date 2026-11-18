@@ -1,0 +1,232 @@
+{
+  "version": "v003",
+  "assets": {
+    "promax": {
+      "name": "iPhone 18 Pro Max",
+      "desktop": "../exports/v003/models/iphone-18-pro-max-desktop.glb",
+      "mobile": "../exports/v003/models/iphone-18-pro-max-mobile.glb",
+      "colors": {
+        "burgundy": {
+          "id": "burgundy",
+          "labelVi": "Đỏ Burgundy",
+          "labelEn": "Burgundy",
+          "default": true,
+          "materials": {
+            "MAT_Body": "#54393E",
+            "MAT_Back": "#38262A",
+            "MAT_Frame": "#5B3D44",
+            "MAT_CameraRing": "#54393E",
+            "MAT_Logo": "#553B43",
+            "MAT_Antenna": "#513943"
+          },
+          "colorSpace": "sRGB",
+          "label": "Đỏ Burgundy / Burgundy"
+        },
+        "black": {
+          "id": "black",
+          "labelVi": "Đen",
+          "labelEn": "Black",
+          "default": false,
+          "materials": {
+            "MAT_Body": "#27282B",
+            "MAT_Back": "#1B1C1F",
+            "MAT_Frame": "#323337",
+            "MAT_CameraRing": "#28292D",
+            "MAT_Logo": "#35363B",
+            "MAT_Antenna": "#3E3F43"
+          },
+          "colorSpace": "sRGB",
+          "label": "Đen / Black"
+        },
+        "silver": {
+          "id": "silver",
+          "labelVi": "Bạc",
+          "labelEn": "Silver",
+          "default": false,
+          "materials": {
+            "MAT_Body": "#C5C7C9",
+            "MAT_Back": "#BDC0C2",
+            "MAT_Frame": "#CBCDCE",
+            "MAT_CameraRing": "#AEB1B5",
+            "MAT_Logo": "#8E9298",
+            "MAT_Antenna": "#9D9FA2"
+          },
+          "colorSpace": "sRGB",
+          "label": "Bạc / Silver"
+        },
+        "glacier": {
+          "id": "glacier",
+          "labelVi": "Băng Thanh",
+          "labelEn": "Glacier",
+          "default": false,
+          "materials": {
+            "MAT_Body": "#AFBEC8",
+            "MAT_Back": "#9EAEB9",
+            "MAT_Frame": "#B7C6CE",
+            "MAT_CameraRing": "#9DADB9",
+            "MAT_Logo": "#8597A5",
+            "MAT_Antenna": "#8F9DA6"
+          },
+          "colorSpace": "sRGB",
+          "label": "Băng Thanh / Glacier"
+        }
+      },
+      "colorSpace": "sRGB",
+      "colorCalibrationStatus": "artist_approximation_from_official_reference_not_official_paint_codes",
+      "materialPresetSource": "../references/promax/material-presets.json",
+      "defaultColor": "original",
+      "colorLabelSources": [
+        "https://www.apple.com/vn/iphone-18-pro/specs/"
+      ],
+      "defaultView": "front-three-quarter",
+      "defaultFold": 0,
+      "display": {
+        "defaultMode": "lockscreen",
+        "modes": {
+          "lockscreen": {
+            "labelVi": "Màn hình khóa",
+            "labelEn": "Lock screen",
+            "description": "Giao diện khóa Burgundy đầy đủ, dùng texture gốc trong GLB.",
+            "materials": {
+              "MAT_ScreenOuter": null
+            }
+          },
+          "wallpaper": {
+            "labelVi": "Chỉ hình nền",
+            "labelEn": "Wallpaper",
+            "description": "Hình nền Burgundy, giữ nguyên góc nhìn và màu thân máy.",
+            "materials": {
+              "MAT_ScreenOuter": {
+                "texture": "../exports/v003/textures/promax-wallpaper.jpg"
+              }
+            }
+          }
+        }
+      },
+      "expectedScreenEmissionStrength": 1.1
+    },
+    "duo": {
+      "name": "iPhone Duo",
+      "desktop": "../exports/v003/models/iphone-duo-desktop.glb",
+      "mobile": "../exports/v003/models/iphone-duo-mobile.glb",
+      "clip": "Duo_OpenClose",
+      "colors": {
+        "troi-dem": {
+          "id": "troi-dem",
+          "labelVi": "Trời Đêm",
+          "default": true,
+          "materials": {
+            "MAT_Frame": [
+              0.18,
+              0.235,
+              0.3
+            ],
+            "MAT_Back": [
+              0.17,
+              0.205,
+              0.25
+            ],
+            "MAT_CameraIsland": [
+              0.14,
+              0.185,
+              0.24
+            ],
+            "MAT_CameraRing": [
+              0.2,
+              0.26,
+              0.33
+            ],
+            "MAT_Logo": [
+              0.09,
+              0.13,
+              0.19
+            ],
+            "MAT_Antenna": [
+              0.08,
+              0.1,
+              0.13
+            ]
+          },
+          "colorSpace": "sRGB",
+          "labelEn": "Night Sky",
+          "label": "Trời Đêm / Night Sky"
+        },
+        "trang-anh-sao": {
+          "id": "trang-anh-sao",
+          "labelVi": "Trắng Ánh Sao",
+          "default": false,
+          "materials": {
+            "MAT_Frame": [
+              0.65,
+              0.64,
+              0.6
+            ],
+            "MAT_Back": [
+              0.86,
+              0.86,
+              0.83
+            ],
+            "MAT_CameraIsland": [
+              0.87,
+              0.87,
+              0.84
+            ],
+            "MAT_CameraRing": [
+              0.68,
+              0.68,
+              0.64
+            ],
+            "MAT_Logo": [
+              0.65,
+              0.65,
+              0.62
+            ],
+            "MAT_Antenna": [
+              0.46,
+              0.47,
+              0.46
+            ]
+          },
+          "colorSpace": "sRGB",
+          "labelEn": "Star White",
+          "label": "Trắng Ánh Sao / Star White"
+        }
+      },
+      "colorSpace": "sRGB",
+      "colorCalibrationStatus": "artist_approximation_from_official_reference_not_official_paint_codes",
+      "materialPresetSource": "../references/duo/material-presets.json",
+      "defaultColor": "original",
+      "colorLabelSources": [
+        "https://www.apple.com/vn/iphone-duo/specs/",
+        "https://www.apple.com/iphone-duo/specs/"
+      ],
+      "defaultView": "inner-three-quarter",
+      "defaultFold": 1,
+      "display": {
+        "defaultMode": "inner-lock",
+        "modes": {
+          "inner-lock": {
+            "labelVi": "Màn hình khóa",
+            "labelEn": "Lock screen",
+            "description": "Màn hình khóa trên màn trong; màn ngoài tự tắt khi mở máy.",
+            "materials": {
+              "MAT_ScreenOuter": null,
+              "MAT_ScreenInner": null
+            }
+          }
+        }
+      },
+      "outerScreenPower": {
+        "node": "ScreenOuter",
+        "clip": "Duo_OpenClose",
+        "path": "scale",
+        "interpolation": "STEP",
+        "expectedOffThresholdProgress": 0.016666666666666666,
+        "permanentGlassNode": "ScreenOuterGlass"
+      },
+      "expectedScreenEmissionStrength": 1.0
+    }
+  },
+  "defaultAsset": "duo",
+  "defaultBackground": "light"
+}

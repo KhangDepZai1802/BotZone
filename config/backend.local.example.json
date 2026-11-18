@@ -1,0 +1,7 @@
+{
+  "ConnectionStrings": { "BotZone": "Host=127.0.0.1;Port=54329;Database=botzone;Username=botzone_app;Password=botzone_app_local" },
+  "StorefrontUrl": "http://localhost:3000",
+  "DemoMode": true,
+  "Smtp": { "Host": "127.0.0.1", "Port": 1025, "From": "noreply@botzone.local" },
+  "UPLOAD_DIR": "uploads"
+}

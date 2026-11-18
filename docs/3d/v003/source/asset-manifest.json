@@ -1,0 +1,1358 @@
+{
+  "schemaVersion": "1.1",
+  "package": "BotZone 3D Hero Assets",
+  "version": "v003",
+  "createdUtc": "2026-11-13T10:11:15.910678+00:00",
+  "status": "READY_FOR_VISUAL_REVIEW_AND_LOCAL_INTEGRATION",
+  "revision": "Reference-matched Duo lock screens, sharper typography, neutral frame, outer screen powers off during opening",
+  "authoring": {
+    "software": "Blender 4.3.2",
+    "geometry": "independently authored; permanent outer glass added for power-off behavior",
+    "wallpapers": "reference-guided original reconstruction; Duo native 1496x1051",
+    "screenUi": "authored condensed clock vectors and deterministic date/control composition",
+    "officialProductCertification": false,
+    "sourceAppleMeshesIncluded": false
+  },
+  "coordinateSystem": {
+    "unit": "metre",
+    "up": "+Y",
+    "frontClosed": "+Z",
+    "root": "DeviceRoot",
+    "rootIdentity": true
+  },
+  "budgetsDecimalBytes": {
+    "mobileTarget": 4000000,
+    "desktopTarget": 10000000,
+    "posterMax": 5000000
+  },
+  "runtimeVerified": false,
+  "drawCallsMeasured": false,
+  "fpsMeasured": false,
+  "browserBlocker": "Default Chromium Unix socket EPERM; escalated execution automatically rejected. CUA cloud browser rejected file:// by URL policy. No browser or alternate hosting workaround attempted for v003. Browser runtime remains unverified.",
+  "preview": {
+    "path": "preview-v003/BotZone_3D_Preview_v003.html",
+    "bytes": 17655800,
+    "sha256": "1fdb40ded229f3ccbba0e121ccbe7c215077748ed418fa05f05001759c6e88f4"
+  },
+  "overview": {
+    "path": "exports/v003/posters/BotZone_Duo_Overview_v003.jpg",
+    "bytes": 336702,
+    "sha256": "76bcd62e288e2e16e4c28b87663785107e989981864c2186f3e332377534b61c"
+  },
+  "powerOverview": {
+    "path": "exports/v003/posters/BotZone_Duo_Power_v003.jpg",
+    "bytes": 230483,
+    "sha256": "e4bf4572cd4fd341306eb70d032079ce0538056c7fa99933f4b6b2af7f8e8157"
+  },
+  "assets": [
+    {
+      "id": "iphone-18-pro-max",
+      "name": "iPhone 18 Pro Max",
+      "nominalBodyDimensionsMeters": {
+        "bodyWidth": 0.078,
+        "bodyHeight": 0.1634,
+        "bodyThickness": 0.00875
+      },
+      "dimensionsExcludeCameraAndControls": true,
+      "defaultGlbPose": "static",
+      "defaultPreviewPose": "front-lockscreen",
+      "source": {
+        "path": "source/v003/iphone-18-pro-max.blend",
+        "bytes": 1796569,
+        "sha256": "5c81690db8b571fdf875a9f1cfef29a4f9ce390e47d45f6fb132efd287c716f4"
+      },
+      "poster": {
+        "path": "exports/v003/posters/iphone-18-pro-max.webp",
+        "bytes": 55658,
+        "sha256": "6d5af009515148ee1fd7fdfcc92c4598e4d6314eccbbb9a0e2c361fc5d116a9f",
+        "width": 1024,
+        "height": 1280,
+        "sourceRender": "reports/v003/promax-glb-front-three-quarter.png",
+        "sourceSha256": "bc8afcfa6f4e8998492013c163e90225a6d0c31962ee9b521e87fb669ee1acc3",
+        "renderer": "Blender Cycles after fresh GLB import",
+        "viewTransform": "Standard",
+        "displayMode": "lockscreen",
+        "browserMatched": false
+      },
+      "colorPresets": {
+        "colorSpace": "sRGB",
+        "calibrationStatus": "artist_approximation_from_official_reference_not_official_paint_codes",
+        "presets": [
+          {
+            "id": "burgundy",
+            "labelVi": "Đỏ Burgundy",
+            "labelEn": "Burgundy",
+            "default": true,
+            "materials": {
+              "MAT_Body": "#54393E",
+              "MAT_Back": "#38262A",
+              "MAT_Frame": "#5B3D44",
+              "MAT_CameraRing": "#54393E",
+              "MAT_Logo": "#553B43",
+              "MAT_Antenna": "#513943"
+            }
+          },
+          {
+            "id": "black",
+            "labelVi": "Đen",
+            "labelEn": "Black",
+            "default": false,
+            "materials": {
+              "MAT_Body": "#27282B",
+              "MAT_Back": "#1B1C1F",
+              "MAT_Frame": "#323337",
+              "MAT_CameraRing": "#28292D",
+              "MAT_Logo": "#35363B",
+              "MAT_Antenna": "#3E3F43"
+            }
+          },
+          {
+            "id": "silver",
+            "labelVi": "Bạc",
+            "labelEn": "Silver",
+            "default": false,
+            "materials": {
+              "MAT_Body": "#C5C7C9",
+              "MAT_Back": "#BDC0C2",
+              "MAT_Frame": "#CBCDCE",
+              "MAT_CameraRing": "#AEB1B5",
+              "MAT_Logo": "#8E9298",
+              "MAT_Antenna": "#9D9FA2"
+            }
+          },
+          {
+            "id": "glacier",
+            "labelVi": "Băng Thanh",
+            "labelEn": "Glacier",
+            "default": false,
+            "materials": {
+              "MAT_Body": "#AFBEC8",
+              "MAT_Back": "#9EAEB9",
+              "MAT_Frame": "#B7C6CE",
+              "MAT_CameraRing": "#9DADB9",
+              "MAT_Logo": "#8597A5",
+              "MAT_Antenna": "#8F9DA6"
+            }
+          }
+        ]
+      },
+      "referenceNotes": "references/promax/reference-notes.md",
+      "files": {
+        "desktop": {
+          "path": "exports/v003/models/iphone-18-pro-max-desktop.glb",
+          "bytes": 3232596,
+          "sha256": "a9b94e46477b13a5e18e148f4039d3321890de3d9f2053a31d73ff4d5a5a8f3a",
+          "boundsDefaultPoseMeters": {
+            "min": [
+              -0.03928999975323677,
+              -0.08173999935388565,
+              -0.009266999550163746
+            ],
+            "max": [
+              0.03932749852538109,
+              0.08169999718666077,
+              0.004548999946564436
+            ],
+            "size": [
+              0.07861749827861786,
+              0.16343999654054642,
+              0.013815999496728182
+            ]
+          },
+          "trianglesDefaultScene": 119522,
+          "verticesAcrossPrimitives": 72466,
+          "meshInstances": 19,
+          "primitiveInstances": 19,
+          "materials": 17,
+          "materialNames": [
+            "MAT_Body",
+            "MAT_Antenna",
+            "MAT_Back",
+            "MAT_CameraBlack",
+            "MAT_CameraRing",
+            "MAT_Contact",
+            "MAT_FlashRing",
+            "MAT_Frame",
+            "MAT_Gasket",
+            "MAT_Lens",
+            "MAT_LensCoating",
+            "MAT_Logo",
+            "MAT_OpticalGlass",
+            "MAT_Screw",
+            "MAT_Flash",
+            "MAT_ScreenGlass",
+            "MAT_ScreenOuter"
+          ],
+          "nodeNames": [
+            "AnchorCamera",
+            "AnchorPort",
+            "AnchorScreen",
+            "BodyFixed",
+            "CameraAssembly",
+            "CameraLens_1",
+            "CameraLens_2",
+            "CameraLens_3",
+            "Combined_MAT_Antenna",
+            "Combined_MAT_Back",
+            "Combined_MAT_CameraBlack",
+            "Combined_MAT_CameraRing",
+            "Combined_MAT_Contact",
+            "Combined_MAT_FlashRing",
+            "Combined_MAT_Frame",
+            "Combined_MAT_Gasket",
+            "Combined_MAT_Lens",
+            "Combined_MAT_LensCoating",
+            "Combined_MAT_Logo",
+            "Combined_MAT_OpticalGlass",
+            "Combined_MAT_Screw",
+            "FlashDiffuser",
+            "FrontGlass",
+            "ScreenOuter",
+            "SIMTray",
+            "DeviceRoot"
+          ],
+          "animations": [],
+          "images": [
+            {
+              "name": "promax-lock",
+              "mimeType": "image/jpeg",
+              "compressedFileBytes": 265105,
+              "dimensions": [
+                960,
+                2086
+              ],
+              "estimatedRGBA8MipBytes": 10680320
+            }
+          ],
+          "estimatedDecodedTextureBytes": 10680320,
+          "extensionsUsed": [
+            "KHR_materials_clearcoat",
+            "KHR_materials_emissive_strength",
+            "KHR_materials_specular",
+            "KHR_materials_ior"
+          ],
+          "extensionsRequired": [],
+          "externalResources": [],
+          "anchors": [
+            {
+              "name": "AnchorCamera",
+              "parent": "DeviceRoot",
+              "translationMeters": [
+                0.014000000432133675,
+                0.057999998331069946,
+                -0.00930000003427267
+              ]
+            },
+            {
+              "name": "AnchorPort",
+              "parent": "DeviceRoot",
+              "translationMeters": [
+                0,
+                -0.08169999718666077,
+                0
+              ]
+            },
+            {
+              "name": "AnchorScreen",
+              "parent": "DeviceRoot",
+              "translationMeters": [
+                0,
+                0,
+                0.004399999976158142
+              ]
+            }
+          ],
+          "khronos": {
+            "numErrors": 0,
+            "numWarnings": 0,
+            "numInfos": 20
+          },
+          "khronosInfoCodes": {
+            "UNUSED_OBJECT": 13,
+            "NODE_EMPTY": 6,
+            "IMAGE_NPOT_DIMENSIONS": 1
+          },
+          "drawCalls": null,
+          "browserVerified": false,
+          "contractPassed": true,
+          "blenderRenderVerified": true
+        },
+        "mobile": {
+          "path": "exports/v003/models/iphone-18-pro-max-mobile.glb",
+          "bytes": 2038128,
+          "sha256": "aedce816e094688a777b1daacc0414f9c1c3a3705a1eef2de79640b95300d0c8",
+          "boundsDefaultPoseMeters": {
+            "min": [
+              -0.03928999975323677,
+              -0.08173999935388565,
+              -0.009266999550163746
+            ],
+            "max": [
+              0.03932749852538109,
+              0.08169999718666077,
+              0.004548999946564436
+            ],
+            "size": [
+              0.07861749827861786,
+              0.16343999654054642,
+              0.013815999496728182
+            ]
+          },
+          "trianglesDefaultScene": 68212,
+          "verticesAcrossPrimitives": 43404,
+          "meshInstances": 19,
+          "primitiveInstances": 19,
+          "materials": 17,
+          "materialNames": [
+            "MAT_Body",
+            "MAT_Antenna",
+            "MAT_Back",
+            "MAT_CameraBlack",
+            "MAT_CameraRing",
+            "MAT_Contact",
+            "MAT_FlashRing",
+            "MAT_Frame",
+            "MAT_Gasket",
+            "MAT_Lens",
+            "MAT_LensCoating",
+            "MAT_Logo",
+            "MAT_OpticalGlass",
+            "MAT_Screw",
+            "MAT_Flash",
+            "MAT_ScreenGlass",
+            "MAT_ScreenOuter"
+          ],
+          "nodeNames": [
+            "AnchorCamera",
+            "AnchorPort",
+            "AnchorScreen",
+            "BodyFixed",
+            "CameraAssembly",
+            "CameraLens_1",
+            "CameraLens_2",
+            "CameraLens_3",
+            "Combined_MAT_Antenna",
+            "Combined_MAT_Back",
+            "Combined_MAT_CameraBlack",
+            "Combined_MAT_CameraRing",
+            "Combined_MAT_Contact",
+            "Combined_MAT_FlashRing",
+            "Combined_MAT_Frame",
+            "Combined_MAT_Gasket",
+            "Combined_MAT_Lens",
+            "Combined_MAT_LensCoating",
+            "Combined_MAT_Logo",
+            "Combined_MAT_OpticalGlass",
+            "Combined_MAT_Screw",
+            "FlashDiffuser",
+            "FrontGlass",
+            "ScreenOuter",
+            "SIMTray",
+            "DeviceRoot"
+          ],
+          "animations": [],
+          "images": [
+            {
+              "name": "promax-lock",
+              "mimeType": "image/jpeg",
+              "compressedFileBytes": 265105,
+              "dimensions": [
+                960,
+                2086
+              ],
+              "estimatedRGBA8MipBytes": 10680320
+            }
+          ],
+          "estimatedDecodedTextureBytes": 10680320,
+          "extensionsUsed": [
+            "KHR_materials_clearcoat",
+            "KHR_materials_emissive_strength",
+            "KHR_materials_specular",
+            "KHR_materials_ior"
+          ],
+          "extensionsRequired": [],
+          "externalResources": [],
+          "anchors": [
+            {
+              "name": "AnchorCamera",
+              "parent": "DeviceRoot",
+              "translationMeters": [
+                0.014000000432133675,
+                0.057999998331069946,
+                -0.00930000003427267
+              ]
+            },
+            {
+              "name": "AnchorPort",
+              "parent": "DeviceRoot",
+              "translationMeters": [
+                0,
+                -0.08169999718666077,
+                0
+              ]
+            },
+            {
+              "name": "AnchorScreen",
+              "parent": "DeviceRoot",
+              "translationMeters": [
+                0,
+                0,
+                0.004399999976158142
+              ]
+            }
+          ],
+          "khronos": {
+            "numErrors": 0,
+            "numWarnings": 0,
+            "numInfos": 20
+          },
+          "khronosInfoCodes": {
+            "UNUSED_OBJECT": 13,
+            "NODE_EMPTY": 6,
+            "IMAGE_NPOT_DIMENSIONS": 1
+          },
+          "drawCalls": null,
+          "browserVerified": false,
+          "contractPassed": true,
+          "blenderRenderVerified": true
+        }
+      }
+    },
+    {
+      "id": "iphone-duo",
+      "name": "iPhone Duo",
+      "nominalBodyDimensionsMeters": {
+        "openWidth": 0.1646,
+        "bodyHeight": 0.1178,
+        "openThickness": 0.0052,
+        "closedWidth": 0.0841,
+        "closedThickness": 0.0113
+      },
+      "dimensionsExcludeCameraAndControls": true,
+      "defaultGlbPose": "closed",
+      "defaultPreviewPose": "open-inner-lock",
+      "source": {
+        "path": "source/v003/iphone-duo.blend",
+        "bytes": 2171248,
+        "sha256": "347b8a708c4b29707eb53a9b1738ad46cbd2e3c1003289f25baf057e90397431"
+      },
+      "poster": {
+        "path": "exports/v003/posters/iphone-duo.webp",
+        "bytes": 154028,
+        "sha256": "206e8da838cb131a9025ec560c8df6fa8acefd9455eb852f17a00c72f29f5aa6",
+        "width": 1600,
+        "height": 1200,
+        "sourceRender": "reports/v003/duo-glb-inner-lock.png",
+        "sourceSha256": "d0fa7f4a922433fd67e05dc96b3e9a734bb3e9c6e0acf455f294f547d0aedb72",
+        "renderer": "Blender Cycles after fresh GLB import",
+        "viewTransform": "Standard",
+        "displayMode": "inner-lock",
+        "browserMatched": false
+      },
+      "colorPresets": {
+        "colorSpace": "sRGB",
+        "calibrationStatus": "artist_approximation_from_official_reference_not_official_paint_codes",
+        "presets": [
+          {
+            "id": "troi-dem",
+            "labelVi": "Trời Đêm",
+            "labelEn": "Night Sky",
+            "default": true,
+            "materials": {
+              "MAT_Frame": [
+                0.18,
+                0.235,
+                0.3
+              ],
+              "MAT_Back": [
+                0.17,
+                0.205,
+                0.25
+              ],
+              "MAT_CameraIsland": [
+                0.14,
+                0.185,
+                0.24
+              ],
+              "MAT_CameraRing": [
+                0.2,
+                0.26,
+                0.33
+              ],
+              "MAT_Logo": [
+                0.09,
+                0.13,
+                0.19
+              ],
+              "MAT_Antenna": [
+                0.08,
+                0.1,
+                0.13
+              ]
+            }
+          },
+          {
+            "id": "trang-anh-sao",
+            "labelVi": "Trắng Ánh Sao",
+            "labelEn": "Star White",
+            "default": false,
+            "materials": {
+              "MAT_Frame": [
+                0.65,
+                0.64,
+                0.6
+              ],
+              "MAT_Back": [
+                0.86,
+                0.86,
+                0.83
+              ],
+              "MAT_CameraIsland": [
+                0.87,
+                0.87,
+                0.84
+              ],
+              "MAT_CameraRing": [
+                0.68,
+                0.68,
+                0.64
+              ],
+              "MAT_Logo": [
+                0.65,
+                0.65,
+                0.62
+              ],
+              "MAT_Antenna": [
+                0.46,
+                0.47,
+                0.46
+              ]
+            }
+          }
+        ]
+      },
+      "referenceNotes": "references/duo/reference-notes.md",
+      "files": {
+        "desktop": {
+          "path": "exports/v003/models/iphone-duo-desktop.glb",
+          "bytes": 4697068,
+          "sha256": "6be09394df5059d77f84c76e0b2bc4d9143cf030bd2a76f07f20479f94acb32d",
+          "boundsDefaultPoseMeters": {
+            "min": [
+              -0.04294999921694398,
+              -0.0589700010677916,
+              -0.008220001529060474
+            ],
+            "max": [
+              0.041644999000709504,
+              0.05931499879807234,
+              0.0059750002928520484
+            ],
+            "size": [
+              0.08459499821765348,
+              0.11828499986586394,
+              0.014195001821912523
+            ]
+          },
+          "trianglesDefaultScene": 98172,
+          "verticesAcrossPrimitives": 93064,
+          "meshInstances": 91,
+          "primitiveInstances": 91,
+          "materials": 14,
+          "materialNames": [
+            "MAT_Antenna",
+            "MAT_BlackOptical",
+            "MAT_Frame",
+            "MAT_OpticalCoating",
+            "MAT_ScreenInner",
+            "MAT_ScreenOuter",
+            "MAT_ScreenOuterGlass",
+            "MAT_CameraRing",
+            "MAT_Logo",
+            "MAT_CameraIsland",
+            "MAT_InternalOptics",
+            "MAT_Flash",
+            "MAT_Lens",
+            "MAT_Back"
+          ],
+          "nodeNames": [
+            "AnchorScreen",
+            "AntennaBottom",
+            "AntennaBottom.002",
+            "AntennaOuter",
+            "AntennaOuter.002",
+            "AntennaTop",
+            "AntennaTop.002",
+            "FixedInnerBezel",
+            "FixedTitaniumShell",
+            "OuterBlackBezel",
+            "OuterCameraAperture",
+            "OuterCameraLens",
+            "ScreenInnerFixed",
+            "ScreenOuter",
+            "ScreenOuterGlass",
+            "SpeakerCavity0",
+            "SpeakerCavity1",
+            "SpeakerCavity2",
+            "SpeakerCavity3",
+            "SpeakerCavity4",
+            "SpeakerCavity5",
+            "USBInner",
+            "USBTongue",
+            "BodyFixed",
+            "AnchorHinge",
+            "AnchorCamera",
+            "AntennaBottom.001",
+            "AntennaBottom.003",
+            "AntennaOuter.001",
+            "AntennaOuter.003",
+            "AntennaTop.001",
+            "AntennaTop.003",
+            "AppleMark0",
+            "AppleMark1",
+            "CameraMount0",
+            "CameraMount1",
+            "CameraOuterBevel0",
+            "CameraOuterBevel1",
+            "CameraPill",
+            "ConvexInternalOptic0",
+            "ConvexInternalOptic1",
+            "FlashDiffuser",
+            "FlashFresnel",
+            "FlashFresnel.001",
+            "FlashFresnel.002",
+            "FlashFresnel.003",
+            "FlashOuter",
+            "LensBarrel0",
+            "LensBarrel1",
+            "LensGlass0",
+            "LensGlass1",
+            "LensSeal0",
+            "LensSeal1",
+            "MicMesh_0_0",
+            "MicMesh_0_1",
+            "MicMesh_0_2",
+            "MicMesh_1_0",
+            "MicMesh_1_1",
+            "MicMesh_1_2",
+            "MicMesh_2_0",
+            "MicMesh_2_1",
+            "MicMesh_2_2",
+            "MicMesh_3_0",
+            "MicMesh_3_1",
+            "MicMesh_3_2",
+            "MicMesh_4_0",
+            "MicMesh_4_1",
+            "MicMesh_4_2",
+            "MicMesh_5_0",
+            "MicMesh_5_1",
+            "MicMesh_5_2",
+            "MicMesh_6_0",
+            "MicMesh_6_1",
+            "MicMesh_6_2",
+            "OpticalCavityFloor0",
+            "OpticalCavityFloor1",
+            "OpticalRetainer0",
+            "OpticalRetainer1",
+            "OpticalStepInner0",
+            "OpticalStepInner1",
+            "OpticalStepOuter0",
+            "OpticalStepOuter1",
+            "RearMicrophone",
+            "RecessedAperture0",
+            "RecessedAperture1",
+            "CameraAssembly",
+            "CameraControl",
+            "MovingInnerBezel",
+            "MovingTitaniumShell",
+            "RearCeramicPanel",
+            "ScreenInnerMoving",
+            "TouchIDSideButton",
+            "VolumeButton0",
+            "VolumeButton1",
+            "BodyMoving",
+            "HingePivot",
+            "TitaniumHingeCover",
+            "HingeSpine",
+            "ScreenInnerFlex",
+            "DeviceRoot"
+          ],
+          "animations": [
+            {
+              "name": "Duo_OpenClose",
+              "duration": 2.0,
+              "timeRange": [
+                0.0,
+                2.0
+              ],
+              "channels": [
+                {
+                  "node": "ScreenOuter",
+                  "path": "scale"
+                },
+                {
+                  "node": "HingePivot",
+                  "path": "rotation"
+                },
+                {
+                  "node": "HingeSpine",
+                  "path": "translation"
+                },
+                {
+                  "node": "ScreenInnerFlex",
+                  "path": "weights"
+                }
+              ]
+            }
+          ],
+          "images": [
+            {
+              "name": "duo-inner-lock",
+              "mimeType": "image/jpeg",
+              "compressedFileBytes": 948111,
+              "dimensions": [
+                2560,
+                1801
+              ],
+              "estimatedRGBA8MipBytes": 24589653
+            },
+            {
+              "name": "duo-outer-lock",
+              "mimeType": "image/jpeg",
+              "compressedFileBytes": 612739,
+              "dimensions": [
+                1536,
+                2230
+              ],
+              "estimatedRGBA8MipBytes": 18268160
+            }
+          ],
+          "estimatedDecodedTextureBytes": 42857813,
+          "extensionsUsed": [
+            "KHR_materials_clearcoat",
+            "KHR_materials_transmission",
+            "KHR_materials_specular",
+            "KHR_materials_ior"
+          ],
+          "extensionsRequired": [],
+          "externalResources": [],
+          "anchors": [
+            {
+              "name": "AnchorScreen",
+              "parent": "BodyFixed",
+              "translationMeters": [
+                0,
+                0,
+                0.003599999938160181
+              ]
+            },
+            {
+              "name": "AnchorHinge",
+              "parent": "HingePivot",
+              "translationMeters": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "name": "AnchorCamera",
+              "parent": "BodyMoving",
+              "translationMeters": [
+                0.003000000026077032,
+                0.04149999842047691,
+                -0.006599999498575926
+              ]
+            }
+          ],
+          "khronos": {
+            "numErrors": 0,
+            "numWarnings": 0,
+            "numInfos": 74
+          },
+          "khronosInfoCodes": {
+            "UNUSED_OBJECT": 69,
+            "NODE_EMPTY": 3,
+            "IMAGE_NPOT_DIMENSIONS": 2
+          },
+          "drawCalls": null,
+          "browserVerified": false,
+          "contractPassed": true,
+          "blenderRenderVerified": true
+        },
+        "mobile": {
+          "path": "exports/v003/models/iphone-duo-mobile.glb",
+          "bytes": 2519684,
+          "sha256": "35999aa5fb952cdcd06edad76505076f1e3fd490ae66440be4211eaa509c1628",
+          "boundsDefaultPoseMeters": {
+            "min": [
+              -0.04294999921694398,
+              -0.0589700010677916,
+              -0.00822000152905284
+            ],
+            "max": [
+              0.041644999000709504,
+              0.05931499879807234,
+              0.005975000292849671
+            ],
+            "size": [
+              0.08459499821765348,
+              0.11828499986586394,
+              0.014195001821902512
+            ]
+          },
+          "trianglesDefaultScene": 53564,
+          "verticesAcrossPrimitives": 60672,
+          "meshInstances": 91,
+          "primitiveInstances": 91,
+          "materials": 14,
+          "materialNames": [
+            "MAT_Antenna",
+            "MAT_BlackOptical",
+            "MAT_Frame",
+            "MAT_OpticalCoating",
+            "MAT_ScreenInner",
+            "MAT_ScreenOuter",
+            "MAT_ScreenOuterGlass",
+            "MAT_CameraRing",
+            "MAT_Logo",
+            "MAT_CameraIsland",
+            "MAT_InternalOptics",
+            "MAT_Flash",
+            "MAT_Lens",
+            "MAT_Back"
+          ],
+          "nodeNames": [
+            "AnchorScreen",
+            "AntennaBottom",
+            "AntennaBottom.002",
+            "AntennaOuter",
+            "AntennaOuter.002",
+            "AntennaTop",
+            "AntennaTop.002",
+            "FixedInnerBezel",
+            "FixedTitaniumShell",
+            "OuterBlackBezel",
+            "OuterCameraAperture",
+            "OuterCameraLens",
+            "ScreenInnerFixed",
+            "ScreenOuter",
+            "ScreenOuterGlass",
+            "SpeakerCavity0",
+            "SpeakerCavity1",
+            "SpeakerCavity2",
+            "SpeakerCavity3",
+            "SpeakerCavity4",
+            "SpeakerCavity5",
+            "USBInner",
+            "USBTongue",
+            "BodyFixed",
+            "AnchorHinge",
+            "AnchorCamera",
+            "AntennaBottom.001",
+            "AntennaBottom.003",
+            "AntennaOuter.001",
+            "AntennaOuter.003",
+            "AntennaTop.001",
+            "AntennaTop.003",
+            "AppleMark0",
+            "AppleMark1",
+            "CameraMount0",
+            "CameraMount1",
+            "CameraOuterBevel0",
+            "CameraOuterBevel1",
+            "CameraPill",
+            "ConvexInternalOptic0",
+            "ConvexInternalOptic1",
+            "FlashDiffuser",
+            "FlashFresnel",
+            "FlashFresnel.001",
+            "FlashFresnel.002",
+            "FlashFresnel.003",
+            "FlashOuter",
+            "LensBarrel0",
+            "LensBarrel1",
+            "LensGlass0",
+            "LensGlass1",
+            "LensSeal0",
+            "LensSeal1",
+            "MicMesh_0_0",
+            "MicMesh_0_1",
+            "MicMesh_0_2",
+            "MicMesh_1_0",
+            "MicMesh_1_1",
+            "MicMesh_1_2",
+            "MicMesh_2_0",
+            "MicMesh_2_1",
+            "MicMesh_2_2",
+            "MicMesh_3_0",
+            "MicMesh_3_1",
+            "MicMesh_3_2",
+            "MicMesh_4_0",
+            "MicMesh_4_1",
+            "MicMesh_4_2",
+            "MicMesh_5_0",
+            "MicMesh_5_1",
+            "MicMesh_5_2",
+            "MicMesh_6_0",
+            "MicMesh_6_1",
+            "MicMesh_6_2",
+            "OpticalCavityFloor0",
+            "OpticalCavityFloor1",
+            "OpticalRetainer0",
+            "OpticalRetainer1",
+            "OpticalStepInner0",
+            "OpticalStepInner1",
+            "OpticalStepOuter0",
+            "OpticalStepOuter1",
+            "RearMicrophone",
+            "RecessedAperture0",
+            "RecessedAperture1",
+            "CameraAssembly",
+            "CameraControl",
+            "MovingInnerBezel",
+            "MovingTitaniumShell",
+            "RearCeramicPanel",
+            "ScreenInnerMoving",
+            "TouchIDSideButton",
+            "VolumeButton0",
+            "VolumeButton1",
+            "BodyMoving",
+            "HingePivot",
+            "TitaniumHingeCover",
+            "HingeSpine",
+            "ScreenInnerFlex",
+            "DeviceRoot"
+          ],
+          "animations": [
+            {
+              "name": "Duo_OpenClose",
+              "duration": 2.0,
+              "timeRange": [
+                0.0,
+                2.0
+              ],
+              "channels": [
+                {
+                  "node": "ScreenOuter",
+                  "path": "scale"
+                },
+                {
+                  "node": "HingePivot",
+                  "path": "rotation"
+                },
+                {
+                  "node": "HingeSpine",
+                  "path": "translation"
+                },
+                {
+                  "node": "ScreenInnerFlex",
+                  "path": "weights"
+                }
+              ]
+            }
+          ],
+          "images": [
+            {
+              "name": "duo-inner-lock",
+              "mimeType": "image/jpeg",
+              "compressedFileBytes": 250564,
+              "dimensions": [
+                1280,
+                900
+              ],
+              "estimatedRGBA8MipBytes": 6144000
+            },
+            {
+              "name": "duo-outer-lock",
+              "mimeType": "image/jpeg",
+              "compressedFileBytes": 180018,
+              "dimensions": [
+                768,
+                1115
+              ],
+              "estimatedRGBA8MipBytes": 4567040
+            }
+          ],
+          "estimatedDecodedTextureBytes": 10711040,
+          "extensionsUsed": [
+            "KHR_materials_clearcoat",
+            "KHR_materials_transmission",
+            "KHR_materials_specular",
+            "KHR_materials_ior"
+          ],
+          "extensionsRequired": [],
+          "externalResources": [],
+          "anchors": [
+            {
+              "name": "AnchorScreen",
+              "parent": "BodyFixed",
+              "translationMeters": [
+                0,
+                0,
+                0.003599999938160181
+              ]
+            },
+            {
+              "name": "AnchorHinge",
+              "parent": "HingePivot",
+              "translationMeters": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "name": "AnchorCamera",
+              "parent": "BodyMoving",
+              "translationMeters": [
+                0.003000000026077032,
+                0.04149999842047691,
+                -0.006599999498575926
+              ]
+            }
+          ],
+          "khronos": {
+            "numErrors": 0,
+            "numWarnings": 0,
+            "numInfos": 74
+          },
+          "khronosInfoCodes": {
+            "UNUSED_OBJECT": 69,
+            "NODE_EMPTY": 3,
+            "IMAGE_NPOT_DIMENSIONS": 2
+          },
+          "drawCalls": null,
+          "browserVerified": false,
+          "contractPassed": true,
+          "blenderRenderVerified": false
+        }
+      }
+    }
+  ],
+  "screenContract": {
+    "materialNames": [
+      "MAT_ScreenOuter",
+      "MAT_ScreenInner"
+    ],
+    "baseColor": [
+      0,
+      0,
+      0
+    ],
+    "colorMap": null,
+    "textureSlot": "emissiveMap",
+    "emissiveStrengthByAsset": {
+      "promax": 1.1,
+      "duo": 1.0
+    },
+    "textureColorSpace": "sRGB",
+    "flipY": false,
+    "viewerToneMapped": false,
+    "blenderViewTransform": "Standard",
+    "functionalOperatingSystem": false
+  },
+  "viewerConfigPath": "preview-v003/viewer-config.json",
+  "displayModes": {
+    "promax": {
+      "defaultMode": "lockscreen",
+      "modes": {
+        "lockscreen": {
+          "labelVi": "Màn hình khóa",
+          "labelEn": "Lock screen",
+          "description": "Giao diện khóa Burgundy đầy đủ, dùng texture gốc trong GLB.",
+          "materials": {
+            "MAT_ScreenOuter": null
+          }
+        },
+        "wallpaper": {
+          "labelVi": "Chỉ hình nền",
+          "labelEn": "Wallpaper",
+          "description": "Hình nền Burgundy, giữ nguyên góc nhìn và màu thân máy.",
+          "materials": {
+            "MAT_ScreenOuter": {
+              "texture": "../exports/v003/textures/promax-wallpaper.jpg"
+            }
+          }
+        }
+      }
+    },
+    "duo": {
+      "defaultMode": "inner-lock",
+      "modes": {
+        "inner-lock": {
+          "labelVi": "Màn hình khóa",
+          "labelEn": "Lock screen",
+          "description": "Màn hình khóa trên màn trong; màn ngoài tự tắt khi mở máy.",
+          "materials": {
+            "MAT_ScreenOuter": null,
+            "MAT_ScreenInner": null
+          }
+        }
+      }
+    }
+  },
+  "duoPowerContract": {
+    "clip": "Duo_OpenClose",
+    "durationSeconds": 2,
+    "node": "ScreenOuter",
+    "path": "scale",
+    "interpolation": "STEP",
+    "offAtSeconds": 0.03333333333333333,
+    "offAtProgress": 0.016666666666666666,
+    "onScale": [
+      1,
+      1,
+      1
+    ],
+    "offScale": [
+      0,
+      0,
+      0
+    ],
+    "permanentGlassNode": "ScreenOuterGlass",
+    "method": "Core glTF node animation, no runtime-only visibility override"
+  },
+  "knownLimitations": [
+    "No manufacturing CAD or exact physical-product-equivalence claim.",
+    "Authored wallpapers/UI are not verified official Apple wallpapers or operating-system screenshots.",
+    "Screen clock/date/controls are static illustration textures; outer power is real node animation.",
+    "Duo original chassis color is artist-calibrated neutral graphite from the user reference; not a coating specification.",
+    "Original generated landscape matches visual direction; it is not the exact original wallpaper file.",
+    "Cycles proof renders are verified; browser image fidelity, FPS, touch and real-device performance are unverified.",
+    "Duo mobile is structurally verified; final screen proof renders use desktop geometry."
+  ],
+  "additionalPosters": [
+    {
+      "path": "exports/v003/posters/iphone-18-pro-max-wallpaper.webp",
+      "bytes": 49268,
+      "sha256": "1c3c379d581370f6816cd8bcb4859cb573045089ba888091bbee13a5ecb6147f",
+      "width": 1024,
+      "height": 1280,
+      "sourceRender": "reports/v003/promax-glb-wallpaper.png",
+      "sourceSha256": "108d51a036af97931cd140d241f44b9c3e5ee7e74f89ab5ed3c9c8751e35477e",
+      "renderer": "Blender Cycles after fresh GLB import",
+      "viewTransform": "Standard",
+      "displayMode": "wallpaper",
+      "browserMatched": false
+    },
+    {
+      "path": "exports/v003/posters/iphone-18-pro-max-back.webp",
+      "bytes": 63070,
+      "sha256": "ec0185b5f6ed200e769d077436d1a29a3e9b0528832e1c9e5528772275064df4",
+      "width": 1024,
+      "height": 1280,
+      "sourceRender": "reports/v003/promax-glb-back-three-quarter.png",
+      "sourceSha256": "d123068d0477d94ef3cbb0a16355578f02bbd5e2a4370a0077a031b27833f5cd",
+      "renderer": "Blender Cycles after fresh GLB import",
+      "viewTransform": "Standard",
+      "displayMode": "rear",
+      "browserMatched": false
+    },
+    {
+      "path": "exports/v003/posters/iphone-duo-outer.webp",
+      "bytes": 127332,
+      "sha256": "191372000b65662a088cba6cb25b2f0b92f1240ed933073450fe1269f19f4935",
+      "width": 1200,
+      "height": 1440,
+      "sourceRender": "reports/v003/duo-glb-outer-lock.png",
+      "sourceSha256": "73fbfa74f49764f0acdef36ae7c517f1599fa3dc7d936f1e25c970e334f60065",
+      "renderer": "Blender Cycles after fresh GLB import",
+      "viewTransform": "Standard",
+      "displayMode": "outer-lock",
+      "browserMatched": false
+    },
+    {
+      "path": "exports/v003/posters/iphone-duo-off.webp",
+      "bytes": 31490,
+      "sha256": "5ede42b9810caeb0cf9c4169dbfc6237139ab0ba17e67f67b822bba5d506a669",
+      "width": 1280,
+      "height": 1280,
+      "sourceRender": "reports/v003/duo-glb-outer-off.png",
+      "sourceSha256": "5725fc6dbc58affbd4cd2e92476d9bb3afa0154a6d5b42e223b0d6c2bac28c55",
+      "renderer": "Blender Cycles after fresh GLB import",
+      "viewTransform": "Standard",
+      "displayMode": "outer-off",
+      "browserMatched": false
+    },
+    {
+      "path": "exports/v003/posters/iphone-duo-fold.webp",
+      "bytes": 109692,
+      "sha256": "47b311ec141c9ff1279a2f8381b63db955ee71b10088168f5ec1036479259add",
+      "width": 1400,
+      "height": 1280,
+      "sourceRender": "reports/v003/duo-glb-inner-half.png",
+      "sourceSha256": "4cebd48e722f26fb05289ebb4621ad0faca224c1d5327043be53c745099b4806",
+      "renderer": "Blender Cycles after fresh GLB import",
+      "viewTransform": "Standard",
+      "displayMode": "inner-lock",
+      "browserMatched": false
+    }
+  ],
+  "screenTextures": [
+    {
+      "path": "exports/v003/textures/duo-inner-lock.jpg",
+      "bytes": 948111,
+      "sha256": "c497c6cbbceaedb3938755a409ba467a2c5a2e3fe848080c83248c6b5adbf69c"
+    },
+    {
+      "path": "exports/v003/textures/duo-outer-lock.jpg",
+      "bytes": 612739,
+      "sha256": "67e2eba1b64d054db936b2735cbbefc385e81dd5fa98c62fbb12786675a6d785"
+    },
+    {
+      "path": "exports/v003/textures/mobile/duo-inner-lock.jpg",
+      "bytes": 250564,
+      "sha256": "a8b389284f6af57e26d95a8d2c7d61e44dd6e5611b1ff007a0e6e1ae01908620"
+    },
+    {
+      "path": "exports/v003/textures/mobile/duo-outer-lock.jpg",
+      "bytes": 180018,
+      "sha256": "e776232ed72be6fe390f52dad016194882e96c0e071ef75bd553c4652b520941"
+    },
+    {
+      "path": "exports/v003/textures/promax-lock.jpg",
+      "bytes": 265105,
+      "sha256": "3126f321443484d2c3f66670f540ee274d281de454ca9dfb7e6a3ed82598b4db"
+    },
+    {
+      "path": "exports/v003/textures/promax-wallpaper.jpg",
+      "bytes": 233932,
+      "sha256": "193ff5c86e94515282bfb8789f671a698e498ba99ee619c6f16640230e19dbfd"
+    }
+  ],
+  "duoScreenTextureManifest": {
+    "version": "v003",
+    "scope": "Duo lock screens only; Pro Max unchanged",
+    "staticDate": "Wed Apr 1",
+    "staticTime": "9:41",
+    "clock": "authored SVG numeral outlines from visual reference proportions; not an official Apple font",
+    "clockColor": "#f4f7ef",
+    "outerDepthEffect": "generated mountain luminance mask, capped to bottom8% of clock; inner clock unmasked",
+    "dateFont": "Inter Variable; SIL Open Font License1.1",
+    "wallpaper": {
+      "path": "source/v003/textures/duo-wallpaper.png",
+      "nativeDimensions": [
+        1496,
+        1051
+      ],
+      "sha256": "50d975b2789f032cbe76ea10738711104c539c0df43a5cc7ba9b0588315d1796",
+      "originalGeneratedArtwork": true,
+      "native4K": false
+    },
+    "layoutNormalized": {
+      "outer": {
+        "dateCenter": 0.424,
+        "dateTop": 0.0642,
+        "dateW": 0.2066,
+        "dateH": 0.025,
+        "clockCenter": 0.424,
+        "clockTop": 0.1118,
+        "clockW": 0.497,
+        "clockH": 0.257,
+        "wirelessCenter": [
+          0.901,
+          0.1555
+        ],
+        "wirelessDiameterByH": 0.058,
+        "actionX": 0.9,
+        "actionsY": [
+          0.815,
+          0.918
+        ],
+        "actionDiameterByH": 0.073,
+        "homeW": 0.355,
+        "homeCenterY": 0.9865,
+        "homeH": 0.006,
+        "wallpaperHeightScale": 1.62,
+        "wallpaperCenterX": 0.34,
+        "wallpaperTopCropByH": 0.35
+      },
+      "inner": {
+        "dateCenter": 0.501,
+        "dateTop": 0.0669,
+        "dateW": 0.1018,
+        "dateH": 0.0272,
+        "clockCenter": 0.501,
+        "clockTop": 0.1172,
+        "clockW": 0.233,
+        "clockH": 0.27,
+        "wirelessCenter": [
+          0.951,
+          0.073
+        ],
+        "wirelessDiameterByH": 0.058,
+        "actionX": 0.951,
+        "actionsY": [
+          0.813,
+          0.917
+        ],
+        "actionDiameterByH": 0.073,
+        "homeW": 0.289,
+        "homeCenterY": 0.988,
+        "homeH": 0.006,
+        "wallpaperHeightScale": 1.0,
+        "wallpaperCenterX": 0.5,
+        "wallpaperTopCropByH": 0.0
+      }
+    },
+    "outputs": {
+      "outer": {
+        "masterPng": "source/v003/textures/duo-outer-lock.png",
+        "jpeg": "exports/v003/textures/duo-outer-lock.jpg",
+        "dimensions": [
+          1536,
+          2230
+        ],
+        "jpegBytes": 612739,
+        "sha256": "67e2eba1b64d054db936b2735cbbefc385e81dd5fa98c62fbb12786675a6d785",
+        "mobile": {
+          "jpeg": "exports/v003/textures/mobile/duo-outer-lock.jpg",
+          "dimensions": [
+            768,
+            1115
+          ],
+          "jpegBytes": 180018,
+          "sha256": "e776232ed72be6fe390f52dad016194882e96c0e071ef75bd553c4652b520941"
+        }
+      },
+      "inner": {
+        "masterPng": "source/v003/textures/duo-inner-lock.png",
+        "jpeg": "exports/v003/textures/duo-inner-lock.jpg",
+        "dimensions": [
+          2560,
+          1801
+        ],
+        "jpegBytes": 948111,
+        "sha256": "c497c6cbbceaedb3938755a409ba467a2c5a2e3fe848080c83248c6b5adbf69c",
+        "mobile": {
+          "jpeg": "exports/v003/textures/mobile/duo-inner-lock.jpg",
+          "dimensions": [
+            1280,
+            900
+          ],
+          "jpegBytes": 250564,
+          "sha256": "a8b389284f6af57e26d95a8d2c7d61e44dd6e5611b1ff007a0e6e1ae01908620"
+        }
+      }
+    },
+    "uiElements": [
+      "date",
+      "9:41",
+      "circular wireless-style glyph",
+      "flashlight",
+      "camera",
+      "home indicator"
+    ],
+    "excluded": [
+      "apps",
+      "widgets",
+      "weather",
+      "battery row",
+      "cellular signal row"
+    ],
+    "desktopPairBytes": 1560850,
+    "mobilePairBytes": 430582,
+    "browserRuntimeVerified": false
+  }
+}
