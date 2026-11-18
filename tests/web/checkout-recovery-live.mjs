@@ -14,21 +14,6 @@ const email = `checkout-${Date.now()}@botzone.local`, password = 'CheckoutTest!2
 const shipping = { recipient: 'Checkout Recovery Customer', phone: '+84901234567', province: 'Hồ Chí Minh', ward: 'Bến Thành', addressLine: '123 Checkout Recovery Street', country: 'VN' };
 let customer, staff, warehouse;
 const commandInput = (variantId, quote, address, saveAddress = true) => ({ items: [{ variantId, quantity: 1, care: false }], points: 0, creditVnd: '0', promotionCode: '', quoteHash: quote.quoteHash, address, method: 'cod', saveAddress });
-async function verificationMail() {
-  for (let i = 0; i < 25; i++) {
-    const response = await fetch('http://127.0.0.1:8025/api/v1/messages');
-    const inbox = await response.json();
-    for (const message of inbox.messages ?? []) {
-      if (!(message.To ?? []).some(recipient => recipient.Address === email)) continue;
-      const detail = await (await fetch(`http://127.0.0.1:8025/api/v1/message/${message.ID}`)).json();
-      const text = detail.Text ?? '';
-      const link = text.match(/http:\/\/[^\s]+/)?.[0];
-      if (link?.includes('next=')) return new URL(link);
-    }
-    await new Promise(resolve => setTimeout(resolve, 500));
-  }
-  throw Error('Checkout verification email did not arrive');
-}
 async function signedInClient(address) {
   if (address !== email) { const actor = await client(address); clients.push(actor); return actor; }
   const http = context.request;
@@ -80,10 +65,21 @@ try {
   await page.getByRole('option', { name: 'COD — pay on delivery', exact: true }).click();
   results.push('Reload restores shipping details and demo payment method');
   await page.getByRole('button', { name: 'Review order', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'Confirm order', exact: true })).toBeDisabled();
+  await page.getByRole('button', { name: 'Verify email to place order', exact: true }).click();
+  await expect(page.locator('#email-verification')).toBeFocused();
+  await page.getByRole('button', { name: 'I have verified — check again', exact: true }).click();
+  await expect(page.getByRole('status').filter({ hasText: 'Email is not verified yet' })).toBeVisible();
+  await anonymous.post('/api/auth/resend-verification', {}, 401);
+  await staff.post('/api/auth/resend-verification', {}, 403);
+  const blockedQuote = await customer.post('/api/quote', { items: [{ variantId: variant.id, quantity: 1, care: false }], points: 0, creditVnd: '0' });
+  await customer.command('place_order', commandInput(variant.id, blockedQuote, shipping), crypto.randomUUID(), 403);
   await page.getByRole('button', { name: 'Send verification email', exact: true }).click();
-  await expect(page.getByRole('status').filter({ hasText: 'Verification link sent' })).toBeVisible();
-  const verifyUrl = await verificationMail();
+  await expect(page.getByRole('status').filter({ hasText: 'demo inbox, not Gmail' })).toBeVisible();
+  const demoLink = page.getByRole('link', { name: 'Open demo verification link', exact: true });
+  const verifyUrl = new URL(await demoLink.getAttribute('href'), base);
+  const retryDelivery = await customer.post('/api/auth/resend-verification', { next: '/en/checkout' });
+  assert.equal(retryDelivery.deliveryMode, 'local_demo');
+  assert.equal(retryDelivery.verificationHref, verifyUrl.pathname + verifyUrl.search);
   assert.equal(verifyUrl.searchParams.get('next'), '/en/checkout');
   const verification = await context.newPage();
   await verification.goto(base + verifyUrl.pathname + verifyUrl.search, { waitUntil: 'networkidle' });
@@ -94,7 +90,7 @@ try {
   const checkVerification = page.getByRole('button', { name: 'I have verified — check again', exact: true });
   if (await checkVerification.isVisible()) await checkVerification.click();
   await expect(page.getByRole('button', { name: 'Confirm order', exact: true })).toBeEnabled();
-  results.push('Unverified customer can resend verification and enable confirmation without losing the form');
+  results.push('Checkout explains demo mail delivery and opens its own verification link; checking reports unverified status; anonymous and staff preview denied');
   // Simulate an order committed by the API whose response never reaches the browser.
   let firstRequest;
   await page.route('**/api/commands', async route => {

@@ -45,16 +45,26 @@ public static class AuthEndpoints
    var actor=Actor(c);Access.Require(actor,"customer");
    var user=await users.FindByIdAsync(actor.Id)??throw new BusinessException("UNAUTHENTICATED","Phiên đã hết hạn.",401);
    if(user.EmailConfirmed)return Results.Ok(new{verified=true});
-   await sql.Transaction<object>(actor,async()=>{
-    var recent=await sql.Optional("SELECT id FROM outbox_events WHERE type='email' AND event_key LIKE 'verify-resend:%' AND payload->>'to'=$1 AND created_at>now()-interval '60 seconds' LIMIT 1",user.Email);
+   var delivery=await sql.Transaction<object>(actor,async()=>{
+    var recent=await sql.Optional("SELECT id,payload FROM outbox_events WHERE type='email' AND event_key LIKE 'verify-resend:%' AND payload->>'to'=$1 AND created_at>now()-interval '60 seconds' ORDER BY created_at DESC LIMIT 1",user.Email);
     if(recent is null){
      var locale=ApiLocalization.Locale(c);var next=input.Text("next",$"/{locale}/account");
      var path=next==$"/{locale}/checkout"?next:$"/{locale}/account";
      var token=await users.GenerateEmailConfirmationTokenAsync(user);
-     await sql.Exec("INSERT INTO outbox_events(event_key,type,payload) VALUES($1,'email',$2::jsonb)","verify-resend:"+Guid.NewGuid(),Values.Json(new{to=user.Email,subject=locale=="en"?"Verify your BotZone email":"Xác minh email BotZone",text=$"{config["StorefrontUrl"]??"http://localhost:3000"}/{locale}/verify-email?userId={Uri.EscapeDataString(user.Id)}&token={Encode(token)}&next={Uri.EscapeDataString(path)}"}));
+     recent=await sql.One("INSERT INTO outbox_events(event_key,type,payload) VALUES($1,'email',$2::jsonb) RETURNING id,payload","verify-resend:"+Guid.NewGuid(),Values.Json(new{to=user.Email,subject=locale=="en"?"Verify your BotZone email":"Xác minh email BotZone",text=$"{config["StorefrontUrl"]??"http://localhost:3000"}/{locale}/verify-email?userId={Uri.EscapeDataString(user.Id)}&token={Encode(token)}&next={Uri.EscapeDataString(path)}"}));
     }
-    return new{sent=true};
-   });return Results.Ok(new{sent=true});
+    // Mailpit captures local demo mail; it never delivers to the customer's real inbox.
+    // Preview only this authenticated customer's token, with both demo services on loopback.
+    var smtpHost=config["Smtp:Host"]??"127.0.0.1";
+    var loopbackSmtp=smtpHost.Equals("localhost",StringComparison.OrdinalIgnoreCase)||(System.Net.IPAddress.TryParse(smtpHost,out var ip)&&System.Net.IPAddress.IsLoopback(ip));
+    var localDemo=config.GetValue<bool>("DemoMode")&&loopbackSmtp&&config.GetValue("Smtp:Port",1025)==1025&&Uri.TryCreate(config["StorefrontUrl"]??"http://localhost:3000",UriKind.Absolute,out var store)&&store.IsLoopback;
+    string? verificationHref=null;
+    if(localDemo&&Uri.TryCreate(recent!.J("payload").Text("text"),UriKind.Absolute,out var link)){
+     var query=QueryHelpers.ParseQuery(link.Query);var token=query["token"].ToString();
+     if(query["userId"]==user.Id&&token.Length>0){var locale=ApiLocalization.Locale(c);var next=input.Text("next",$"/{locale}/account");var path=next==$"/{locale}/checkout"?next:$"/{locale}/account";verificationHref=$"/{locale}/verify-email?userId={Uri.EscapeDataString(user.Id)}&token={Uri.EscapeDataString(token)}&next={Uri.EscapeDataString(path)}";}
+    }
+    return new{sent=true,deliveryMode=localDemo?"local_demo":"email",verificationHref};
+   });return Results.Ok(delivery);
   });
   app.MapPost("/api/auth/verify-email",async(JsonElement input,UserManager<User> users)=>{var user=await users.FindByIdAsync(input.Text("userId"))??throw new BusinessException("TOKEN_INVALID","Token không hợp lệ.",400);Access.Ensure(!user.EmailConfirmed,"TOKEN_USED","Email đã được xác minh.",409);Check(await users.ConfirmEmailAsync(user,Decode(input.Text("token"))));return Results.Ok(new{verified=true});});
   app.MapPost("/api/auth/forgot-password",async(JsonElement input,HttpContext c,UserManager<User> users,SqlStore sql,IConfiguration config)=>{var user=await users.FindByEmailAsync(input.Text("email").Trim());if(user is not null)await Mail(sql,user,"reset-password",await users.GeneratePasswordResetTokenAsync(user),config,ApiLocalization.Locale(c));return Results.Ok(new{sent=true});});

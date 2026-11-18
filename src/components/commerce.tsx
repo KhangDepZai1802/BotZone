@@ -664,12 +664,12 @@ export function Cart({ checkout = false }: { checkout?: boolean }) {
                     {paymentLabel(method, s.locale)} · VND
                   </p>
                   <Button
-                    disabled={busy || !quote || !s.actor.verified}
-                    onClick={() => void place()}
+                    disabled={busy || !quote}
+                    onClick={() => s.actor?.verified ? void place() : document.getElementById("email-verification")?.focus()}
                   >
                     {busy
                       ? s.tr("Đang đặt hàng…", "Placing order…")
-                      : s.tr("Xác nhận đặt hàng", "Confirm order")}
+                      : !s.actor.verified ? s.tr("Xác minh email để đặt hàng", "Verify email to place order") : s.tr("Xác nhận đặt hàng", "Confirm order")}
                   </Button>
                   {!s.actor.verified && <p className="help-text">{s.tr("Dùng mục Xác minh email phía trên để mở khóa xác nhận đặt hàng.", "Use Email verification above to enable order confirmation.")}</p>}
                 </>
