@@ -11,13 +11,24 @@ internal static partial class Ui
     internal static void ShowInformation(IWin32Window? owner,string title,string text)
     {
         using var dialog=new Form{Text=title,Size=new Size(600,430),MinimumSize=new Size(420,300),StartPosition=FormStartPosition.CenterParent,MinimizeBox=false,MaximizeBox=false};Prepare(dialog);
-        var content=new TextBox{Text=text,Multiline=true,ReadOnly=true,BorderStyle=BorderStyle.None,BackColor=Surface,Dock=DockStyle.Fill,ScrollBars=ScrollBars.Vertical,AccessibleName=title};
+        var content=new TextBox{Text=text.ReplaceLineEndings("\r\n"),Multiline=true,ReadOnly=true,BorderStyle=BorderStyle.None,BackColor=Surface,Dock=DockStyle.Fill,ScrollBars=ScrollBars.Vertical,AccessibleName=title};
         var close=Button("Đóng",(_,_)=>dialog.Close());dialog.CancelButton=close;
         var body=new Panel{Dock=DockStyle.Fill,Padding=new Padding(20),BackColor=Surface};body.Controls.Add(content);
         dialog.Controls.Add(Vertical(PageHeader(title,""),body,Bar(close)));
         // The information is selectable/copyable without occupying the task page.
         var layout=(TableLayoutPanel)dialog.Controls[0];layout.RowStyles[1].SizeType=SizeType.Percent;layout.RowStyles[1].Height=100;layout.RowStyles[2].SizeType=SizeType.AutoSize;
         dialog.ShowDialog(owner);
+    }
+    // Reserve the footer before giving the remaining space to scrollable content.
+    // Ui.Vertical intentionally fills its last row, which is unsuitable for dialog actions.
+    internal static TableLayoutPanel DialogLayout(Control heading,Control body,params Control[] actions)
+    {
+        var layout=new TableLayoutPanel{Dock=DockStyle.Fill,ColumnCount=1,RowCount=3,Padding=new Padding(24),BackColor=Paper};
+        layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,100));
+        layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));layout.RowStyles.Add(new RowStyle(SizeType.Percent,100));layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        var footer=Bar(actions);footer.Name="dialogFooter";footer.FlowDirection=FlowDirection.RightToLeft;footer.Margin=new Padding(0,16,0,0);
+        heading.Dock=body.Dock=footer.Dock=DockStyle.Fill;body.Margin=Padding.Empty;
+        layout.Controls.Add(heading,0,0);layout.Controls.Add(body,0,1);layout.Controls.Add(footer,0,2);return layout;
     }
 }
 

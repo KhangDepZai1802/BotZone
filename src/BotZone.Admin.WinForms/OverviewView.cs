@@ -16,7 +16,8 @@ internal sealed class OverviewView : PageView
     private readonly TableLayoutPanel body = new() { Dock=DockStyle.Top,AutoSize=true,ColumnCount=1,RowCount=5 };
     private readonly DateTimePicker from=new BzDateTimePicker(){Format=DateTimePickerFormat.Custom,CustomFormat="dd/MM/yyyy",Width=180},to=new BzDateTimePicker(){Format=DateTimePickerFormat.Custom,CustomFormat="dd/MM/yyyy",Width=180};
     private readonly Label period = Ui.Label("");
-    private string metricDetails="Chưa tải dữ liệu.";
+    private OverviewMetric[] metricDetails=[];
+    private string metricPeriod="";
     private int selectedOrder;
     public OverviewView(ApiClient api,Actor actor,Action<string> navigate,Action<string>? openOrders=null):base(api)
     {
@@ -26,7 +27,7 @@ internal sealed class OverviewView : PageView
         for(var i=0;i<3;i++)metrics.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,100f/3));metrics.RowStyles.Add(new RowStyle(SizeType.Percent,100));
         visuals.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,55));visuals.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,45));visuals.RowStyles.Add(new RowStyle(SizeType.Percent,100));
         visuals.Controls.Add(distribution,0,0);visuals.Controls.Add(stock,1,0);
-        var dateActions=owner?Ui.Bar(period,Ui.Button("Đổi khoảng ngày",async(_,_)=>await ChoosePeriodAsync()),Ui.Button("Giải thích số liệu",(_,_)=>Ui.ShowInformation(FindForm(),"Cách đọc số liệu",metricDetails))):Ui.Bar(period);
+        var dateActions=owner?Ui.Bar(period,Ui.Button("Đổi khoảng ngày",async(_,_)=>await ChoosePeriodAsync()),Ui.Button("Giải thích số liệu",async(_,_)=>{using var dialog=new OverviewMetricsDialog(metricDetails,metricPeriod);await dialog.ShowDialogAsync(FindForm()??(IWin32Window)this);})):Ui.Bar(period);
         body.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,100));foreach(var c in new Control[]{dateActions,metrics,nextWork,visuals,Status}){body.RowStyles.Add(new RowStyle(SizeType.AutoSize));body.Controls.Add(c);}
         var scroll=new Panel{Dock=DockStyle.Fill,AutoScroll=true};scroll.Controls.Add(body);
         Controls.Add(Ui.Vertical(Ui.PageHeader(owner?"Tình hình cửa hàng":"Công việc kho","Nhìn nhanh tình hình và mở việc cần làm.",Ui.Button(owner?"Xem báo cáo":"Mở tồn kho",(_,_)=>navigate(owner?"reports":"inventory"),true),Ui.Button("Làm mới",async(_,_)=>await RefreshAsync())),scroll));
@@ -63,7 +64,8 @@ internal sealed class OverviewView : PageView
         {
             string[] titles=["Giá trị hóa đơn","Đã điều chỉnh giảm","Còn lại sau điều chỉnh"],notes=["Hóa đơn phát hành trong kỳ","Chứng từ giảm phát sinh trong kỳ","Có thể âm nếu giảm của kỳ trước"];
             for(var i=0;i<3;i++)metrics.Controls.Add(InsightCards.Metric(titles[i],Ui.Money(data.values[i].TotalVnd),notes[i]),i,0);
-            metricDetails=string.Join("\n\n",data.values.Select((v,i)=>$"{titles[i]}: {Ui.Money(v.TotalVnd)}\n{notes[i]}"))+"\n\nCác số tiền trên không phải lợi nhuận. Biểu đồ đơn và tồn là tình hình hiện tại, không lọc theo kỳ số tiền.";
+            string[] explanations=["Giá trị các hóa đơn được phát hành trong kỳ đã chọn.","Số tiền giảm theo chứng từ điều chỉnh phát sinh trong kỳ.","Giá trị hóa đơn trừ khoản điều chỉnh giảm của kỳ. Có thể âm nếu điều chỉnh hóa đơn từ kỳ trước."];
+            metricDetails=data.values.Select((v,i)=>new OverviewMetric(titles[i],Ui.Money(v.TotalVnd),explanations[i])).ToArray();metricPeriod=period.Text;
             nextWork.Controls.Add(Ui.Button("Tất cả đơn hàng",(_,_)=>OpenOrders("")));
             foreach(var state in new[]{"pending","confirmed","reconciliation"}) {var count=states.FirstOrDefault(x=>x.Key==state)?.Value??0;if(count>0)nextWork.Controls.Add(Ui.Button($"{OrdersView.StateLabel(state)} · {count:N0}",(_,_)=>OpenOrders(state),state=="pending"));}
             nextWork.Controls.Add(Ui.Button("Bổ sung hàng",(_,_)=>navigate("purchases")));
@@ -79,10 +81,7 @@ internal sealed class OverviewView : PageView
     });
     private async Task ChoosePeriodAsync()
     {
-        using var dialog=new Form{Text="Khoảng ngày",Size=new Size(560,320),StartPosition=FormStartPosition.CenterParent,MinimizeBox=false,MaximizeBox=false};Ui.Prepare(dialog);
-        var start=new BzDateTimePicker{Format=DateTimePickerFormat.Custom,CustomFormat="dd/MM/yyyy",Value=from.Value,Width=190};var end=new BzDateTimePicker{Format=DateTimePickerFormat.Custom,CustomFormat="dd/MM/yyyy",Value=to.Value.AddDays(-1),Width=190};
-        var apply=Ui.Button("Xem số liệu",(_,_)=>{if(start.Value.Date>end.Value.Date){Ui.ShowError(dialog,new InvalidOperationException("Ngày kết thúc phải bằng hoặc sau ngày bắt đầu."));return;}dialog.DialogResult=DialogResult.OK;},true);var cancel=Ui.Button("Hủy",(_,_)=>dialog.Close());dialog.AcceptButton=apply;dialog.CancelButton=cancel;
-        dialog.Controls.Add(Ui.Vertical(Ui.PageHeader("Khoảng ngày","Tính cả ngày kết thúc."),Ui.Bar(Ui.Field("Từ ngày",start),Ui.Field("Đến ngày",end)),Ui.Bar(apply,cancel)));
-        if(await dialog.ShowDialogAsync(FindForm()??(IWin32Window)this)==DialogResult.OK){from.Value=start.Value.Date;to.Value=end.Value.Date.AddDays(1);await RefreshAsync();}
+        using var dialog=new OverviewPeriodDialog(from.Value,to.Value.AddDays(-1));
+        if(await dialog.ShowDialogAsync(FindForm()??(IWin32Window)this)==DialogResult.OK){from.Value=dialog.StartDate;to.Value=dialog.EndDate.AddDays(1);await RefreshAsync();}
     }
 }

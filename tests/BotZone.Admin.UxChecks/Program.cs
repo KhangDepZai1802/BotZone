@@ -14,13 +14,14 @@ internal static class Program
 {
     internal static string Output=Path.GetFullPath("artifacts/winforms/ux-round5/first-review");
     internal static bool Targeted;
+    internal static bool OverviewDialogsOnly;
     [DllImport("kernel32.dll")] private static extern uint SetErrorMode(uint mode);
     [STAThread] private static void Main(string[] args)
     {
         try
         {
             SetErrorMode(0x0002);
-            if(args.Length>0)Output=Path.GetFullPath(args[0]);Targeted=args.Contains("--targeted",StringComparer.OrdinalIgnoreCase);Directory.CreateDirectory(Output);
+            if(args.Length>0)Output=Path.GetFullPath(args[0]);Targeted=args.Contains("--targeted",StringComparer.OrdinalIgnoreCase);OverviewDialogsOnly=args.Contains("--overview-dialogs",StringComparer.OrdinalIgnoreCase);Directory.CreateDirectory(Output);
             AppDomain.CurrentDomain.UnhandledException+=(_,e)=>Fatal("unhandled",e.ExceptionObject as Exception??new Exception(e.ExceptionObject.ToString()));
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(_,e)=>Fatal("ui-thread",e.Exception);
             TaskScheduler.UnobservedTaskException+=(_,e)=>{e.SetObserved();Fatal("unobserved-task",e.Exception);};
@@ -93,7 +94,9 @@ internal sealed partial class Harness:Form
             navSurface=(Color)admin.GetType("BotZone.Admin.WinForms.Ui")!.GetField("NavSurface",Static)!.GetValue(null)!;
             Check("sidebar-light-surface",navSurface.GetBrightness()>=.95f,new{color=Hex(navSurface)});
             api=new ApiClient(Environment.GetEnvironmentVariable("BOTZONE_API_URL")??"http://127.0.0.1:5080");var actor=await api.LoginAsync("owner@botzone.local",Environment.GetEnvironmentVariable("BOTZONE_SMOKE_PASSWORD")??"BotZoneDemo!2026");Check("real-owner-session",actor.Role=="owner");
-            main=(Form)Create("MainForm",api,actor,false);main.Show();Fit(main,true);await Foreground(main);var modules=Nav(main,"buttons").Select(item=>item.Key).ToArray();
+            main=(Form)Create("MainForm",api,actor,false);main.Show();Fit(main,true);await Foreground(main);
+            if(Program.OverviewDialogsOnly){await OverviewDialogs(main);await api.LogoutAsync();Check("no-business-write-requests",requests.Entries.All(item=>item.IsAllowed));return;}
+            var modules=Nav(main,"buttons").Select(item=>item.Key).ToArray();
             var priorities=new[]{"overview","catalogue","settings","operational_reports","orders","reports","returns"};var ordered=(Program.Targeted?priorities:priorities.Concat(modules)).Distinct().ToArray();
             foreach(var key in ordered)
             {

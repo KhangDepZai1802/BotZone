@@ -16,6 +16,7 @@ internal sealed partial class Harness
     }
     private async Task Workflows(ApiClient api,Form main)
     {
+        await OverviewDialogs(main);
         await Call(main,"NavigateAsync","overview",null);var overview=(Control)Property(main,"CurrentPage")!;
         Check("overview-has-no-table",!Desc(overview).OfType<DataGridView>().Any());
         var distribution=Field<Control>(overview,"distribution");var points=((IEnumerable)Property(distribution,"Points")!).Cast<object>().ToList();

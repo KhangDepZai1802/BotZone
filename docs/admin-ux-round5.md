@@ -26,7 +26,7 @@ Lượt ứng viên `artifacts/winforms/ux-round5/final-review/result.json` đ�
 
 Lượt xác minh bản publish cuối nằm ở `artifacts/winforms/ux-round5/published-review-v2/result.json`; hash và tiến trình bàn giao nằm trong `artifacts/admin/build-manifest.json` và `running-admin.json`. Không dùng kết quả của ứng viên thay cho kết quả DLL khác. Lượt `published-review` trước đó bị dừng vì thông báo ứng dụng khác che cửa sổ; ảnh bị che không được nhận làm bằng chứng.
 
-Bản publish cuối đạt **305/305 kiểm tra, 64 ảnh**, không gửi lệnh ghi nghiệp vụ. DLL SHA-256: `B19A9A59B340AA3B0DE9C3EE92B8E9B235380ACFA5550D75BEAC092781B1A0D7`. Build Release không có cảnh báo/lỗi. Kiểm HTTP xác nhận API `ready` và storefront `/vi` trả 200.
+Bản publish vòng 5 trước lần sửa hộp thoại Tổng quan đạt **305/305 kiểm tra, 64 ảnh**, không gửi lệnh ghi nghiệp vụ. DLL SHA-256 của lượt đó: `B19A9A59B340AA3B0DE9C3EE92B8E9B235380ACFA5550D75BEAC092781B1A0D7`. Build Release không có cảnh báo/lỗi. Kiểm HTTP xác nhận API `ready` và storefront `/vi` trả 200.
 
 Các lượt đầu `first-review`, `second-review`, `third-review` là lịch sử tìm lỗi, không phải bản bàn giao: bố cục compact, chữ bị cắt và lỗi gọi logout hai lần trong harness đã được sửa. Ảnh và manifest là artifact local, không đưa vào Git.
 
@@ -50,3 +50,11 @@ Start-Process .\artifacts\admin\win-x64\BotZone.Admin.WinForms.exe
 ```
 
 Web bán hàng: `http://localhost:3000/vi`. Quản trị là ứng dụng Windows, không có URL quản trị web.
+
+## Sửa hộp thoại Tổng quan — 18/11/2026
+
+- Khoảng ngày: hàng nút riêng ở đáy; kích thước nhỏ nhất theo cửa sổ đã dựng tại DPI hiện tại để không cắt ô ngày hoặc lỗi tại trường. Ngày cuối vẫn được tính cả ngày; Hủy/Escape không áp dụng thay đổi, khoảng một ngày hợp lệ.
+- Cách đọc số liệu: ba mục riêng có tên, số tiền và mô tả; giữ kỳ đã tải và giải thích phạm vi dữ liệu. Nội dung cuộn độc lập ở cửa sổ nhỏ, nút Đóng luôn nhìn thấy.
+- Các hộp thông tin văn bản dùng xuống dòng Windows (`CRLF`) để không dính các đoạn khi nguồn truyền `LF`.
+
+Kiểm đúng hai hộp thoại bằng `--overview-dialogs`: **31/31 PASS, 7 ảnh desktop thật**, tại `artifacts/winforms/overview-dialogs/final-review/`. Kiểm góc/nút, ô ngày và lỗi không bị cắt, kỳ một ngày, hủy/khôi phục kỳ, giá trị từng mục, cuộn tới ghi chú và số dòng của ô văn bản native. Không ghi dữ liệu nghiệp vụ. DLL được kiểm: `6496ABA0B22A17874E15008EE8907574405E74AACE90F81A5D112AD4D17F0A9F`; build Release 0 warning/0 error. Đây là lượt hồi quy tập trung cho bản sửa, không phải chạy lại toàn bộ 305 kiểm tra.
